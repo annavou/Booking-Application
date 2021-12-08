@@ -1,19 +1,20 @@
+import  java.time.LocalDate;
 public class Reservations {
-    Date start;
-    Date end;
+    LocalDate start;
+    LocalDate end;
 
     public Reservations(){
         start = null;
         end = null ;
     }
 
-    public Reservations(Date a, Date b){
+    public Reservations(LocalDate a, LocalDate b){
         start = a ;
         end = b ;
     }
 
 
     public void show(){
-        System.out.println(start.getDay()+"/"+start.getMonth()+"/"+start.getYear()+" - "+end.getDay()+"/"+end.getMonth()+"/"+end.getYear());
+        System.out.println(start+"-"+end);
     }
 }
