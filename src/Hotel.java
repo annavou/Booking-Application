@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//ΕΤΟΙΜΟ
 public class Hotel {
 
     private String name ;
