@@ -6,7 +6,6 @@ public class Hotel_Provider extends  Person{
     Hotel hotel ;
 
 
-
     Hotel_Provider(){
 
     }
