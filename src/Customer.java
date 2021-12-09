@@ -489,13 +489,13 @@ public class Customer extends Person {
                     boolean flag = false;
                     if(acc.getLocation()==location) {
                         for (Reservations res : acc.reservations) {
-                            if (res.start.equals(r.start) && res.end.equals(r.end)) {
+                            if (res.start.equals(r.start)) {
                                 flag = true;
                                 break;
-                            }else if(r.start.isAfter(res.start)){
+                            } else if (r.start.isAfter(res.start) && r.start.isBefore(res.end)) {
                                 flag = true;
                                 break;
-                            }else if(r.end.isAfter(res.start)) {
+                            } else if (r.end.isAfter(res.start)) {
                                 flag = true;
                                 break;
                             }
@@ -528,10 +528,10 @@ public class Customer extends Person {
                         for (Hotel_room room : ho.Rooms) {
                             boolean flag = false;
                             for (Reservations res : room.hotelroomreservations) {
-                                if (res.start.equals(r.start) && res.end.equals(r.end)) {
+                                if (res.start.equals(r.start)) {
                                     flag = true;
                                     break;
-                                } else if (r.start.isAfter(res.start)) {
+                                } else if (r.start.isAfter(res.start) && r.start.isBefore(res.end)) {
                                     flag = true;
                                     break;
                                 } else if (r.end.isAfter(res.start)) {
@@ -563,14 +563,14 @@ public class Customer extends Person {
             boolean f=false;
             Reservations r= new Reservations(from,till);
             for(Reservations res:acc.reservations){
-                if (res.start.equals(r.start) && res.end.equals(r.end)) {
-                    f= true;
+                if (res.start.equals(r.start)) {
+                    f = true;
                     break;
-                } else if (r.start.isAfter(res.start)) {
-                    f= true;
+                } else if (r.start.isAfter(res.start) && r.start.isBefore(res.end)) {
+                    f = true;
                     break;
                 } else if (r.end.isAfter(res.start)) {
-                    f= true;
+                    f = true;
                     break;
                 }
             }
@@ -596,14 +596,14 @@ public class Customer extends Person {
             Hotel_room ro=search_HotelRoomName(name,roomName,acc_list.values());
             if(ro!=null) {
                 for (Reservations res : ro.hotelroomreservations) {
-                    if (res.start.equals(r.start) && res.end.equals(r.end)) {
-                        f= true;
+                    if (res.start.equals(r.start)) {
+                        f = true;
                         break;
-                    } else if (r.start.isAfter(res.start)) {
-                        f= true;
+                    } else if (r.start.isAfter(res.start) && r.start.isBefore(res.end)) {
+                        f = true;
                         break;
                     } else if (r.end.isAfter(res.start)) {
-                        f= true;
+                        f = true;
                         break;
                     }
                 }
