@@ -1,15 +1,20 @@
+/**
+ * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστηκά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μυνήματα που έχει και
+ * να αναζητήσει ένα κατάλυμα ή ξενοδοχείο
+ */
+
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Person {
 
-    private String Name ;
-    private String Home_ground ;
-    private double Phone_number ;
-    private String Email ;
-    private boolean Activated ;
+    private String Name;
+    private String Home_ground;
+    private String Phone_number;
+    private String Email;
+    private boolean Activated;
 
 
     ArrayList<String> messages = new ArrayList<>();
@@ -18,27 +23,33 @@ public class Person {
     Scanner sc = new Scanner(System.in);
 
     int next_int;
-    boolean nex_bool;
+    boolean next_bool;
     String next_string;
+    Pattern p;
+    Checker ch = new Checker();
 
-
-
-    Person(){
+    /**
+     * Ο προκαθορισμένος κατασκευαστής
+     */
+    Person() {
         Name = null;
-        Home_ground = null ;
-        Phone_number = 0 ;
-        Email = null ;
-        Activated = false ;
+        Home_ground = null;
+        Phone_number = null;
+        Email = null;
+        Activated = false;
     }
 
-    Person(String aname , String ahome_ground, double aphone_number, String aemail){
-        Name = aname ;
-        Home_ground = ahome_ground ;
-        Phone_number = aphone_number ;
-        Email = aemail ;
-        messages.add("Welcome to the app " + getName());
+    /**
+     * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
+     */
+    Person(String aname, String ahome_ground, String aphone_number, String aemail) {
+        Name = aname;
+        Home_ground = ahome_ground;
+        Phone_number = aphone_number;
+        Email = aemail;
+        messages.add("Καλωσόρισες " + getName() + "!!");
         messages_count = 0;
-        Activated = false ;
+        Activated = false;
     }
 
     public boolean isActivated() {
@@ -65,11 +76,11 @@ public class Person {
         Home_ground = home_ground;
     }
 
-    public double getPhone_number() {
+    public String getPhone_number() {
         return Phone_number;
     }
 
-    public void setPhone_number(double phone_number) {
+    public void setPhone_number(String phone_number) {
         Phone_number = phone_number;
     }
 
@@ -81,72 +92,183 @@ public class Person {
         Email = email;
     }
 
-    public Accommodation search(String name, ArrayList<Accommodation> accommodations){
-        for (Accommodation acc : accommodations){
-            if(name.equals(acc.getName())){
-                return acc;
-            }
+    /**
+     * μέθοδος με την οποία ένας χρήστης μπορεί να αναζητήσει κάποιο κατάλυμα
+     * @param accommodations λίστα με όλα τα καταλύματα
+     * @return το κατάλυμα που ψάχνει αν υπάρχει
+     */
+    public Accommodation search_acc(ArrayList<Accommodation> accommodations) {
+        Accommodation acc ;
+        for (int i = 0; i < accommodations.size(); i++) {
+            System.out.println((i + 1) + ") Κατάλυμα : " + accommodations.get(i).getName());
         }
-        return null;
+        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
+        next_string = sc.next();
+        p = Pattern.compile(".*[0-9]");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
+        if( Integer.parseInt(next_string) > 0 && Integer.parseInt(next_string) <= accommodations.size()){
+            acc = accommodations.get(Integer.parseInt(next_string) -1);
+            return acc ;
+        }
+        else {
+            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Κατάλυμα");
+            return null;
+        }
+    }
+
+    /**
+     * μέθοδος με την οποία ένας χρήστης μπορεί να αναζητήσει κάποιο ξενοδοχείο
+     * @param hotels λίστα με όλα τα ξενοδοχεία
+     * @return το ξενοδοχείο που ψάχνει αν υπάρχει
+     */
+    public Hotel search_hot(ArrayList<Hotel> hotels) {
+        Hotel h;
+        for (int i = 0; i < hotels.size(); i++) {
+            System.out.println((i + 1) + ") Ξεναδοχείο : " + hotels.get(i).getName());
+        }
+        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
+        next_string = sc.next();
+        p = Pattern.compile(".*[0-9]");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
+        if( Integer.parseInt(next_string) > 0 && Integer.parseInt(next_string) <= hotels.size()){
+            h = hotels.get(Integer.parseInt(next_string) -1);
+            return h ;
+        }
+        else {
+            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Ξεναδοχείο");
+            return null;
+        }
     }
 
 
-    public void show_person(){
-        System.out.println("The person "+getName());
+    /**
+     * μέθοδος που εμφανίζει τα στοιχεία του χρήστη
+     */
+    public void show_person() {
+        System.out.println(" Ο/Η " + getName() + "\n τηλ: " + getPhone_number() + "\n Εδρα: " + getHome_ground() + "\n email: " + getEmail());
+        if (this instanceof Accommodation_Provider) {
+            System.out.println("Πάροχος καταλυμάτων\n");
+        } else if (this instanceof Hotel_Provider) {
+            System.out.println("Πάροχος ξεναδοχείων\n");
+        } else if (this instanceof Moderator) {
+            System.out.println("Διαχηρηστής\n");
+        } else {
+            System.out.println("Πελάτης\n");
+        }
+
     }
 
+    /**
+     * μέθοδος η οποία εμφανίζει τις ειδοποιήσεις των μηνυμάτων
+     */
     public void messages_notifications() {
-        int mess  = messages.size() - messages_count ;
-        if( mess > 0 ){
-            System.out.println("You have " + mess + " New mail(s)");
+        int mess = messages.size() - messages_count;
+        if (mess > 0) {
+            System.out.println("Εχεις " + mess + " νέα μηνυμα(τα)");
             messages_count = messages.size();
         }
     }
 
-
+    /**
+     * μέθοδος με την οποία ένας χρήστης μπορεί να συντάξει και να στείλει ένα μήνυμα
+     * @param acc_list λίστα με τα μηνύματα
+     */
     public void message_send(Collection<Person> acc_list) {
 
-
-        Person temp = new Person() ;
-        System.out.println("se poion minima");
+        Person temp = new Person();
+        System.out.println("Σε ποιον χρήστη θα ηθελες να στειλεις μηνυμα?");
         next_string = sc.next();
-        for (Person p : acc_list){
-            if(p.getName().equals(next_string)){
-                temp = p ;
+        for (Person p : acc_list) {
+            if (p.getName().equals(next_string)) {
+                temp = p;
             }
         }
-        System.out.println("grapse to mnm:");
+        System.out.println("Γαψτε το μηνυμα σας :");
         next_string = sc.next();
+        next_string = sc.nextLine();
         temp.messages.add(next_string);
     }
 
+    /**
+     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή,την προβολή, την διαγραφή ή υην έξοδο απο τα μηνύματα
+     * @param acc_list λίστα με τα μηνύματα
+     */
     public void message(Collection<Person> acc_list) {
-        boolean flag = true ;
-        System.out.println("steile h des h svise h fuge");
+        boolean flag = true;
         while (flag) {
-
+            System.out.println("Θα θελατε να δείτε να στείλετε να διαγράψετε μυνημα?  (αποστολη,προβολη,διαγραφη,εξοδος)");
 
             next_string = sc.next();
             switch (next_string) {
-                case "steile" -> message_send(acc_list);
-                case "des" -> messages_view();
-                case "svise" -> messages_delete();
-                case "efuga" -> flag = false;
+                case "αποστολη" -> message_send(acc_list);
+                case "προβολη" -> messages_view();
+                case "διαγραφη" -> messages_delete();
+                case "εξοδος" -> flag = false;
+
             }
-            System.out.println("steile h des h svise h fuge");
         }
     }
 
+    /**
+     * μέθοδος που διγράφει ένα μήνυμα
+     */
     private void messages_delete() {
         messages_view();
-        System.out.println("poio thes na sviseis");
+        System.out.println("Ποιο θα θελατε να σβησετε?");
         next_int = sc.nextInt();
-        messages.remove(next_int-1);
+        messages.remove(next_int - 1);
     }
 
+    /**
+     * μέθοδος για την προβολή των μηνυμάτων
+     */
     private void messages_view() {
-        for (int i = 0 ; i < messages.size() ; i++)
-            System.out.println((i+1)+") " + messages.get(i));
+        for (int i = 0; i < messages.size(); i++)
+            System.out.println((i + 1) + ") " + messages.get(i));
+    }
+
+    /**
+     * μέθοδος για την επεξεργασία και την αλλαγή των στοιχείων του χρήστη
+     */
+    public void info_edit() {
+        Pattern p ;
+        Checker ch = new Checker();
+        String dump  ;
+        boolean flag = true;
+        while (flag) {
+            System.out.println("Θα θελατε να αλλαξετε κατι (ονομα,εδρα,τηλεφωνο,email,εξοδος)");
+
+            next_string = sc.next();
+            switch (next_string) {
+                case "ονομα " -> {
+                    System.out.println("Δωστε το νεο ονομα:");
+                    dump = sc.nextLine();
+                    next_string = sc.nextLine();
+                    this.setName(next_string);
+                }
+                case "εδρα" -> {
+                    System.out.println("Δωστε την νεα εδρα:");
+                    next_string = sc.next();
+                    this.setHome_ground(next_string);
+                }
+                case "τηλεφωνο" -> {
+                    System.out.println("Δωστε το νεο τηλέφωνο:");
+                    next_string = sc.next();
+                    p = Pattern.compile("[0-9]{10}");
+                    next_string = ch.validstring(next_string,p,"Μη εγκυρo Τηλέφωνο");
+                    this.setPhone_number(next_string);
+                }
+                case "email" -> {
+                    System.out.println("¨Δωστε το νεο emial:");
+                    next_string = sc.next();
+                    p = Pattern.compile(".*@+[a-zA-Z]+[.]+[a-zA-Z]+$");
+                    next_string = ch.validstring(next_string,p,"Μη εγκυρη διεύθυνση email ");
+                    this.setEmail(next_string);
+                }
+                case "εξοδος" -> flag = false;
+
+            }
+        }
+        this.show_person();
     }
 }
-

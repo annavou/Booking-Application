@@ -1,32 +1,35 @@
+/**
+ *Αυτή η κλάση αναπαριστά ένα κατάλυμα με τα χαρακτηριστηκά του και τις παροχές του
+ */
+
 import java.util.ArrayList;
 
 public class Accommodation {
 
-
     private String name;
     private String location;
-    private double price;
-    private  int sqmeter;
-    private int stars;
-    private String type;
-    private  int rooms;
-    private int capacity;
+    private String price;
+    private  String sqmeter;
+    private String stars;
+    private  String rooms;
+    private String capacity;
     ArrayList<Reservations> reservations = new ArrayList<>();
-    ArrayList<Reservations>cancellations= new ArrayList<>();
+    ArrayList<Reservations> cancellations= new ArrayList<>();
 
 
     private boolean breakfast, wifi, ac, parking, cleaning_services;
 
-
+    /**
+     * Ο προκαθορισμένος κατασκευαστής
+     */
     public Accommodation() {
         name = null;
         location = null;
-        price = 0;
-        sqmeter = 0;
-        stars = 0;
-        type = null;
-        rooms = 0;
-        capacity = 0;
+        price = null;
+        sqmeter = null;
+        stars = null;
+        rooms = null;
+        capacity = null;
 
         breakfast = false;
         wifi = false;
@@ -35,14 +38,16 @@ public class Accommodation {
         cleaning_services = false;
     }
 
-    public Accommodation(String aname, String alocation, double aprice, int asqmeter, int astars, String atype, int arooms, int acapacity, boolean abreakfast,
+    /**
+     * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
+     */
+    public Accommodation(String aname, String alocation,String aprice, String asqmeter, String astars, String arooms, String acapacity, boolean abreakfast,
                          boolean awifi, boolean aac, boolean aparkin, boolean acleaning_services) {
         name = aname;
         location = alocation;
         price = aprice;
         sqmeter = asqmeter;
         stars = astars;
-        type = atype;
         rooms = arooms;
         capacity = acapacity;
 
@@ -54,9 +59,13 @@ public class Accommodation {
     }
 
 
+    /**
+     * μέθοδος που εμφανίζει το κατάλυμα και τα χαρακτηριστηκά του
+     */
     public void show_accommodation() {
-        System.out.println("Name : " + name + "\n" + "Location : " + location + "\n");
-
+        System.out.println("Κατάλυμα '" + name +"' ,Στην "+ location + " είναι " + sqmeter + "τμ, έχει " + rooms + "δωμάτια, είναι για " + capacity +" άτομα, και έχει " + stars +" αστέρια");
+        System.out.println(hasBreakfast() + "Πρωίνο\n" + hasWifi()+"Wifi\n"+hasParking()+"Parking\n"+hasAc()+"Air conditioner\n"+hasCleaningservice()+"Υπηρεσία καθαρισμού");
+        System.out.println("Τιμή: "+price+"$ ανα Βράδυ\n");
     }
 
 
@@ -76,57 +85,47 @@ public class Accommodation {
         this.location = location;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public int getSqmeter() {
+    public String getSqmeter() {
         return sqmeter;
     }
 
-    public void setSqmeter(int sqmeter) {
+    public void setSqmeter(String sqmeter) {
         this.sqmeter = sqmeter;
     }
 
-    public int getStars() {
+    public String getStars() {
         return stars;
     }
 
-    public void setStars(int stars) {
+    public void setStars(String stars) {
         this.stars = stars;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getRooms() {
+    public String getRooms() {
         return rooms;
     }
 
-    public void setRooms(int rooms) {
+    public void setRooms(String rooms) {
         this.rooms = rooms;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 
-    public boolean isBreakfast() {
-        return breakfast;
-    }
+    public boolean isBreakfast() {return breakfast;}
 
     public void setBreakfast(boolean breakfast) {
         this.breakfast = breakfast;
@@ -164,4 +163,58 @@ public class Accommodation {
         this.cleaning_services = cleaning_services;
     }
 
+    /**
+     * μέθοδος που ελέγχει αν το κατάλυμα διαθέτει πρωινό
+     * @return τη φράση παρέχει ή δεν παρέχει αντίστοιχα
+     */
+    public String hasBreakfast(){
+        if(isBreakfast()){
+            return "παρέχει ";
+        }
+        return "δεν παρέχει ";
+    }
+
+    /**
+     * μέθοδος που ελέγχει αν το κατάλυμα διαθέτει wifi
+     * @return τη φράση παρέχει ή δεν παρέχει αντίστοιχα
+     */
+    public String hasWifi(){
+        if(isWifi()){
+            return "παρέχει ";
+        }
+        return "δεν παρέχει ";
+    }
+
+    /**
+     * μέθοδος που ελέγχει αν το κατάλυμα διαθέτει parking
+     * @return τη φράση παρέχει ή δεν παρέχει αντίστοιχα
+     */
+    public String hasParking(){
+        if(isParking()){
+            return "παρέχει ";
+        }
+        return "δεν παρέχει ";
+    }
+
+    /**
+     * μέθοδος που ελέγχει αν το κατάλυμα διαθέτει air condition
+     * @return τη φράση παρέχει ή δεν παρέχει αντίστοιχα
+     */
+    public String hasAc(){
+        if(isAc()){
+            return "παρέχει ";
+        }
+        return "δεν παρέχει ";
+    }
+
+    /**
+     * μέθοδος που ελέγχει αν το κατάλυμα παρέχει υπηρεσίες καθαρισμού
+     * @return τη φράση παρέχει ή δεν παρέχει αντίστοιχα
+     */
+    public String hasCleaningservice(){
+        if(isCleaning_services()){
+            return "παρέχει ";
+        }
+        return "δεν παρέχει ";
+    }
 }
