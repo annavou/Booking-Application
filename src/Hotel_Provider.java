@@ -71,7 +71,7 @@ public class Hotel_Provider extends  Person {
         String alocation;
         String astars;
 
-        System.out.println("Ονομα");
+        System.out.println("Όνομα");
         aname = sc.next();
 
         System.out.println("Τοποθεσία");

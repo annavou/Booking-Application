@@ -71,19 +71,19 @@ public class Accommodation_Provider extends Person{
         while (flag) {
             flag = false;
             switch (next_string) {
-                case "ονομα" -> {
+                case "Όνομα" -> {
                     System.out.println("Δώσε το καινούργιο ονομα:");
                     next_string = sc.next();
                     acc.setName(next_string);
                     acc.show_accommodation();
                 }
-                case "τοποθεσια" -> {
+                case "Τοποθεσία" -> {
                     System.out.println("Δώσε την καινούργια τοποθεσία:");
                     next_string = sc.next();
                     acc.setLocation(next_string);
                     acc.show_accommodation();
                 }
-                case "τιμη" -> {
+                case "Τιμή" -> {
                     System.out.println("Δώσε την καινούργια τιμή:");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
@@ -91,7 +91,7 @@ public class Accommodation_Provider extends Person{
                     acc.setPrice(next_string);
                     acc.show_accommodation();
                 }
-                case "τετραγωνικά" -> {
+                case "Τετραγωνικά" -> {
                     System.out.println("Δώσε τα καινούργια τετραγωνικά:");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
@@ -99,7 +99,7 @@ public class Accommodation_Provider extends Person{
                     acc.setSqmeter(next_string);
                     acc.show_accommodation();
                 }
-                case "αστεργια" -> {
+                case "Αστέρια" -> {
                     System.out.println("Δώσε τα καινούργια αστέργια");
                     next_string = sc.next();
                     p = Pattern.compile("[0-5]");
@@ -107,7 +107,7 @@ public class Accommodation_Provider extends Person{
                     acc.setStars(next_string);
                     acc.show_accommodation();
                 }
-                case "δωματια" -> {
+                case "Δωμάτια" -> {
                     System.out.println("Δώσε τα καινούργια δωμάτια:");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
@@ -115,7 +115,7 @@ public class Accommodation_Provider extends Person{
                     acc.setRooms(next_string);
                     acc.show_accommodation();
                 }
-                case "χωρητικοτητα" -> {
+                case "Χωρητικότητα" -> {
                     System.out.println("Δώσε τη καινούργια χωρητικότητα σε ατομα: (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
@@ -123,7 +123,7 @@ public class Accommodation_Provider extends Person{
                     acc.setCapacity(next_string);
                     acc.show_accommodation();
                 }
-                case "ac" -> {
+                case "AC" -> {
                     System.out.println("Θα παρέχει το κατάλυμα ac? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
@@ -132,7 +132,7 @@ public class Accommodation_Provider extends Person{
                     acc.setAc(next_bool);
                     acc.show_accommodation();
                 }
-                case "πρωίνο" -> {
+                case "Πρωίνο" -> {
                     System.out.println("Θα παρέχει το κατάλυμα πρωινό? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
@@ -141,7 +141,7 @@ public class Accommodation_Provider extends Person{
                     acc.setBreakfast(next_bool);
                     acc.show_accommodation();
                 }
-                case "wifi" -> {
+                case "Wifi" -> {
                     System.out.println("Θα παρέχει το κατάλυμα wifi? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
@@ -150,7 +150,7 @@ public class Accommodation_Provider extends Person{
                     acc.setWifi(next_bool);
                     acc.show_accommodation();
                 }
-                case "parking" -> {
+                case "Parking" -> {
                     System.out.println("Θα παρέχει το κατάλυμα parking? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
@@ -159,7 +159,7 @@ public class Accommodation_Provider extends Person{
                     acc.setParking(next_bool);
                     acc.show_accommodation();
                 }
-                case "υπηρεσια καθαρισμου" -> {
+                case "Υπηρεσία Καθαρισμού" -> {
                     System.out.println("Θα παρέχει το κατάλυμα υπηρεσία καθαρισμού? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
@@ -168,7 +168,7 @@ public class Accommodation_Provider extends Person{
                     acc.setCleaning_services(next_bool);
                     acc.show_accommodation();
                 }
-                case "εξοδος" -> {}
+                case "Έξοδος" -> {}
                 default -> {
                     System.out.println("Δεν υπάρχει τετοια κατηγοριά");
                     System.out.println("Θέλετε να ξαναδοκιμάσετε η οχι (Κατηγορια/οχι)");
@@ -198,7 +198,7 @@ public class Accommodation_Provider extends Person{
 
 
 
-        System.out.println("Ονομα");
+        System.out.println("Όνομα");
         aname = sc.next();
 
         System.out.println("Τοποθεσία");
@@ -216,7 +216,7 @@ public class Accommodation_Provider extends Person{
         next_string = ch.validstring(next_string,p,"Μη εγκυρα Τετραγωνικά");
         asqmeter = next_string;
 
-        System.out.println("Αστέργια");
+        System.out.println("Αστέρια");
         next_string = sc.next();
         p = Pattern.compile("[0-5]");
         next_string = ch.validstring(next_string,p,"Μη εγκυρα Αστέργια");
@@ -234,7 +234,7 @@ public class Accommodation_Provider extends Person{
         next_string = ch.validstring(next_string,p,"Μη εγκυρη Χωριτικότητα");
         acapacity = next_string;
 
-        System.out.println("Air conditioner (0-OXI/1-NAI) ");
+        System.out.println("Air Condition (0-OXI/1-NAI) ");
         next_string = sc.next();
         p = Pattern.compile("[0-1]");
         next_string = ch.validstring(next_string,p,"Μη εγκυρη Τιμή");
