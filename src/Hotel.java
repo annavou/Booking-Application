@@ -207,7 +207,7 @@ public class Hotel {
 
         room = search_Hotel_room(Rooms);
 
-        System.out.println("Τι θα ήθελες να αλλάξεις");
+        System.out.println("Τι θα ήθελες να αλλάξεις;");
         next_string = sc.next();
 
         while (flag) {
@@ -311,7 +311,7 @@ public class Hotel {
         for (int i = 0; i < Rooms.size(); i++) {
             System.out.println((i + 1) + ") Δωμάτιο : " + Rooms.get(i).getName());
         }
-        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
+        System.out.println("Ποιό θέλετε? (Δώστε το αντίστοιχο νουμερο)");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
         next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");

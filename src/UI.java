@@ -43,41 +43,41 @@ public class UI {
      */
     public void initialize() {
 
-        Hotel_Provider p1 = new Hotel_Provider("γιαννης", "ellada", "6955", "giannhs@gmail.com");
-        Accommodation_Provider p2 = new Accommodation_Provider("μαρια", "albania", "335", "...");
+        Hotel_Provider p1 = new Hotel_Provider("Γιάννης Παπαδόπουλος", "Ελλάδα", "6955", "giannhs@gmail.com");
+        Accommodation_Provider p2 = new Accommodation_Provider("Maria McArthour", "USA", "335", "...");
 
-        Credentials c1 = new Credentials("γιαννης", "12345");
-        Credentials c2 = new Credentials("μαρια", "67890");
+        Credentials c1 = new Credentials("Γιάννης", "12345");
+        Credentials c2 = new Credentials("Maria", "67890");
 
         acc_list.put(c1, p1);
         acc_list.put(c2, p2);
 
 
-        Accommodation j = new Accommodation("k1","k1","300","50","5","4","10",true,false,false,false,false);
-        Accommodation k = new Accommodation("θεα","Καβάλα","500","68","3","4","8",true,false,true,false,true);
+        Accommodation j = new Accommodation("Αθηνά","Ύδρα","300","50","5","4","10",true,false,false,false,false);
+        Accommodation k = new Accommodation("Θέα","Καβάλα","500","68","3","4","8",true,false,true,false,true);
         LocalDate s = LocalDate.of(2021,1,2);
         LocalDate e = LocalDate.of(2021,1,5);
-        Reservations resv = new Reservations(s,e,"γιωργος",k,null);
+        Reservations resv = new Reservations(s,e,"Γιώργος",k,null);
         k.reservations.add(resv);
         p2.Accommodations.add(k);
         p2.Accommodations.add(j);
 
 
-        Hotel b = new Hotel("galaxy","kavala","4");
-        Hotel_room d1 = new Hotel_room("τρικλινο","3","40",true,true,true,true,false,"50");
-        Hotel_room d2 = new Hotel_room("δικλινο","2","30",true,true,true,false,false,"35");
+        Hotel b = new Hotel("Galaxy","Καβάλα","4");
+        Hotel_room d1 = new Hotel_room("Τρίκλινο","3","40",true,true,true,true,false,"50");
+        Hotel_room d2 = new Hotel_room("Δίκλινο","2","30",true,true,true,false,false,"35");
         b.Rooms.add(d1);
         b.Rooms.add(d2);
         p1.Hotels.add(b);
-        resv = new Reservations(s,e,"γιωργος",null,d1);
+        resv = new Reservations(s,e,"Γιώργος",null,d1);
         d1.hotelroomreservations.add(resv);
 
-        Moderator p3 = new Moderator("ouzi","deutchland","5467",",,");
-        Credentials c3 = new Credentials("ouzi","10032002");
+        Moderator p3 = new Moderator("Ouzi","Germany","5467",",,");
+        Credentials c3 = new Credentials("Ouzi","10032002");
         acc_list.put(c3,p3);
 
-        Customer p4 = new Customer("γιωργος","thessaloniki","4354","v");
-        Credentials c4 = new Credentials("γιωργος","123");
+        Customer p4 = new Customer("Γιώργος","Θεσσαλονίκη","4354","v");
+        Credentials c4 = new Credentials("Γιώργος","123");
         acc_list.put(c4,p4);
         p2.setActivated(true);
         p4.setActivated(true);
@@ -89,31 +89,31 @@ public class UI {
      *Μέθοδος στην οποία ο χρήστης διαλέγει γιατί θέλει να κάνει σύνδεση η εγγραφή και έπειτα καλεί την μέθοδο με τις επιλογές ανάλογα το είδος του χρήστη
      */
     public void start() {
-        System.out.println("Καλωςορισατε, στην εφαρμογη μας!");
+        System.out.println("Καλωσορίσατε, στην εφαρμογή μας!");
 
         boolean flag = true;
         boolean flag2 = true;
         while (flag) {
 
-            System.out.println("Θα ήθελες να συνδεθείς σε ενα υπάρχων λογαργιασμό η να δημιουργήσεις εναν καινούργιο ? (συνδεση/δημιουργια/εξοδος) ");
+            System.out.println("Θα ήθελες να συνδεθείς σε ενα υπάρχων λογαργιασμό η να δημιουργήσεις εναν καινούργιο ? (Σύνδεση/Δημιουργία/Έξοδος) ");
             boolean flag1 = true;
 
             while (flag1) {
                 next_string = sc.next();
                 switch (next_string) {
-                    case "συνδεση" -> {
+                    case "Σύνδεση" -> {
                         login();
                         flag1 = false;
                     }
-                    case "δημιουργεια" -> {
+                    case "Δημιουργία" -> {
                         register();
                         flag1 = false;
                     }
-                    case "εξοδος"->{
+                    case "Έξοδος"->{
                         flag1=false;
                         flag2 = false;
                     }
-                    default -> System.out.println("Δεν υπαχρχει τετοια λειτουγια, παρακαλω δοκιμαστε ξανα");
+                    default -> System.out.println("Δεν υπάρχει τέτοια λειτουγία, παρακαλώ δοκιμάστε ξανά");
                 }
             }
 
@@ -137,11 +137,11 @@ public class UI {
                     customer_options();
                 }
 
-                System.out.println("Θα θέλατε να συνδεθειτέ σε αλλο λογαργιασμό? (συνεδση/εξοδος)");
+                System.out.println("Θα θέλατε να συνδεθειτέ σε άλλο λογαργιασμό? (Σύνεδση/Έξοδος)");
                 next_string = sc.next();
             }
-            if (next_string.equals("εξοδος")) {
-                System.out.println("τσαο");
+            if (next_string.equals("Έξοδος")) {
+                System.out.println("Ευχαριστούμε που χρησιμοποιήσατε την εφαρμογή μας!");
                 flag = false;
             }
 
@@ -180,24 +180,24 @@ public class UI {
             user = acc_list.get(temp);
             if (user == null) {
                 System.out.println("The credentials you gave do not match any account, try again");
-                System.out.println("Θες να ξανα δοκιμασεις? (ναι/οχι)");
+                System.out.println("Θέλετε να δοκιμάσετε ξανά; (Ναι/Όχι)");
                 next_string = sc.next();
-                if( next_string.equals("οχι")) {
+                if( next_string.equals("Όχι")) {
                     flag = false;
                     this.user = null;
                 }
             }
             else if (!user.isActivated()){
                 System.out.println("Your account is not activated yet, an administrator will activate it shortly");
-                System.out.println("Θες να ξανα δοκιμασεις? (ναι/οχι)");
+                System.out.println("Θέλετε να δοκιμάσετε ξανά; (Ναι/Όχι)");
                 next_string = sc.next();
-                if( next_string.equals("οχι")) {
+                if( next_string.equals("Όχι")) {
                     flag = false;
                     this.user = null;
                 }
             }
             else if (user.isActivated()){
-                System.out.println("Welcome to the app " + user.getName());
+                System.out.println("Καλωσορήσατε στην εφαρμοφή " + user.getName());
                 flag = false;
             }
         }
@@ -223,25 +223,25 @@ public class UI {
         next_string2 = ch.validstring(next_string2,p,"Μη εγκυρος Κωδικος");
         Credentials nea = new Credentials(next_string, next_string2);
 
-        System.out.println("Τι τυπου θα θελατε να ειναι το προφιλ σας? : (παροχος καταλυματων,παροχος ξεναδοχειων,διαχειριστης,πελατης)");
+        System.out.println("Τι τύπου θα θέλατε να είναι το προφιλ σας; : (παροχος καταλυματων,παροχος ξεναδοχειων,διαχειριστης,πελατης)");
         next_string = sc.nextLine();
         next_string2 = sc.nextLine();
         while (flag) {
             flag = false;
             switch (next_string2) {
-                case "παροχος καταλυματων" -> {
+                case "Πάροχος καταλυμάτων" -> {
                     neos = new Accommodation_Provider();
                     new_person(neos);
                 }
-                case "παροχος ξεναδοχειων" -> {
+                case "Πάροχος ξεναδοχείων" -> {
                     neos = new Hotel_Provider();
                     new_person(neos);
                 }
-                case "διαχειριστης" -> {
+                case "Διαχειριστής" -> {
                     neos = new Moderator();
                     new_person(neos);
                 }
-                case "πελατης" -> {
+                case "Πελάτης" -> {
                     neos = new Customer();
                     new_person(neos);
                 }
@@ -263,18 +263,18 @@ public class UI {
      */
     private void accommodation_prov() {
         String a = """
-                Τι θα θέλατε να κάνετε?\s
-                 0-προβολη καταλυματος\s
-                 1-προβολη καταλυματων\s
-                 2-προσθηκη καταλυματος\s
-                 3-επεξεργασια καταλυματος\s
-                 4-διαγραφη καταλυματος\s
+                 Τι θα θέλατε να κάνετε;\s
+                 0-Προβολή καταλύματος\s
+                 1-Προβολή καταλύματων\s
+                 2-Προσθήκη καταλύματος\s
+                 3-Επεξεργασία καταλύματος\s
+                 4-Διαγραφή καταλύματος\s
                  5-Συνολικές κρατήσεις\s
                  6-Συνολικές ακυρώσεις\s
-                 7-Συνολικό εισόδιμα\s
-                 8-μυνηματα\s
-                 9-επεξεργασια στοιχιων\s
-                 10-εξοδος""";
+                 7-Συνολικό εισόδημα\s
+                 8-Μυνήματα\s
+                 9-Επεξεργασία στοιχείων\s
+                 10-Έξοδος""";
         System.out.println(a);
         next_string = sc.next();
         p = Pattern.compile("[0-9]|[10]");
@@ -303,18 +303,18 @@ public class UI {
      */
     private void hotel_prov() {
         String a = """
-                Τι θα θέλατε να κάνετε?\s
-                 0-προβολη Ξεναδοχείου\s
-                 1-προβολη Ξεναδοχείων\s
-                 2-προσθηκη Ξεναδοχείου\s
-                 3-επεξεργασια Ξεναδοχείου\s
-                 4-διαγραφη Ξεναδοχείου\s
+                 Τι θα θέλατε να κάνετε;\s
+                 0-Προβολή Ξεναδοχείου\s
+                 1-Προβολή Ξεναδοχείων\s
+                 2-Προσθήκη Ξεναδοχείου\s
+                 3-Επεξεργασία Ξεναδοχείου\s
+                 4-Διαγραφή Ξεναδοχείου\s
                  5-Συνολικές κρατήσεις\s
                  6-Συνολικές ακυρώσεις\s
-                 7-Συνολικό εισόδιμα\s
-                 8-μυνηματα\s
-                 9-επεξεργασια στοιχιων\s
-                 α-εξοδος""";
+                 7-Συνολικό εισόδημα\s
+                 8-Μυνήματα\s
+                 9-Επεξεργασία στοιχείων\s
+                 α-Έξοδος""";
         System.out.println(a);
         next_string = sc.next();
         p = Pattern.compile("[0-9]|[α]");
@@ -345,15 +345,15 @@ public class UI {
     private void modder() {
         String a = """
                 Τι θα θέλατε να κάνετε?\s
-                 0-προβολη Χρηστών\s
-                 1-προβολη Καταλυμάτων και Ξεναδοχείων\s
-                 2-Διαχηριση χρηστών\s
+                 0-Προβολή Χρηστών\s
+                 1-Προβολή Καταλυμάτων και Ξεναδοχείων\s
+                 2-Διαχείριση χρηστών\s
                  3-Προβολή όλων των κρατήσεων\s
                  4-Προβολή όλων των ακυρώσεων\s
                  5-Ακύρωση κράτησης\s
-                 6-μυνηματα\s
-                 7-επεξεργασια στοιχιων\s
-                 8-εξοδος""";
+                 6-Μυνήματα\s
+                 7-Επεξεργασία στοιχείων\s
+                 8-Έξοδος""";
         System.out.println(a);
         next_string = sc.next();
         p = Pattern.compile("[0-8]");
@@ -381,16 +381,16 @@ public class UI {
         Collection<Person> people = acc_list.values();
         String a = """
                 Τι θα θέλατε να κάνετε?\s
-                 0-προβολη Καταλυμάτων και Ξεναδοχείων\s
+                 0-ΠροβολΉ Καταλυμάτων και Ξεναδοχείων\s
                  1-Προβολή των κρατήσεων μου\s
                  2-Προβολή των ακυρώσεων μου\s
                  3-Κράτηση καταλύματος\s
                  4-Κράτηση Ξεναδοχείου\s
                  5-Ακύρωση κράτησης καταλύματος\s
                  6-Ακύρωση κράτησης ξεναδοχείου\s
-                 7-μυνηματα\s
-                 8-επεξεργασια στοιχιων\s
-                 9-εξοδος""";
+                 7-Μυνήματα\s
+                 8-Επεξεργασία στοιχείων\s
+                 9-Έξοδος""";
         System.out.println(a);
         next_string = sc.next();
         p = Pattern.compile("[0-9]");
@@ -426,7 +426,7 @@ public class UI {
         for (Object o : a) {
             Credentials c = (Credentials) o;
             if (next_string.equals(c.getUsername())) {
-                System.out.println("Το όνομα αυτό υπάρχει ηδη, δοκιμάστε ξανά");
+                System.out.println("Το όνομα αυτό υπάρχει ήδη, δοκιμάστε ξανά");
                 next_string = ValidCheck(next_string, a);
             }
         }
@@ -440,24 +440,24 @@ public class UI {
     private void new_person(Person neos) {
 
 
-        System.out.println("Ονομα :");
+        System.out.println("Όνομα :");
         next_string2 = sc.nextLine();
         neos.setName(next_string2);
 
-        System.out.println("Εδρα :");
+        System.out.println("Έδρα :");
         next_string = sc.next();
         neos.setHome_ground(next_string);
 
         System.out.println("Τηλέφωνο :");
         next_string = sc.next();
         p = Pattern.compile("[0-9]{10}");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρo Τηλέφωνο");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρo Τηλέφωνο");
         neos.setPhone_number(next_string);
 
         System.out.println("Email :");
         next_string = sc.next();
         p = Pattern.compile(".*@+[a-zA-Z]+[.]+[a-zA-Z]+$");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρη διεύθυνση email ");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη διεύθυνση email ");
         neos.setEmail(next_string);
 
         neos.show_person();

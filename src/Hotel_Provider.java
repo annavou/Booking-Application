@@ -51,7 +51,7 @@ public class Hotel_Provider extends  Person {
      * Μέθοδος η οποία εμφανίζει ένα συγκεκριμένο ξενοδοχείο
      */
     public void Hotels_Display() {
-        System.out.println("Ποιο Ξεναδοχείο θα θελατε να δειτε?");
+        System.out.println("Ποίο Ξεναδοχείο θα θέλατε να δείτε?");
 
         hotel = search_hot(Hotels);
         if (hotel == null) {
@@ -77,10 +77,10 @@ public class Hotel_Provider extends  Person {
         System.out.println("Τοποθεσία");
         alocation = sc.next();
 
-        System.out.println("Αστέργια");
+        System.out.println("Αστέρια");
         next_string = sc.next();
         p = Pattern.compile("[0-5]");
-        next_string = ch.validstring(next_string, p, "Μη εγκυρα Αστέργια");
+        next_string = ch.validstring(next_string, p, "Μη εγκυρα Αστέρια");
         astars = next_string;
 
         Hotel temp = new Hotel(aname, alocation, astars);
@@ -121,14 +121,14 @@ public class Hotel_Provider extends  Person {
             return;
         }
 
-        System.out.println("Τι θα ήθελες να αλλάξεις (ονομα/τοποθεσια/αστεργια/εξοδος/δωματια)");
+        System.out.println("Τι θα ήθελες να αλλάξεις; (ονομα/τοποθεσια/αστεργια/εξοδος/δωματια)");
         next_string = sc.next();
 
         while (flag) {
             flag = false;
             switch (next_string) {
                 case "ονομα" -> {
-                    System.out.println("Δώσε το καινούργιο ονομα:");
+                    System.out.println("Δώσε το καινούργιο όνομα:");
                     next_string = sc.next();
                     hotel.setName(next_string);
                     hotel.show_Hotel();
@@ -137,7 +137,7 @@ public class Hotel_Provider extends  Person {
                     System.out.println("Δώσε την καινούργια τοποθεσία:");
                     next_string = sc.next();
                     p = Pattern.compile("[^\\w]&&[^[0-9]]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρη τοποθεσια");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρη τοποθεσία");
                     hotel.setLocation(next_string);
                     hotel.show_Hotel();
                 }
@@ -145,7 +145,7 @@ public class Hotel_Provider extends  Person {
                     System.out.println("Δώσε τα καινούργια αστέργια");
                     next_string = sc.next();
                     p = Pattern.compile("[0-5]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρα αστεργια");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρα αστέρια");
                     hotel.setStars(next_string);
                     hotel.show_Hotel();
 
@@ -158,10 +158,10 @@ public class Hotel_Provider extends  Person {
                     while (flag1) {
                         flag1 = false;
                         switch (next_string) {
-                            case "προσθηκη" -> hotel.add_Hotel_room();
-                            case "επεξεργασια" -> hotel.edit_Hotel_room();
+                            case "Προσθήκη" -> hotel.add_Hotel_room();
+                            case "Επεξεργασία" -> hotel.edit_Hotel_room();
                             default -> {
-                                System.out.println("Δεν υπάρχει τετοια κατηγοριά");
+                                System.out.println("Δεν υπάρχει τέτοια κατηγοριά");
                                 System.out.println("Θέλετε να ξαναδοκιμάσετε η οχι (Κατηγορια/οχι)");
                                 next_string = sc.next();
                                 flag1 = !next_string.equals("οχι");

@@ -197,7 +197,8 @@ public class Hotel_room {
 
 
     /**
-     *
+     * Μέθοδος που επιστρέφει τα τετραγωνικά του δωματίου
+     * @return τετραγωνικά δωματίου
      */
     public String getSqmeter() {
         return sqmeter;
@@ -219,9 +220,9 @@ public class Hotel_room {
      */
     public String hasBreakfast(){
         if(isBreakfast()){
-            return "παρέχει ";
+            return "Παρέχει ";
         }
-        return "δεν παρέχει ";
+        return "Δεν παρέχει ";
     }
 
 
@@ -231,9 +232,9 @@ public class Hotel_room {
      */
     public String hasWifi(){
         if(isWifi()){
-            return "παρέχει ";
+            return "Παρέχει ";
         }
-        return "δεν παρέχει ";
+        return "Δεν παρέχει ";
     }
 
 
@@ -243,9 +244,9 @@ public class Hotel_room {
      */
     public String hasParking(){
         if(isParking()){
-            return "παρέχει ";
+            return "Παρέχει ";
         }
-        return "δεν παρέχει ";
+        return "Δεν παρέχει ";
     }
 
 
@@ -255,9 +256,9 @@ public class Hotel_room {
      */
     public String hasAc(){
         if(isAc()){
-            return "παρέχει ";
+            return "Παρέχει ";
         }
-        return "δεν παρέχει ";
+        return "Δεν παρέχει ";
     }
 
 
@@ -267,9 +268,9 @@ public class Hotel_room {
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "παρέχει ";
+            return "Παρέχει ";
         }
-        return "δεν παρέχει ";
+        return "Δεν παρέχει ";
     }
 
 

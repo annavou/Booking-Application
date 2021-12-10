@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment="Διορθωσεις στις κρατησεις">
+    <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment="Final">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Accommodation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Accommodation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Accommodation_Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Accommodation_Provider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Credentials.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Credentials.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hotel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hotel_Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hotel_Provider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hotel_room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hotel_room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moderator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moderator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Reservations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reservations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +92,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639008655298</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Final">
+      <created>1639096804709</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1639096804709</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Final">
+      <created>1639096867568</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639096867568</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -117,6 +126,7 @@
     <MESSAGE value="Customer" />
     <MESSAGE value="Customer1" />
     <MESSAGE value="Διορθωσεις στις κρατησεις" />
-    <option name="LAST_COMMIT_MESSAGE" value="Διορθωσεις στις κρατησεις" />
+    <MESSAGE value="Final" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final" />
   </component>
 </project>

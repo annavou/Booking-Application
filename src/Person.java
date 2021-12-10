@@ -164,7 +164,7 @@ public class Person {
     public void messages_notifications() {
         int mess = messages.size() - messages_count;
         if (mess > 0) {
-            System.out.println("Εχεις " + mess + " νέα μηνυμα(τα)");
+            System.out.println("Έχεις " + mess + " νέα μηνυμα(τα)");
             messages_count = messages.size();
         }
     }
@@ -176,14 +176,14 @@ public class Person {
     public void message_send(Collection<Person> acc_list) {
 
         Person temp = new Person();
-        System.out.println("Σε ποιον χρήστη θα ηθελες να στειλεις μηνυμα?");
+        System.out.println("Σε ποιον χρήστη θα ήθελες να στείλεις μήνυμα?");
         next_string = sc.next();
         for (Person p : acc_list) {
             if (p.getName().equals(next_string)) {
                 temp = p;
             }
         }
-        System.out.println("Γαψτε το μηνυμα σας :");
+        System.out.println("Γράψτε το μήνυμα σας :");
         next_string = sc.next();
         next_string = sc.nextLine();
         temp.messages.add(next_string);
@@ -200,10 +200,10 @@ public class Person {
 
             next_string = sc.next();
             switch (next_string) {
-                case "αποστολη" -> message_send(acc_list);
-                case "προβολη" -> messages_view();
-                case "διαγραφη" -> messages_delete();
-                case "εξοδος" -> flag = false;
+                case "Αποστολή" -> message_send(acc_list);
+                case "Προβολή" -> messages_view();
+                case "Διαγραφή" -> messages_delete();
+                case "Έξοδος" -> flag = false;
 
             }
         }
@@ -214,7 +214,7 @@ public class Person {
      */
     private void messages_delete() {
         messages_view();
-        System.out.println("Ποιο θα θελατε να σβησετε?");
+        System.out.println("Ποίο θα θέλατε να σβήσετε?");
         next_int = sc.nextInt();
         messages.remove(next_int - 1);
     }
@@ -236,36 +236,36 @@ public class Person {
         String dump  ;
         boolean flag = true;
         while (flag) {
-            System.out.println("Θα θελατε να αλλαξετε κατι (ονομα,εδρα,τηλεφωνο,email,εξοδος)");
+            System.out.println("Θα θέλατε να αλλάξετε κάτι (ονομα,εδρα,τηλεφωνο,email,εξοδος)");
 
             next_string = sc.next();
             switch (next_string) {
                 case "ονομα " -> {
-                    System.out.println("Δωστε το νεο ονομα:");
+                    System.out.println("Δώστε το νέο όνομα:");
                     dump = sc.nextLine();
                     next_string = sc.nextLine();
                     this.setName(next_string);
                 }
                 case "εδρα" -> {
-                    System.out.println("Δωστε την νεα εδρα:");
+                    System.out.println("Δώστε την νέα έδρα:");
                     next_string = sc.next();
                     this.setHome_ground(next_string);
                 }
                 case "τηλεφωνο" -> {
-                    System.out.println("Δωστε το νεο τηλέφωνο:");
+                    System.out.println("Δώστε το νέο τηλέφωνο:");
                     next_string = sc.next();
                     p = Pattern.compile("[0-9]{10}");
-                    next_string = ch.validstring(next_string,p,"Μη εγκυρo Τηλέφωνο");
+                    next_string = ch.validstring(next_string,p,"Μη Έγκυρo Τηλέφωνο");
                     this.setPhone_number(next_string);
                 }
                 case "email" -> {
-                    System.out.println("¨Δωστε το νεο emial:");
+                    System.out.println("¨Δώστε το νέο emial:");
                     next_string = sc.next();
                     p = Pattern.compile(".*@+[a-zA-Z]+[.]+[a-zA-Z]+$");
-                    next_string = ch.validstring(next_string,p,"Μη εγκυρη διεύθυνση email ");
+                    next_string = ch.validstring(next_string,p,"Μη έγκυρη διεύθυνση email ");
                     this.setEmail(next_string);
                 }
-                case "εξοδος" -> flag = false;
+                case "Έξοδος" -> flag = false;
 
             }
         }
