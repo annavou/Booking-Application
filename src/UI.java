@@ -6,6 +6,9 @@
  * και Strings στα οποία αποθηκεύονται προσωρινά δεδομένα.
  */
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.time.LocalDate;
@@ -43,8 +46,8 @@ public class UI {
      */
     public void initialize() {
 
-        Hotel_Provider p1 = new Hotel_Provider("Γιάννης Παπαδόπουλος", "Ελλάδα", "6955", "giannhs@gmail.com");
-        Accommodation_Provider p2 = new Accommodation_Provider("Maria McArthour", "USA", "335", "...");
+        Hotel_Provider p1 = new Hotel_Provider("Ξενοδόχος","Γιάννης Παπαδόπουλος", "Ελλάδα", "6955", "giannhs@gmail.com");
+        Accommodation_Provider p2 = new Accommodation_Provider("Πάροχος Καταλύματος","Maria McArthour", "USA", "335", "...");
 
         Credentials c1 = new Credentials("Γιάννης", "12345");
         Credentials c2 = new Credentials("Maria", "67890");
@@ -72,17 +75,96 @@ public class UI {
         resv = new Reservations(s,e,"Γιώργος",null,d1);
         d1.hotelroomreservations.add(resv);
 
-        Moderator p3 = new Moderator("Ouzi","Germany","5467",",,");
+        Moderator p3 = new Moderator("Διαχειριστής","Ouzi","Germany","5467",",,");
         Credentials c3 = new Credentials("Ouzi","10032002");
         acc_list.put(c3,p3);
 
-        Customer p4 = new Customer("Γιώργος","Θεσσαλονίκη","4354","v");
+        Customer p4 = new Customer("Πελάτης","Γιώργος","Θεσσαλονίκη","4354","v");
         Credentials c4 = new Credentials("Γιώργος","123");
         acc_list.put(c4,p4);
         p2.setActivated(true);
         p4.setActivated(true);
         p1.setActivated(true);
 
+
+        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("users.txt"))){
+            for (HashMap.Entry<Credentials, Person> entry : acc_list.entrySet()) {
+
+                buffer.write(entry.getValue().getType() +":" + entry.getValue().getName() + "-" + "Username" + ":" + entry.getKey().getUsername()
+                       +"-" + "Κωδικός" + ":" + entry.getKey().getPassword());
+
+                buffer.newLine();
+            }
+            buffer.flush();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+
+        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt"))){
+            for(Person p: acc_list.values()){
+
+                    if (p instanceof Accommodation_Provider) {
+                        for(Accommodation a: ((Accommodation_Provider) p).Accommodations){
+
+                            buffer.write("Κατάλυμα:" + a.getName()+" "+ "Τοποθεσία: " + a.getLocation() + " "+ "Τιμή ανα βράδυ: " + a.getPrice() + "$"
+                                           + " " + "Τετραγωνικά δωματίου: " + a.getSqmeter() + " " + "Χωρητικότητα Δωματίου: " + a.getCapacity() +"άτομα"
+                                            + " " + "Αστέρια Δωματίου: " + a.getStars() +" "+ "Το κατάλυμα προσφέρει: ");
+
+                            if(a.isAc()){
+                                buffer.write("Κλιματισμό ");
+                            }
+                            if(a.isBreakfast()){
+                                buffer.write("Πρωινό ");
+                            }
+                            if (a.isCleaning_services()){
+                                buffer.write("Υπηρεσίες Καθαρισμού ");
+                            }
+                            if (a.isParking()){
+                                buffer.write("Parking ");
+                            }
+                            if(a.isWifi()){
+                                buffer.write("Wifi.");
+                            }
+                            buffer.newLine();
+                        }
+                    } else if (p instanceof Hotel_Provider) {
+
+                        for(Hotel h:((Hotel_Provider) p).Hotels){
+                            buffer.write("Ξενοδοχείο: " + h.getName() +" "+ "Στην τοποθεσία: " + h.getLocation() + " " + "Αστέρια Ξενοδοχείου: " + h.getStars()
+                                          + " " + "Με τα εξής δωμάτια: " );
+                            buffer.newLine();
+
+                            for(Hotel_room r: h.Rooms){
+                                buffer.write("            ");
+                                buffer.write("Δωμάτιο: " + r.getName() + " "+"Τιμή ανα βράδυ: " + r.getPrice() + "$"
+                                        + " " + "Τετραγωνικά δωματίου: " + r.getSqmeter() + " " + "Χωρητικότητα Δωματίου: " + r.getCapacity() +"άτομα"
+                                        + " " + "Το κατάλυμα προσφέρει: ");
+
+                                if(r.isAc()){
+                                    buffer.write("Κλιματισμό ");
+                                }
+                                if(r.isBreakfast()){
+                                    buffer.write("Πρωινό ");
+                                }
+                                if (r.isCleaning_services()){
+                                    buffer.write("Υπηρεσίες Καθαρισμού ");
+                                }
+                                if (r.isParking()){
+                                    buffer.write("Parking ");
+                                }
+                                if(r.isWifi()){
+                                    buffer.write("Wifi.");
+                                }
+                                buffer.newLine();
+                            }
+                        }
+                    }
+                }
+            buffer.flush();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -464,5 +546,4 @@ public class UI {
     }
 
 }
-
 

@@ -18,16 +18,14 @@ public class Hotel_Provider extends  Person {
     /**
      * Ο κενός κατασκευαστής
      */
-    Hotel_Provider() {
-
-    }
+    Hotel_Provider() {}
 
 
     /**
      * Κατασκευαστής ο οποίος δέχεται ως όρισμα τα πεδία του person και τα περνάει σε αυτόν
      */
-    Hotel_Provider(String aname, String ahome_ground, String aphone_number, String aemail) {
-        super(aname, ahome_ground, aphone_number, aemail);
+    Hotel_Provider(String atype, String aname, String ahome_ground, String aphone_number, String aemail) {
+        super(atype, aname, ahome_ground, aphone_number, aemail);
     }
 
 

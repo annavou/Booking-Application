@@ -3,10 +3,8 @@
  * Ο διαχειριστής έχει πρόσβαση στους χρήστες στις κρατήσεις μπορεί να ακύρωση κράτησης,
  * καθώς και να ενεργοποιήσει η να απενεργοποιήσει προφίλ άλλων χρηστών.
  */
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class Moderator extends Person{
@@ -17,13 +15,14 @@ public class Moderator extends Person{
     Moderator(){}
 
     /**
+     * @param atype  Ο τύπος χρήστη
      * @param aname Το όνομα
-     * @param ahome_ground Η εδρα
+     * @param ahome_ground Η έδρα
      * @param aphone_number Το τηλέφωνο
      * @param aemail Το email
      */
-    Moderator(String aname , String ahome_ground, String aphone_number, String aemail){
-        super(aname,ahome_ground,aphone_number,aemail);
+    Moderator(String atype,String aname , String ahome_ground, String aphone_number, String aemail){
+        super(atype,aname,ahome_ground,aphone_number,aemail);
         super.setActivated(true);
     }
 

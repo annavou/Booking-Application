@@ -23,8 +23,8 @@ public class Accommodation_Provider extends Person{
     /**
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      */
-    Accommodation_Provider(String aname , String ahome_ground, String aphone_number, String aemail){
-        super(aname,ahome_ground,aphone_number,aemail);
+    Accommodation_Provider(String atype,String aname , String ahome_ground, String aphone_number, String aemail){
+        super(atype,aname,ahome_ground,aphone_number,aemail);
     }
 
     /**

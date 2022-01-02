@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 public class Person {
 
+    private String Type;
     private String Name;
     private String Home_ground;
     private String Phone_number;
@@ -32,6 +33,7 @@ public class Person {
      * Ο προκαθορισμένος κατασκευαστής
      */
     Person() {
+        Type=null;
         Name = null;
         Home_ground = null;
         Phone_number = null;
@@ -42,7 +44,8 @@ public class Person {
     /**
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      */
-    Person(String aname, String ahome_ground, String aphone_number, String aemail) {
+    Person(String atype, String aname, String ahome_ground, String aphone_number, String aemail) {
+        Type=atype;
         Name = aname;
         Home_ground = ahome_ground;
         Phone_number = aphone_number;
@@ -58,6 +61,14 @@ public class Person {
 
     public void setActivated(boolean activated) {
         Activated = activated;
+    }
+
+    public String getType(){
+        return Type;
+    }
+
+    public void setType(String atype){
+        Type=atype;
     }
 
     public String getName() {
@@ -102,7 +113,7 @@ public class Person {
         for (int i = 0; i < accommodations.size(); i++) {
             System.out.println((i + 1) + ") Κατάλυμα : " + accommodations.get(i).getName());
         }
-        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
+        System.out.println("Ποίο θέλετε? (δώστε το αντίστοιχο νούμερο)");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
         next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -124,9 +135,9 @@ public class Person {
     public Hotel search_hot(ArrayList<Hotel> hotels) {
         Hotel h;
         for (int i = 0; i < hotels.size(); i++) {
-            System.out.println((i + 1) + ") Ξεναδοχείο : " + hotels.get(i).getName());
+            System.out.println((i + 1) + ") Ξενοδοχείο : " + hotels.get(i).getName());
         }
-        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
+        System.out.println("Ποίο θέλετε? (δώστε το αντίστοιχο νούμερο)");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
         next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -135,7 +146,7 @@ public class Person {
             return h ;
         }
         else {
-            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Ξεναδοχείο");
+            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Ξενοδοχείο");
             return null;
         }
     }
@@ -145,13 +156,13 @@ public class Person {
      * μέθοδος που εμφανίζει τα στοιχεία του χρήστη
      */
     public void show_person() {
-        System.out.println(" Ο/Η " + getName() + "\n τηλ: " + getPhone_number() + "\n Εδρα: " + getHome_ground() + "\n email: " + getEmail());
+        System.out.println(" Ο/Η " + getName() + "\n τηλ: " + getPhone_number() + "\n Έδρα: " + getHome_ground() + "\n email: " + getEmail());
         if (this instanceof Accommodation_Provider) {
-            System.out.println("Πάροχος καταλυμάτων\n");
+            System.out.println("Πάροχος καταλύματος\n");
         } else if (this instanceof Hotel_Provider) {
-            System.out.println("Πάροχος ξεναδοχείων\n");
+            System.out.println("Πάροχος ξενοδοχείου\n");
         } else if (this instanceof Moderator) {
-            System.out.println("Διαχηρηστής\n");
+            System.out.println("Διαχειριστής\n");
         } else {
             System.out.println("Πελάτης\n");
         }
@@ -164,7 +175,7 @@ public class Person {
     public void messages_notifications() {
         int mess = messages.size() - messages_count;
         if (mess > 0) {
-            System.out.println("Έχεις " + mess + " νέα μηνυμα(τα)");
+            System.out.println("Έχεις " + mess + " νέα μήνυμα(τα)");
             messages_count = messages.size();
         }
     }
@@ -190,13 +201,13 @@ public class Person {
     }
 
     /**
-     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή,την προβολή, την διαγραφή ή υην έξοδο απο τα μηνύματα
+     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή, την προβολή, τη διαγραφή ή υην έξοδο απο τα μηνύματα
      * @param acc_list λίστα με τα μηνύματα
      */
     public void message(Collection<Person> acc_list) {
         boolean flag = true;
         while (flag) {
-            System.out.println("Θα θελατε να δείτε να στείλετε να διαγράψετε μυνημα?  (αποστολη,προβολη,διαγραφη,εξοδος)");
+            System.out.println("Θα θέλατε να δείτε να στείλετε να διαγράψετε μήνυμα?  (αποστολή,προβολή,διαγραφή,έξοδος)");
 
             next_string = sc.next();
             switch (next_string) {
@@ -236,22 +247,22 @@ public class Person {
         String dump  ;
         boolean flag = true;
         while (flag) {
-            System.out.println("Θα θέλατε να αλλάξετε κάτι (ονομα,εδρα,τηλεφωνο,email,εξοδος)");
+            System.out.println("Θα θέλατε να αλλάξετε κάτι (Όνομα,Έδρα,Τηλέφωνο,email,Έξοδος)");
 
             next_string = sc.next();
             switch (next_string) {
-                case "ονομα " -> {
+                case "Όνομα " -> {
                     System.out.println("Δώστε το νέο όνομα:");
                     dump = sc.nextLine();
                     next_string = sc.nextLine();
                     this.setName(next_string);
                 }
-                case "εδρα" -> {
+                case "Έδρα" -> {
                     System.out.println("Δώστε την νέα έδρα:");
                     next_string = sc.next();
                     this.setHome_ground(next_string);
                 }
-                case "τηλεφωνο" -> {
+                case "Τηλέφωνο" -> {
                     System.out.println("Δώστε το νέο τηλέφωνο:");
                     next_string = sc.next();
                     p = Pattern.compile("[0-9]{10}");
@@ -259,7 +270,7 @@ public class Person {
                     this.setPhone_number(next_string);
                 }
                 case "email" -> {
-                    System.out.println("¨Δώστε το νέο emial:");
+                    System.out.println("¨Δώστε το νέο email:");
                     next_string = sc.next();
                     p = Pattern.compile(".*@+[a-zA-Z]+[.]+[a-zA-Z]+$");
                     next_string = ch.validstring(next_string,p,"Μη έγκυρη διεύθυνση email ");

@@ -27,13 +27,14 @@ public class Customer extends Person {
     /**
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      *
+     * @param atype Ο τύπος χρήστης
      * @param aname Το όνομα
      * @param alocation Η εδρα
      * @param aphone_number Το τηλέφωνο
      * @param aemail Το email
      */
-    public Customer(String aname, String alocation, String aphone_number, String aemail) {
-        super(aname, alocation, aphone_number, aemail);
+    public Customer(String atype, String aname, String alocation, String aphone_number, String aemail) {
+        super(atype, aname, alocation, aphone_number, aemail);
     }
 
     /**
