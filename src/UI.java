@@ -1,14 +1,12 @@
 /**
- * Η κλάση UI αποτελεί την βασική κλάση με την οποία επικοινωνεί ο χρήστης με το πρόγραμμα.
- * Περιλαμβάνει το HashMap στο οποιο αποθηκεύονται τα στοιχεία οι χρήστες και τα Credentials τους.
+ * Η κλάση UI αποτελεί τη βασική κλάση με την οποία επικοινωνεί ο χρήστης με το πρόγραμμα.
+ * Περιλαμβάνει το HashMap στο οποίο αποθηκεύονται τα στοιχεία οι χρήστες και τα Credentials τους.
  * Έχει έναν χρήστη κάθε του των οποίο δεσμεύει ανάλογα με το είδος χρήστης το οποίο συνδέεται κάθε φορά.
  * Ακόμα έχει ένα αντικείμενο της κλάσης checker για ελέγχους, Scanned για εισαγωγή δεδομένων, και αλλά βοηθητικά οποίες pattern,
  * και Strings στα οποία αποθηκεύονται προσωρινά δεδομένα.
  */
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.time.LocalDate;
@@ -42,15 +40,15 @@ public class UI {
 
 
     /**
-     * Μέθοδος που αναλαμβάνει την αρχικοποίηση χρηστών κάθε κατηγορίας καθώς και καταλυμάτων ξενοδοχείων των συνθηματικων τους και κρατήσεων
+     * Μέθοδος που αναλαμβάνει την αρχικοποίηση χρηστών κάθε κατηγορίας καθώς και καταλυμάτων ξενοδοχείων των συνθηματικών τους και κρατήσεων
      */
     public void initialize() {
 
-        Hotel_Provider p1 = new Hotel_Provider("Ξενοδόχος","Γιάννης Παπαδόπουλος", "Ελλάδα", "6955", "giannhs@gmail.com");
-        Accommodation_Provider p2 = new Accommodation_Provider("Πάροχος Καταλύματος","Maria McArthour", "USA", "335", "...");
+        Hotel_Provider p1 = new Hotel_Provider("Ξενοδόχος","Γιάννης Παπαδόπουλος", "Ελλάδα", "6940519933", "giannhs@gmail.com");
+        Accommodation_Provider p2 = new Accommodation_Provider("Πάροχος Καταλύματος","Maria McArthur", "USA", "0054861839", "mariamc@gmail.com");
 
-        Credentials c1 = new Credentials("Γιάννης", "12345");
-        Credentials c2 = new Credentials("Maria", "67890");
+        Credentials c1 = new Credentials("giannis_pap", "12345");
+        Credentials c2 = new Credentials("maria_mc", "67890");
 
         acc_list.put(c1, p1);
         acc_list.put(c2, p2);
@@ -75,12 +73,12 @@ public class UI {
         resv = new Reservations(s,e,"Γιώργος",null,d1);
         d1.hotelroomreservations.add(resv);
 
-        Moderator p3 = new Moderator("Διαχειριστής","Ouzi","Germany","5467",",,");
-        Credentials c3 = new Credentials("Ouzi","10032002");
+        Moderator p3 = new Moderator("Διαχειριστής","Ouzi Makris","Germany","5467538428","ouzi@gmail.com");
+        Credentials c3 = new Credentials("ouzi_mak","10032002");
         acc_list.put(c3,p3);
 
-        Customer p4 = new Customer("Πελάτης","Γιώργος","Θεσσαλονίκη","4354","v");
-        Credentials c4 = new Credentials("Γιώργος","123");
+        Customer p4 = new Customer("Πελάτης","Γιώργος Παπαχαραλαμπόπουλος","Θεσσαλονίκη","4354","georgepap@gmail.com");
+        Credentials c4 = new Credentials("geo_papaxar","123456789");
         acc_list.put(c4,p4);
         p2.setActivated(true);
         p4.setActivated(true);
@@ -90,8 +88,9 @@ public class UI {
         try(BufferedWriter buffer= new BufferedWriter(new FileWriter("users.txt"))){
             for (HashMap.Entry<Credentials, Person> entry : acc_list.entrySet()) {
 
-                buffer.write(entry.getValue().getType() +":" + entry.getValue().getName() + "-" + "Username" + ":" + entry.getKey().getUsername()
-                       +"-" + "Κωδικός" + ":" + entry.getKey().getPassword());
+                buffer.write(entry.getValue().getType() +":" + entry.getValue().getName() + " - " + "Username" + ":" + entry.getKey().getUsername()
+                       +" - " + "Κωδικός" + ":" + entry.getKey().getPassword() + " - " + "Τόπος Κατοικίας: " + entry.getValue().getHome_ground()
+                       + " - " + "Email: " + entry.getValue().getEmail() + " - " + "Τηλέφωνο Επικοινωνίας: " + entry.getValue().getPhone_number());
 
                 buffer.newLine();
             }
@@ -107,9 +106,9 @@ public class UI {
                     if (p instanceof Accommodation_Provider) {
                         for(Accommodation a: ((Accommodation_Provider) p).Accommodations){
 
-                            buffer.write("Κατάλυμα:" + a.getName()+" "+ "Τοποθεσία: " + a.getLocation() + " "+ "Τιμή ανα βράδυ: " + a.getPrice() + "$"
-                                           + " " + "Τετραγωνικά δωματίου: " + a.getSqmeter() + " " + "Χωρητικότητα Δωματίου: " + a.getCapacity() +"άτομα"
-                                            + " " + "Αστέρια Δωματίου: " + a.getStars() +" "+ "Το κατάλυμα προσφέρει: ");
+                            buffer.write("Κατάλυμα:" + a.getName()+" - "+ "Τοποθεσία: " + a.getLocation() + " - "+ "Τιμή ανα βράδυ: " + a.getPrice() + "$"
+                                           + " - " + "Τετραγωνικά δωματίου: " + a.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + a.getCapacity() +"άτομα"
+                                            + " - " + "Αστέρια Δωματίου: " + a.getStars() +" - "+ "Το κατάλυμα προσφέρει: ");
 
                             if(a.isAc()){
                                 buffer.write("Κλιματισμό ");
@@ -131,15 +130,15 @@ public class UI {
                     } else if (p instanceof Hotel_Provider) {
 
                         for(Hotel h:((Hotel_Provider) p).Hotels){
-                            buffer.write("Ξενοδοχείο: " + h.getName() +" "+ "Στην τοποθεσία: " + h.getLocation() + " " + "Αστέρια Ξενοδοχείου: " + h.getStars()
-                                          + " " + "Με τα εξής δωμάτια: " );
+                            buffer.write("Ξενοδοχείο: " + h.getName() +" - "+ "Στην τοποθεσία: " + h.getLocation() + " - " + "Αστέρια Ξενοδοχείου: " + h.getStars()
+                                          + " - " + "Με τα εξής δωμάτια: " );
                             buffer.newLine();
 
                             for(Hotel_room r: h.Rooms){
                                 buffer.write("            ");
-                                buffer.write("Δωμάτιο: " + r.getName() + " "+"Τιμή ανα βράδυ: " + r.getPrice() + "$"
-                                        + " " + "Τετραγωνικά δωματίου: " + r.getSqmeter() + " " + "Χωρητικότητα Δωματίου: " + r.getCapacity() +"άτομα"
-                                        + " " + "Το κατάλυμα προσφέρει: ");
+                                buffer.write("Δωμάτιο: " + r.getName() + " - "+"Τιμή ανα βράδυ: " + r.getPrice() + "$"
+                                        + " - " + "Τετραγωνικά δωματίου: " + r.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + r.getCapacity() +"άτομα"
+                                        + " - " + "Το κατάλυμα προσφέρει: ");
 
                                 if(r.isAc()){
                                     buffer.write("Κλιματισμό ");
@@ -168,7 +167,7 @@ public class UI {
     }
 
     /**
-     *Μέθοδος στην οποία ο χρήστης διαλέγει γιατί θέλει να κάνει σύνδεση η εγγραφή και έπειτα καλεί την μέθοδο με τις επιλογές ανάλογα το είδος του χρήστη
+     *Μέθοδος στην οποία ο χρήστης διαλέγει γιατί θέλει να κάνει σύνδεση η εγγραφή και έπειτα καλεί τη μέθοδο με τις επιλογές ανάλογα το είδος του χρήστη
      */
     public void start() {
         System.out.println("Καλωσορίσατε, στην εφαρμογή μας!");
@@ -177,7 +176,7 @@ public class UI {
         boolean flag2 = true;
         while (flag) {
 
-            System.out.println("Θα ήθελες να συνδεθείς σε ενα υπάρχων λογαργιασμό η να δημιουργήσεις εναν καινούργιο ? (Σύνδεση/Δημιουργία/Έξοδος) ");
+            System.out.println("Θα ήθελες να συνδεθείς σε ενα υπάρχων λογαριασμό η να δημιουργήσεις έναν καινούργιο ? (Σύνδεση/Δημιουργία/Έξοδος) ");
             boolean flag1 = true;
 
             while (flag1) {
@@ -195,7 +194,7 @@ public class UI {
                         flag1=false;
                         flag2 = false;
                     }
-                    default -> System.out.println("Δεν υπάρχει τέτοια λειτουγία, παρακαλώ δοκιμάστε ξανά");
+                    default -> System.out.println("Δεν υπάρχει τέτοια λειτουργία, παρακαλώ δοκιμάστε ξανά");
                 }
             }
 
@@ -219,7 +218,7 @@ public class UI {
                     customer_options();
                 }
 
-                System.out.println("Θα θέλατε να συνδεθειτέ σε άλλο λογαργιασμό? (Σύνεδση/Έξοδος)");
+                System.out.println("Θα θέλατε να συνδεθείτε σε άλλο λογαριασμό? (Σύνδεση/Έξοδος)");
                 next_string = sc.next();
             }
             if (next_string.equals("Έξοδος")) {
@@ -233,7 +232,7 @@ public class UI {
 
 
     /**
-     * Μέθοδος στην οποία ο χρήστης εισάγει όνομα και κωδικό ,
+     * Μέθοδος στην οποία ο χρήστης εισάγει όνομα και κωδικό
      * και αν αυτά αντιστοιχούν σε ένα αντικείμενο credentials το οποίο είναι δεσμευμένο με κάποιο χρήστη συνδέεται ως αυτός
      */
     public void login() {
@@ -242,12 +241,12 @@ public class UI {
 
         while (flag) {
 
-            System.out.println("Ονομα :");
+            System.out.println("Όνομα :");
             next_string = sc.next();
 
 
 
-            System.out.println("Κωδικος : ");
+            System.out.println("Κωδικός : ");
             next_string2 = sc.next();
             Credentials temp = new Credentials(next_string,next_string2);
 
@@ -261,7 +260,7 @@ public class UI {
 
             user = acc_list.get(temp);
             if (user == null) {
-                System.out.println("The credentials you gave do not match any account, try again");
+                System.out.println("Τα στοιχεία που δώσατε δεν ταιριάζουν σε κανέναν λογαριασμό, προσπαθήστε ξανά");
                 System.out.println("Θέλετε να δοκιμάσετε ξανά; (Ναι/Όχι)");
                 next_string = sc.next();
                 if( next_string.equals("Όχι")) {
@@ -279,7 +278,7 @@ public class UI {
                 }
             }
             else if (user.isActivated()){
-                System.out.println("Καλωσορήσατε στην εφαρμοφή " + user.getName());
+                System.out.println("Καλωσορίσατε στην εφαρμογή " + user.getName());
                 flag = false;
             }
         }
@@ -299,13 +298,13 @@ public class UI {
 
         next_string = ValidCheck("",a);
 
-        System.out.println("Κωδικός :  (ο κωδικος πρεπει να περιεχει και νουμερα , γραμματα και οχι συμβολα!)");
+        System.out.println("Κωδικός :  (ο κωδικός πρέπει να περιέχει και νούμερα , γράμματα και οχι σύμβολα!)");
         next_string2 = sc.next();
         p = Pattern.compile("(([a-zA-Z].*[0-9])|([0-9].*[a-zA-Z]))");
-        next_string2 = ch.validstring(next_string2,p,"Μη εγκυρος Κωδικος");
+        next_string2 = ch.validstring(next_string2,p,"Μη έγκυρος Κωδικός");
         Credentials nea = new Credentials(next_string, next_string2);
 
-        System.out.println("Τι τύπου θα θέλατε να είναι το προφιλ σας; : (παροχος καταλυματων,παροχος ξεναδοχειων,διαχειριστης,πελατης)");
+        System.out.println("Τι τύπου θα θέλατε να είναι το προφίλ σας; : (Πάροχος καταλυμάτων, Ξενοδόχος, Διαχειριστής, Πελάτης)");
         next_string = sc.nextLine();
         next_string2 = sc.nextLine();
         while (flag) {
@@ -313,18 +312,22 @@ public class UI {
             switch (next_string2) {
                 case "Πάροχος καταλυμάτων" -> {
                     neos = new Accommodation_Provider();
+                    neos.setType(next_string2);
                     new_person(neos);
                 }
-                case "Πάροχος ξεναδοχείων" -> {
+                case "Ξενοδόχος" -> {
                     neos = new Hotel_Provider();
+                    neos.setType(next_string2);
                     new_person(neos);
                 }
                 case "Διαχειριστής" -> {
                     neos = new Moderator();
+                    neos.setType(next_string2);
                     new_person(neos);
                 }
                 case "Πελάτης" -> {
                     neos = new Customer();
+                    neos.setType(next_string2);
                     new_person(neos);
                 }
                 default -> {
@@ -337,6 +340,16 @@ public class UI {
         acc_list.put(nea, neos);
         user = neos;
         System.out.println("Καλωσορίσατε  " + user.getName() +"!!");
+
+        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("users.txt",true))) {
+            buffer.write(user.getType() +":" + user.getName() + " - " + "Username" + ":" + nea.getUsername()
+                    +" - " + "Κωδικός" + ":" + nea.getPassword() + " - " + "Τόπος Κατοικίας: " + user.getHome_ground()
+                    + " - " + "Email: " + user.getEmail() + " - " + "Τηλέφωνο Επικοινωνίας: " + user.getPhone_number());
+
+            buffer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -347,14 +360,14 @@ public class UI {
         String a = """
                  Τι θα θέλατε να κάνετε;\s
                  0-Προβολή καταλύματος\s
-                 1-Προβολή καταλύματων\s
+                 1-Προβολή καταλυμάτων\s
                  2-Προσθήκη καταλύματος\s
                  3-Επεξεργασία καταλύματος\s
                  4-Διαγραφή καταλύματος\s
                  5-Συνολικές κρατήσεις\s
                  6-Συνολικές ακυρώσεις\s
                  7-Συνολικό εισόδημα\s
-                 8-Μυνήματα\s
+                 8-Μηνύματα\s
                  9-Επεξεργασία στοιχείων\s
                  10-Έξοδος""";
         System.out.println(a);
@@ -463,14 +476,14 @@ public class UI {
         Collection<Person> people = acc_list.values();
         String a = """
                 Τι θα θέλατε να κάνετε?\s
-                 0-ΠροβολΉ Καταλυμάτων και Ξεναδοχείων\s
+                 0-Προβολή Καταλυμάτων και Ξενοδοχείων\s
                  1-Προβολή των κρατήσεων μου\s
                  2-Προβολή των ακυρώσεων μου\s
                  3-Κράτηση καταλύματος\s
-                 4-Κράτηση Ξεναδοχείου\s
+                 4-Κράτηση Ξενοδοχείου\s
                  5-Ακύρωση κράτησης καταλύματος\s
-                 6-Ακύρωση κράτησης ξεναδοχείου\s
-                 7-Μυνήματα\s
+                 6-Ακύρωση κράτησης ξενοδοχείου\s
+                 7-Μηνύματα\s
                  8-Επεξεργασία στοιχείων\s
                  9-Έξοδος""";
         System.out.println(a);
@@ -503,12 +516,12 @@ public class UI {
      * @return Το μοναδικό username
      */
     private String ValidCheck(String s,Object[] a) {
-        System.out.println("Ονομα :");
+        System.out.println("Username :");
         next_string = sc.next();
         for (Object o : a) {
             Credentials c = (Credentials) o;
             if (next_string.equals(c.getUsername())) {
-                System.out.println("Το όνομα αυτό υπάρχει ήδη, δοκιμάστε ξανά");
+                System.out.println("Το username αυτό υπάρχει ήδη, δοκιμάστε ξανά");
                 next_string = ValidCheck(next_string, a);
             }
         }
@@ -520,7 +533,6 @@ public class UI {
      * @param  neos User του οποίου θα ενημερώσουμε τα στοιχεία του
      */
     private void new_person(Person neos) {
-
 
         System.out.println("Όνομα :");
         next_string2 = sc.nextLine();
