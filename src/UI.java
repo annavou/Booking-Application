@@ -16,7 +16,7 @@ public class UI {
 
     HashMap<Credentials, Person> acc_list = new HashMap<>();
 
-
+    Credentials usercred;
     Person user;
     Accommodation_Provider user_acc;
     Hotel_Provider user_hot ;
@@ -88,8 +88,8 @@ public class UI {
         try(BufferedWriter buffer= new BufferedWriter(new FileWriter("users.txt"))){
             for (HashMap.Entry<Credentials, Person> entry : acc_list.entrySet()) {
 
-                buffer.write(entry.getValue().getType() +":" + entry.getValue().getName() + " - " + "Username" + ":" + entry.getKey().getUsername()
-                       +" - " + "Κωδικός" + ":" + entry.getKey().getPassword() + " - " + "Τόπος Κατοικίας: " + entry.getValue().getHome_ground()
+                buffer.write( "Username" + ":" + entry.getKey().getUsername()
+                       +" - " + "Κωδικός" + ":" + entry.getKey().getPassword() + " - " + entry.getValue().getType() +":" + entry.getValue().getName()   + " - " + "Τόπος Κατοικίας: " + entry.getValue().getHome_ground()
                        + " - " + "Email: " + entry.getValue().getEmail() + " - " + "Τηλέφωνο Επικοινωνίας: " + entry.getValue().getPhone_number());
 
                 buffer.newLine();
@@ -169,7 +169,7 @@ public class UI {
     /**
      *Μέθοδος στην οποία ο χρήστης διαλέγει γιατί θέλει να κάνει σύνδεση η εγγραφή και έπειτα καλεί τη μέθοδο με τις επιλογές ανάλογα το είδος του χρήστη
      */
-    public void start() {
+    public void start() throws IOException {
         System.out.println("Καλωσορίσατε, στην εφαρμογή μας!");
 
         boolean flag = true;
@@ -241,7 +241,7 @@ public class UI {
 
         while (flag) {
 
-            System.out.println("Όνομα :");
+            System.out.println("Username :");
             next_string = sc.next();
 
 
@@ -257,7 +257,7 @@ public class UI {
                 }
             }
 
-
+            usercred=temp;
             user = acc_list.get(temp);
             if (user == null) {
                 System.out.println("Τα στοιχεία που δώσατε δεν ταιριάζουν σε κανέναν λογαριασμό, προσπαθήστε ξανά");
@@ -342,8 +342,8 @@ public class UI {
         System.out.println("Καλωσορίσατε  " + user.getName() +"!!");
 
         try(BufferedWriter buffer=new BufferedWriter(new FileWriter("users.txt",true))) {
-            buffer.write(user.getType() +":" + user.getName() + " - " + "Username" + ":" + nea.getUsername()
-                    +" - " + "Κωδικός" + ":" + nea.getPassword() + " - " + "Τόπος Κατοικίας: " + user.getHome_ground()
+            buffer.write( "Username" + ":" + nea.getUsername() +" - " + "Κωδικός" + ":" + nea.getPassword()
+                    + " - " + user.getType() +":" + user.getName() +" - "+ "Τόπος Κατοικίας: " + user.getHome_ground()
                     + " - " + "Email: " + user.getEmail() + " - " + "Τηλέφωνο Επικοινωνίας: " + user.getPhone_number());
 
             buffer.newLine();
@@ -356,7 +356,7 @@ public class UI {
     /**
      * Μέθοδος στην οποία ο χρήστης ως accommodation provider διαλέγει ποια λειτουργία θέλει να εκτελέσει
      */
-    private void accommodation_prov() {
+    private void accommodation_prov() throws IOException {
         String a = """
                  Τι θα θέλατε να κάνετε;\s
                  0-Προβολή καταλύματος\s
@@ -385,7 +385,7 @@ public class UI {
                 case "6" -> user_acc.sum_resv_cancel();
                 case "7" -> user_acc.sum_income();
                 case "8" -> user_acc.message(acc_list.values());
-                case "9"-> user_acc.info_edit();
+                case "9"-> user_acc.info_edit(usercred);
             }
             System.out.println(a);
             next_string = sc.next();
@@ -396,7 +396,7 @@ public class UI {
     /**
      * Μέθοδος στην οποία ο χρήστης ως hotel provider διαλέγει ποια λειτουργία θέλει να εκτελέσει
      */
-    private void hotel_prov() {
+    private void hotel_prov() throws IOException {
         String a = """
                  Τι θα θέλατε να κάνετε;\s
                  0-Προβολή Ξεναδοχείου\s
@@ -425,7 +425,7 @@ public class UI {
                 case "6" -> user_hot.sum_resv_cancel();
                 case "7" -> user_hot.sum_income();
                 case "8" -> user_hot.message(acc_list.values());
-                case "9" -> user_hot.info_edit();
+                case "9" -> user_hot.info_edit(usercred);
             }
             System.out.println(a);
             next_string = sc.next();
@@ -437,7 +437,7 @@ public class UI {
     /**
      * Στην οποία ο χρήστης ως moderator διαλέγει ποια λειτουργία θέλει να εκτελέσει
      */
-    private void modder() {
+    private void modder() throws IOException {
         String a = """
                 Τι θα θέλατε να κάνετε?\s
                  0-Προβολή Χρηστών\s
@@ -462,7 +462,7 @@ public class UI {
                 case "4" -> mod.see_all_resv_cancel(acc_list.values());
                 case "5" -> mod.resv_canc(acc_list.values());
                 case "6" -> mod.message(acc_list.values());
-                case "7" -> mod.info_edit();
+                case "7" -> mod.info_edit(usercred);
             }
             System.out.println(a);
             next_string = sc.next();
@@ -472,7 +472,7 @@ public class UI {
     /**
      * Μέθοδος την οποία ο χρήστης ως πελάτης διαλέγει ποια λειτουργία θέλει να εκτελέσει
      */
-    private void customer_options() {
+    private void customer_options() throws IOException {
         Collection<Person> people = acc_list.values();
         String a = """
                 Τι θα θέλατε να κάνετε?\s
@@ -500,7 +500,7 @@ public class UI {
                 case "5" -> customer.resv_canc_acc();
                 case "6" -> customer.resv_canc_hot();
                 case "7" -> customer.message(people);
-                case "8" -> customer.info_edit();
+                case "8" -> customer.info_edit(usercred);
             }
             System.out.println(a);
             next_string = sc.next();

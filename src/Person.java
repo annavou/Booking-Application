@@ -3,6 +3,12 @@
  * να αναζητήσει ένα κατάλυμα ή ξενοδοχείο
  */
 
+import com.sun.nio.file.ExtendedCopyOption;
+
+import java.awt.image.ReplicateScaleFilter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
@@ -63,12 +69,10 @@ public class Person {
         Activated = activated;
     }
 
-    public String getType(){
-        return Type;
-    }
+    public String getType(){return Type;}
 
-    public void setType(String atype){
-        Type=atype;
+    public void setType(String type){
+        Type=type;
     }
 
     public String getName() {
@@ -241,7 +245,7 @@ public class Person {
     /**
      * μέθοδος για την επεξεργασία και την αλλαγή των στοιχείων του χρήστη
      */
-    public void info_edit() {
+    public void info_edit(Credentials c) throws IOException {
         Pattern p ;
         Checker ch = new Checker();
         String dump  ;
@@ -251,7 +255,7 @@ public class Person {
 
             next_string = sc.next();
             switch (next_string) {
-                case "Όνομα " -> {
+                case "Όνομα" -> {
                     System.out.println("Δώστε το νέο όνομα:");
                     dump = sc.nextLine();
                     next_string = sc.nextLine();
@@ -281,5 +285,46 @@ public class Person {
             }
         }
         this.show_person();
+
+        String start= "Username:"+c.getUsername();
+
+        BufferedReader reader = new BufferedReader(new FileReader("users.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
+
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            if(currentLine.contains(start)) continue;
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        writer.close();
+
+        File temp = new File("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+        File users=new File("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\users.txt");
+
+        // renaming the file and moving it to a new location
+        if(temp.renameTo(users))
+        {
+            // if file copied successfully then delete the original file
+            temp.delete();
+            System.out.println("File moved successfully");
+        }
+        else
+        {
+            System.out.println("Failed to move the file");
+        }
+
+        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("users.txt",true))) {
+            buffer.write("Username" + ":" + c.getUsername()
+                    +" - " + "Κωδικός" + ":" + c.getPassword() + " - " + this.getType() +":" + this.getName()   + " - " + "Τόπος Κατοικίας: " + this.getHome_ground()
+                    + " - " + "Email: " + this.getEmail() + " - " + "Τηλέφωνο Επικοινωνίας: " + this.getPhone_number());
+
+            buffer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
