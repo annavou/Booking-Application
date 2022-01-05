@@ -23,6 +23,7 @@ public class Customer extends Person {
     LocalDate from = null;
     LocalDate till = null ;
 
+    String name="";
 
     /**
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
@@ -334,7 +335,7 @@ public class Customer extends Person {
         while (!next_string.equals("γ") && !next_string.equals("δ")) {
             switch (next_string) {
                 case "0" -> {
-                    Accommodation a = search_acc(temp);
+                    Accommodation a = (Accommodation) search_acc(temp);
                     temp.removeIf(z -> !z.equals(a));
                 }
                 case "1" -> {
@@ -481,7 +482,7 @@ public class Customer extends Person {
                 availiable = temp;
             }
         }
-        accommodation = search_acc(availiable);
+        accommodation = (Accommodation) search_acc(availiable);
         if(accommodation==null){
             System.out.println("Δεν υπάεχει τέτοιο κατάλυμα");
         }

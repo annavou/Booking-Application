@@ -3,6 +3,11 @@
  * να δεί τα καταλύματα του, να κάνει αλλαγές αν επιθυμεί σε κάποιο, να δεί τις κρατήσεις του καθώς και τις ακυρώσεις του.
  */
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -13,7 +18,6 @@ public class Accommodation_Provider extends Person{
     ArrayList<Accommodation> Accommodations = new ArrayList<>();
 
     Accommodation acc ;
-
 
     /**
      * Ο προκαθορισμένος κατασκευαστής
@@ -56,7 +60,7 @@ public class Accommodation_Provider extends Person{
     /**
      * μέθοδος με την οποία ο πάροχος κάνει επεξεργασία ένα κατάλυμα
      */
-    public void Accomodation_Edit() {
+    public void Accomodation_Edit() throws IOException {
         boolean flag = true;
 
         acc = search_acc(Accommodations);
@@ -177,6 +181,59 @@ public class Accommodation_Provider extends Person{
                 }
             }
         }
+
+        String start= "Κατάλυμα:"+acc.getName();
+
+        BufferedReader reader = new BufferedReader(new FileReader("accommodations.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp2.txt"));
+
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            if(currentLine.contains(start)) continue;
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        writer.close();
+        reader.close();
+
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp2.txt");
+
+        try {
+            Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){
+            buffer.write("Κατάλυμα:" + acc.getName()+" - "+ "Τοποθεσία: " + acc.getLocation() + " - "+ "Τιμή ανα βράδυ: " + acc.getPrice() + "$"
+                    + " - " + "Τετραγωνικά δωματίου: " + acc.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + acc.getCapacity() +"άτομα"
+                    + " - " + "Αστέρια Δωματίου: " + acc.getStars() +" - "+ "Το κατάλυμα προσφέρει: ");
+
+            if(acc.isAc()){
+                buffer.write("Κλιματισμό ");
+            }
+            if(acc.isBreakfast()){
+                buffer.write("Πρωινό ");
+            }
+            if (acc.isCleaning_services()){
+                buffer.write("Υπηρεσίες Καθαρισμού ");
+            }
+            if (acc.isParking()){
+                buffer.write("Parking ");
+            }
+            if(acc.isWifi()){
+                buffer.write("Wifi.");
+            }
+            buffer.newLine();
+            buffer.flush();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -269,17 +326,70 @@ public class Accommodation_Provider extends Person{
         Accommodation temp = new Accommodation(aname,alocation,aprice,asqmeter,astars,arooms,acapacity,abreakfast,awifi,aac,aparkin,acleaning_services);
         Accommodations.add(temp);
         temp.show_accommodation();
+
+        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){
+            buffer.write("Κατάλυμα:" + temp.getName()+" - "+ "Τοποθεσία: " + temp.getLocation() + " - "+ "Τιμή ανα βράδυ: " + temp.getPrice() + "$"
+                    + " - " + "Τετραγωνικά δωματίου: " + temp.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + temp.getCapacity() +"άτομα"
+                    + " - " + "Αστέρια Δωματίου: " + temp.getStars() +" - "+ "Το κατάλυμα προσφέρει: ");
+
+            if(temp.isAc()){
+                buffer.write("Κλιματισμό ");
+            }
+            if(temp.isBreakfast()){
+                buffer.write("Πρωινό ");
+            }
+            if (temp.isCleaning_services()){
+                buffer.write("Υπηρεσίες Καθαρισμού ");
+            }
+            if (temp.isParking()){
+                buffer.write("Parking ");
+            }
+            if(temp.isWifi()){
+                buffer.write("Wifi.");
+            }
+            buffer.newLine();
+            buffer.flush();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * μέθοδος με την οποία ο πάροχος διγράφει ένα απο τα καταλύματα του
      */
-    public void Accommodation_delete() {
+    public void Accommodation_delete() throws IOException {
         acc = search_acc(Accommodations);
         if (acc == null){
             return;
         }
         Accommodations.remove(acc);
+
+        String start= "Κατάλυμα:"+acc.getName();
+
+        BufferedReader reader = new BufferedReader(new FileReader("accommodations.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp2.txt"));
+
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            if(currentLine.contains(start)) continue;
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        writer.close();
+        reader.close();
+
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp2.txt");
+
+        try {
+            Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

@@ -3,16 +3,17 @@
  * να αναζητήσει ένα κατάλυμα ή ξενοδοχείο
  */
 
-import com.sun.nio.file.ExtendedCopyOption;
-
-import java.awt.image.ReplicateScaleFilter;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
 
 public class Person {
 
@@ -123,7 +124,7 @@ public class Person {
         next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
         if( Integer.parseInt(next_string) > 0 && Integer.parseInt(next_string) <= accommodations.size()){
             acc = accommodations.get(Integer.parseInt(next_string) -1);
-            return acc ;
+            return acc;
         }
         else {
             System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Κατάλυμα");
@@ -301,20 +302,15 @@ public class Person {
         }
 
         writer.close();
+        reader.close();
 
-        File temp = new File("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-        File users=new File("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\users.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
-        // renaming the file and moving it to a new location
-        if(temp.renameTo(users))
-        {
-            // if file copied successfully then delete the original file
-            temp.delete();
-            System.out.println("File moved successfully");
+        try {
+            Files.move(oldFile, oldFile.resolveSibling("users.txt"), StandardCopyOption.REPLACE_EXISTING);
         }
-        else
-        {
-            System.out.println("Failed to move the file");
+        catch (IOException e) {
+           e.printStackTrace();
         }
 
         try(BufferedWriter buffer=new BufferedWriter(new FileWriter("users.txt",true))) {
