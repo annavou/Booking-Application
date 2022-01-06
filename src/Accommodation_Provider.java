@@ -69,6 +69,32 @@ public class Accommodation_Provider extends Person{
             return;
         }
 
+        String start= "Κατάλυμα:"+acc.getName();
+
+        BufferedReader reader = new BufferedReader(new FileReader("accommodations.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp2.txt"));
+
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            if(currentLine.contains(start)) continue;
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        writer.close();
+        reader.close();
+
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp2.txt");
+
+        try {
+            Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Τι θα ήθελες να αλλάξεις");
         next_string = sc.next();
 
@@ -180,32 +206,6 @@ public class Accommodation_Provider extends Person{
                     flag = !next_string.equals("οχι");
                 }
             }
-        }
-
-        String start= "Κατάλυμα:"+acc.getName();
-
-        BufferedReader reader = new BufferedReader(new FileReader("accommodations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp2.txt"));
-
-
-        String currentLine;
-
-        while((currentLine = reader.readLine()) != null) {
-            if(currentLine.contains(start)) continue;
-            writer.write(currentLine);
-            writer.newLine();
-        }
-
-        writer.close();
-        reader.close();
-
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp2.txt");
-
-        try {
-            Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
         }
 
 
