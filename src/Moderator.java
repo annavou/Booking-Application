@@ -3,6 +3,11 @@
  * Ο διαχειριστής έχει πρόσβαση στους χρήστες στις κρατήσεις μπορεί να ακύρωση κράτησης,
  * καθώς και να ενεργοποιήσει η να απενεργοποιήσει προφίλ άλλων χρηστών.
  */
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
@@ -72,8 +77,7 @@ public class Moderator extends Person{
         next_string = "1";
         while (!next_string.equals("2")){
 
-            System.out.println("Θελετε να ενεγοποιήσετε η να απενροποιήσετε κανενα? (0-ενεργοποιήση/1-απενεργοποιήση/2-εξοδος)");
-
+            System.out.println("Θέλετε να ενεργοποιήσετε η να απενεργοποιήσετε κανένα? (0-ενεργοποίηση/1-απενεργοποίηση/2-έξοδος)");
             p = Pattern.compile("[0-2]");
             next_string = sc.next();
             next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -129,9 +133,9 @@ public class Moderator extends Person{
      * Μέθοδος στην οποία μπορεί να ακυρώσει κρατήσεις
      * @param People Συλλογή με όλους τους χρήστες
      */
-    public void resv_canc(Collection<Person> People){
+    public void resv_canc(Collection<Person> People) throws IOException {
         Reservations to_cancel = new Reservations();
-        System.out.println("Θέλετε να ακυρώσετε κράτηση ξεναδοχείου η καταλύματος(0-ξεναδοχελιου/1-καταλύματος)");
+        System.out.println("Θέλετε να ακυρώσετε κράτηση ξενοδοχείου η καταλύματος(0-ξενοδοχείου/1-καταλύματος)");
         next_string = sc.next();
         p = Pattern.compile("[0-1]");
         next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -147,7 +151,7 @@ public class Moderator extends Person{
      *Μέθοδος ακύρωσης κράτησης καταλύματος
      * @param People Συλλογή με όλους τους χρήστες
      */
-    private void acc_canc(Collection<Person> People) {
+    private void acc_canc(Collection<Person> People) throws IOException {
         boolean flag = true;
         ArrayList<Reservations> resevrs = new ArrayList<>();
         for (Person p : People) {
@@ -163,7 +167,7 @@ public class Moderator extends Person{
         }
         while (flag) {
             flag = false;
-            System.out.println("Ποιά κράτηση θέλετε να ακυρώσετε? (Δωστε νουμερο)");
+            System.out.println("Ποία κράτηση θέλετε να ακυρώσετε? (Δώστε νούμερο)");
             next_string = sc.next();
             p = Pattern.compile(".*[0-9]");
             next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -189,6 +193,42 @@ public class Moderator extends Person{
                     }
             }
         }
+
+        String start= "Κατάλυμα "+ to_cancel.getAcc().getName();
+        System.out.println(start);
+
+        BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp4.txt"));
+
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            if(currentLine.contains(start)) continue;
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        writer.close();
+        reader.close();
+
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp4.txt");
+
+        try {
+            Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("cancellations.txt",true))){
+            buffer.write("Ακυρώθηκε η κράτηση για το κατάλυμα " + to_cancel.getAcc().getName() + " από " + to_cancel.getStart()
+                    + " έως " + to_cancel.getEnd() +  " πελάτης " + to_cancel.getCustomer().getName());
+            buffer.newLine();
+            buffer.flush();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -196,7 +236,7 @@ public class Moderator extends Person{
      *Μέθοδος ακύρωσης κράτησης ξενοδοχείου
      * @param People Συλλογή με όλους τους χρήστες
      */
-    private void hot_canc(Collection<Person> People) {
+    private void hot_canc(Collection<Person> People) throws IOException {
         boolean flag = true;
         ArrayList<Reservations> resevrs = new ArrayList<>();
         for (Person p : People) {
@@ -213,7 +253,7 @@ public class Moderator extends Person{
         }
         while (flag) {
             flag = false;
-            System.out.println("Ποιά κράτηση θέλετε να ακυρώσετε? (Δωστε νουμερο)");
+            System.out.println("Ποία κράτηση θέλετε να ακυρώσετε? (Δώστε νούμερο)");
             next_string = sc.next();
             p = Pattern.compile(".*[0-9]");
             next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -240,6 +280,43 @@ public class Moderator extends Person{
                         }
             }
         }
+
+        String start= "Ξενοδοχείο "+ to_cancel.getHotel().getName();
+        String roo= "Δωμάτιο " + to_cancel.getHot().getName();
+
+        BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp4.txt"));
+
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            if(currentLine.contains(start) && currentLine.contains(roo)) continue;
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        writer.close();
+        reader.close();
+
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp4.txt");
+
+        try {
+            Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("cancellations.txt",true))){
+            buffer.write("Ακυρώθηκε η κράτηση για το Ξενοδοχείο " + to_cancel.getHotel().getName() + " από " + to_cancel.getStart()
+                    + " έως " + to_cancel.getEnd() +  " πελάτης " + to_cancel.getCustomer().getName());
+            buffer.newLine();
+            buffer.flush();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
 
