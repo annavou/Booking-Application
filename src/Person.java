@@ -1,5 +1,5 @@
 /**
- * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστηκά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μυνήματα που έχει και
+ * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστικά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μηνύματα που έχει και
  * να αναζητήσει ένα κατάλυμα ή ξενοδοχείο
  */
 
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -60,6 +60,15 @@ public class Person {
         messages.add("Καλωσόρισες " + getName() + "!!");
         messages_count = 0;
         Activated = false;
+
+        try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){
+            buffer.write("Μήνυμα: " + "Καλωσόρισες " + getName() + "!!" + " - " + "Παραλήπτης: "
+                    + Name +" - " + "Αποστολέας: mybooking");
+            buffer.newLine();
+            buffer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isActivated() {
@@ -192,7 +201,7 @@ public class Person {
     public void message_send(Collection<Person> acc_list) {
 
         Person temp = new Person();
-        System.out.println("Σε ποιον χρήστη θα ήθελες να στείλεις μήνυμα?");
+        System.out.println("Σε ποιον χρήστη θα ήθελες να στείλεις μήνυμα; Όνομα χρήστη:");
         next_string = sc.next();
         for (Person p : acc_list) {
             if (p.getName().equals(next_string)) {
@@ -201,18 +210,26 @@ public class Person {
         }
         System.out.println("Γράψτε το μήνυμα σας :");
         next_string = sc.next();
-        next_string = sc.nextLine();
+        //next_string = sc.nextLine();
         temp.messages.add(next_string);
+
+        try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){
+            buffer.write("Μήνυμα: " + next_string + " - " + "Παραλήπτης: " + temp.getName() +" - " + "Αποστολέας: " + this.Name);
+            buffer.newLine();
+            buffer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή, την προβολή, τη διαγραφή ή υην έξοδο απο τα μηνύματα
+     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή, την προβολή, τη διαγραφή ή την έξοδο απο τα μηνύματα
      * @param acc_list λίστα με τα μηνύματα
      */
-    public void message(Collection<Person> acc_list) {
+    public void message(Collection<Person> acc_list) throws IOException {
         boolean flag = true;
         while (flag) {
-            System.out.println("Θα θέλατε να δείτε να στείλετε να διαγράψετε μήνυμα?  (αποστολή,προβολή,διαγραφή,έξοδος)");
+            System.out.println("Θα θέλατε να δείτε να στείλετε να διαγράψετε μήνυμα?  (Αποστολή,Προβολή,Διαγραφή,Έξοδος)");
 
             next_string = sc.next();
             switch (next_string) {
@@ -226,12 +243,39 @@ public class Person {
     }
 
     /**
-     * μέθοδος που διγράφει ένα μήνυμα
+     * μέθοδος που διαγράφει ένα μήνυμα
      */
-    private void messages_delete() {
+    private void messages_delete() throws IOException {
         messages_view();
         System.out.println("Ποίο θα θέλατε να σβήσετε?");
         next_int = sc.nextInt();
+
+        String start= "Μήνυμα: "+ messages.get(next_int-1);
+
+        BufferedReader reader = new BufferedReader(new FileReader("messages.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp5.txt"));
+
+
+        String currentLine;
+
+        while((currentLine = reader.readLine()) != null) {
+            if(currentLine.contains(start)) continue;
+            writer.write(currentLine);
+            writer.newLine();
+        }
+
+        writer.close();
+        reader.close();
+
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp5.txt");
+
+        try {
+            Files.move(oldFile, oldFile.resolveSibling("messages.txt"), StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
         messages.remove(next_int - 1);
     }
 

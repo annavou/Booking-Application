@@ -559,7 +559,6 @@ public class Customer extends Person {
 
 
         String start= "Κατάλυμα "+ to_cancel.getAcc().getName();
-        System.out.println(start);
 
         BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
         BufferedWriter writer = new BufferedWriter(new FileWriter("temp4.txt"));

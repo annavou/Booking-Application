@@ -44,8 +44,8 @@ public class UI {
      */
     public void initialize() {
 
-        Hotel_Provider p1 = new Hotel_Provider("Ξενοδόχος","Γιάννης Παπαδόπουλος", "Ελλάδα", "6940519933", "giannhs@gmail.com");
-        Accommodation_Provider p2 = new Accommodation_Provider("Πάροχος Καταλύματος","Maria McArthur", "USA", "0054861839", "mariamc@gmail.com");
+        Hotel_Provider p1 = new Hotel_Provider("Ξενοδόχος","Γιάννης_Παπαδόπουλος", "Ελλάδα", "6940519933", "giannhs@gmail.com");
+        Accommodation_Provider p2 = new Accommodation_Provider("Πάροχος Καταλύματος","Maria_McArthur", "USA", "0054861839", "mariamc@gmail.com");
 
         Credentials c1 = new Credentials("giannis_pap", "12345");
         Credentials c2 = new Credentials("maria_mc", "67890");
@@ -53,11 +53,11 @@ public class UI {
         acc_list.put(c1, p1);
         acc_list.put(c2, p2);
 
-        Moderator p3 = new Moderator("Διαχειριστής","Ouzi Makris","Germany","5467538428","ouzi@gmail.com");
+        Moderator p3 = new Moderator("Διαχειριστής","Ouzi_Makris","Germany","5467538428","ouzi@gmail.com");
         Credentials c3 = new Credentials("ouzi_mak","10032002");
         acc_list.put(c3,p3);
 
-        Customer p4 = new Customer("Πελάτης","Γιώργος Παπαχαραλαμπόπουλος","Θεσσαλονίκη","4354","georgepap@gmail.com");
+        Customer p4 = new Customer("Πελάτης","Γιώργος_Παπαχαραλαμπόπουλος","Θεσσαλονίκη","6940523697","georgepap@gmail.com");
         Credentials c4 = new Credentials("geo_papaxar","123456");
         acc_list.put(c4,p4);
         p2.setActivated(true);
@@ -104,6 +104,13 @@ public class UI {
         }catch (IOException ex){
             ex.printStackTrace();
         }
+
+        try(BufferedReader buffer= new BufferedReader(new FileReader("messages.txt"))){
+            String line=buffer.readLine();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
     }
 
     /**
