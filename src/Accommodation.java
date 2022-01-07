@@ -1,5 +1,5 @@
 /**
- *Αυτή η κλάση αναπαριστά ένα κατάλυμα με τα χαρακτηριστηκά του και τις παροχές του
+ *Αυτή η κλάση αναπαριστά ένα κατάλυμα με τα χαρακτηριστικά του και τις παροχές του
  */
 
 import java.util.ArrayList;
@@ -60,11 +60,11 @@ public class Accommodation {
 
 
     /**
-     * μέθοδος που εμφανίζει το κατάλυμα και τα χαρακτηριστηκά του
+     * μέθοδος που εμφανίζει το κατάλυμα και τα χαρακτηριστικά του
      */
     public void show_accommodation() {
         System.out.println("Κατάλυμα '" + name +"' ,Στην "+ location + " είναι " + sqmeter + "τμ, έχει " + rooms + "δωμάτια, είναι για " + capacity +" άτομα, και έχει " + stars +" αστέρια");
-        System.out.println(hasBreakfast() + "Πρωίνο\n" + hasWifi()+"Wifi\n"+hasParking()+"Parking\n"+hasAc()+"Air conditioner\n"+hasCleaningservice()+"Υπηρεσία καθαρισμού");
+        System.out.println(hasBreakfast() + "Πρωινό\n" + hasWifi()+"Wifi\n"+hasParking()+"Parking\n"+hasAc()+"Air conditioner\n"+hasCleaningservice()+"Υπηρεσία καθαρισμού");
         System.out.println("Τιμή: "+price+"$ ανα Βράδυ\n");
     }
 

@@ -1,4 +1,5 @@
-Username:ouzi_mak - Κωδικός:10032002 - Διαχειριστής:Ouzi Makris - Τόπος Κατοικίας: Germany - Email: ouzi@gmail.com - Τηλέφωνο Επικοινωνίας: 5467538428
-Username:geo_papaxar - Κωδικός:123456789 - Πελάτης:Γιώργος Παπαχαραλαμπόπουλος - Τόπος Κατοικίας: Θεσσαλονίκη - Email: georgepap@gmail.com - Τηλέφωνο Επικοινωνίας: 4354
 Username:maria_mc - Κωδικός:67890 - Πάροχος Καταλύματος:Maria McArthur - Τόπος Κατοικίας: USA - Email: mariamc@gmail.com - Τηλέφωνο Επικοινωνίας: 0054861839
 Username:giannis_pap - Κωδικός:12345 - Ξενοδόχος:Γιάννης Παπαδόπουλος - Τόπος Κατοικίας: Ελλάδα - Email: giannhs@gmail.com - Τηλέφωνο Επικοινωνίας: 6940519933
+Username:ouzi_mak - Κωδικός:10032002 - Διαχειριστής:Ouzi Makris - Τόπος Κατοικίας: Germany - Email: ouzi@gmail.com - Τηλέφωνο Επικοινωνίας: 5467538428
+Username:geo_papaxar - Κωδικός:123456 - Πελάτης:Γιώργος Παπαχαραλαμπόπουλος - Τόπος Κατοικίας: Θεσσαλονίκη - Email: georgepap@gmail.com - Τηλέφωνο Επικοινωνίας: 4354
+

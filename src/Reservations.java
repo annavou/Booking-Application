@@ -9,8 +9,9 @@ public class Reservations {
 
     protected LocalDate start;
     protected LocalDate end ;
-    protected String customer_name;
+    protected Customer customer;
     protected Accommodation acc;
+    protected Hotel hotel;
     protected Hotel_room hot ;
 
     /**
@@ -19,17 +20,18 @@ public class Reservations {
     public Reservations(){
         start = null;
         end = null ;
-        customer_name = null ;
+        customer = null ;
     }
 
     /**
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      */
-    public Reservations(LocalDate a, LocalDate b,String name,Accommodation accom,Hotel_room hr){
+    public Reservations(LocalDate a, LocalDate b,Customer cus,Accommodation accom,Hotel h,Hotel_room hr){
         start = a ;
         end = b ;
-        customer_name = name ;
+        customer = cus ;
         acc = accom;
+        hotel=h;
         hot = hr;
     }
 
@@ -49,34 +51,34 @@ public class Reservations {
         this.end = end;
     }
 
-    public String getCustomer_name() {
-        return customer_name;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomer_name(String customer_name) {
-        this.customer_name = customer_name;
-    }
+    public void setCustomer(Customer customer) {this.customer = customer;}
 
-    public Accommodation getAcc() {
-        return acc;
-    }
+    public Accommodation getAcc() {return acc;}
 
-    public void setAcc(Accommodation acc) {
-        this.acc = acc;
-    }
+    public void setAcc(Accommodation acc) {this.acc = acc;}
 
-    public Hotel_room getHot() {
-        return hot;
-    }
+    public Hotel getHotel(){return hotel;}
 
-    public void setHot(Hotel_room hot) {
-        this.hot = hot;
-    }
+    public void setHotel(Hotel h){hotel=h;}
+
+    public Hotel_room getHot() {return hot;}
+
+    public void setHot(Hotel_room hot) {this.hot = hot;}
 
     /**
      * μέθοδος που εμφανίζει τα χαρακτηριστικά μιας κράτησης
      */
     public void show(){
-        System.out.println(start.getDayOfMonth()+"/"+start.getMonth()+"/"+start.getYear()+" - "+end.getDayOfMonth()+"/"+end.getMonth()+"/"+end.getYear() +" απο τον "+customer_name);
+        System.out.println(start.getDayOfMonth()+"/"+start.getMonth()+"/"+start.getYear()+" - "
+                +end.getDayOfMonth()+"/"+end.getMonth()+"/"+end.getYear() +" στο " );
+        if(this.getHotel()!=null){
+            System.out.println( "ξενοδοχείο " + this.getHotel().getName());
+        }else {
+            System.out.println("κατάλυμα " + this.getAcc().getName());
+        }
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Αυτή η κλάση αναπαριστά έναν πάροχο καταλύματος με τα χαρακτηριστηκά του, ο οποίος μπορεί να προσθέσει το κατάλυμα του,
+ * Αυτή η κλάση αναπαριστά έναν πάροχο καταλύματος με τα χαρακτηριστικά του, ο οποίος μπορεί να προσθέσει το κατάλυμα του,
  * να δεί τα καταλύματα του, να κάνει αλλαγές αν επιθυμεί σε κάποιο, να δεί τις κρατήσεις του καθώς και τις ακυρώσεις του.
  */
 
@@ -41,12 +41,12 @@ public class Accommodation_Provider extends Person{
             flag = false;
         }
         if (flag){
-            System.out.println("Δεν έχετε καταχωριμένα καταλύματα");
+            System.out.println("Δεν έχετε καταχωρημένα καταλύματα");
         }
     }
 
     /**
-     * μέθοδος με την οποία ο πάροχος βλέπει ένα συγγεκριμένο απο τα καταλύματα του
+     * μέθοδος με την οποία ο πάροχος βλέπει ένα συγκεκριμένο απο τα καταλύματα του
      */
     public void Accomodations_Display(){
         Accommodation acc = search_acc(Accommodations);
@@ -102,7 +102,7 @@ public class Accommodation_Provider extends Person{
             flag = false;
             switch (next_string) {
                 case "Όνομα" -> {
-                    System.out.println("Δώσε το καινούργιο ονομα:");
+                    System.out.println("Δώσε το καινούργιο όνομα:");
                     next_string = sc.next();
                     acc.setName(next_string);
                     acc.show_accommodation();
@@ -117,7 +117,7 @@ public class Accommodation_Provider extends Person{
                     System.out.println("Δώσε την καινούργια τιμή:");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρη τιμή");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
                     acc.setPrice(next_string);
                     acc.show_accommodation();
                 }
@@ -125,15 +125,15 @@ public class Accommodation_Provider extends Person{
                     System.out.println("Δώσε τα καινούργια τετραγωνικά:");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρα τετραγωνικά");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρα τετραγωνικά");
                     acc.setSqmeter(next_string);
                     acc.show_accommodation();
                 }
                 case "Αστέρια" -> {
-                    System.out.println("Δώσε τα καινούργια αστέργια");
+                    System.out.println("Δώσε τα καινούργια αστέρια");
                     next_string = sc.next();
                     p = Pattern.compile("[0-5]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρα αστεργια");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρα αστέρια");
                     acc.setStars(next_string);
                     acc.show_accommodation();
                 }
@@ -141,15 +141,15 @@ public class Accommodation_Provider extends Person{
                     System.out.println("Δώσε τα καινούργια δωμάτια:");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρος αριθμος δωματίων");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρος αριθμός δωματίων");
                     acc.setRooms(next_string);
                     acc.show_accommodation();
                 }
                 case "Χωρητικότητα" -> {
-                    System.out.println("Δώσε τη καινούργια χωρητικότητα σε ατομα: (0-ΟΧΙ/1-ΝΑΙ)");
+                    System.out.println("Δώσε τη καινούργια χωρητικότητα σε άτομα: (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρη χωρητικοτητα ");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρη χωρητικότητα ");
                     acc.setCapacity(next_string);
                     acc.show_accommodation();
                 }
@@ -157,7 +157,7 @@ public class Accommodation_Provider extends Person{
                     System.out.println("Θα παρέχει το κατάλυμα ac? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρη Τιμή");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρη Τιμή");
                     next_bool = next_string.equals("1");
                     acc.setAc(next_bool);
                     acc.show_accommodation();
@@ -175,7 +175,7 @@ public class Accommodation_Provider extends Person{
                     System.out.println("Θα παρέχει το κατάλυμα wifi? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρη Τιμή");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρη Τιμή");
                     next_bool = next_string.equals("1");
                     acc.setWifi(next_bool);
                     acc.show_accommodation();
@@ -184,7 +184,7 @@ public class Accommodation_Provider extends Person{
                     System.out.println("Θα παρέχει το κατάλυμα parking? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρη Τιμή");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρη Τιμή");
                     next_bool = next_string.equals("1");
                     acc.setParking(next_bool);
                     acc.show_accommodation();
@@ -193,15 +193,15 @@ public class Accommodation_Provider extends Person{
                     System.out.println("Θα παρέχει το κατάλυμα υπηρεσία καθαρισμού? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
-                    next_string = ch.validstring(next_string, p, "Μη εγκυρη Τιμή");
+                    next_string = ch.validstring(next_string, p, "Μη έγκυρη Τιμή");
                     next_bool = next_string.equals("1");
                     acc.setCleaning_services(next_bool);
                     acc.show_accommodation();
                 }
                 case "Έξοδος" -> {}
                 default -> {
-                    System.out.println("Δεν υπάρχει τετοια κατηγοριά");
-                    System.out.println("Θέλετε να ξαναδοκιμάσετε η οχι (Κατηγορια/οχι)");
+                    System.out.println("Δεν υπάρχει τέτοια κατηγορία");
+                    System.out.println("Θέλετε να ξαναδοκιμάσετε η οχι (Κατηγορία/οχι)");
                     next_string = sc.next();
                     flag = !next_string.equals("οχι");
                 }
@@ -264,62 +264,62 @@ public class Accommodation_Provider extends Person{
         System.out.println("Τιμή");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρη Τιμή");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη Τιμή");
         aprice = next_string ;
 
         System.out.println("Τετραγωνικά");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρα Τετραγωνικά");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρα Τετραγωνικά");
         asqmeter = next_string;
 
         System.out.println("Αστέρια");
         next_string = sc.next();
         p = Pattern.compile("[0-5]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρα Αστέργια");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρα Αστέρια");
         astars = next_string;
 
         System.out.println("Δωμάτια");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρα Δωμάτια");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρα Δωμάτια");
         arooms = next_string;
 
-        System.out.println("Χωριτικότητα");
+        System.out.println("Χωρητικότητα");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρη Χωριτικότητα");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη Χωρητικότητα");
         acapacity = next_string;
 
         System.out.println("Air Condition (0-OXI/1-NAI) ");
         next_string = sc.next();
         p = Pattern.compile("[0-1]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρη Τιμή");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη Τιμή");
         aac = next_string.equals("1");
 
         System.out.println("Πρωινό (0-OXI/1-NAI)");
         next_string = sc.next();
         p = Pattern.compile("[0-1]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρη Τιμή");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη Τιμή");
         abreakfast = next_string.equals("1");
 
         System.out.println("Parking (0-OXI/1-NAI)");
         next_string = sc.next();
         p = Pattern.compile("[0-1]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρη Τιμή");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη Τιμή");
         aparkin = next_string.equals("1");
 
 
         System.out.println("Wifi (0-OXI/1-NAI)");
         next_string = sc.next();
         p = Pattern.compile("[0-1]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρη Τιμή");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη Τιμή");
         awifi = next_string.equals("1");
 
         System.out.println("Υπηρεσία καθαρισμού (0-OXI/1-NAI)");
         next_string = sc.next();
         p = Pattern.compile("[0-1]");
-        next_string = ch.validstring(next_string,p,"Μη εγκυρη Τιμή");
+        next_string = ch.validstring(next_string,p,"Μη έγκυρη Τιμή");
         acleaning_services = next_string.equals("1");
 
 
@@ -355,7 +355,7 @@ public class Accommodation_Provider extends Person{
     }
 
     /**
-     * μέθοδος με την οποία ο πάροχος διγράφει ένα απο τα καταλύματα του
+     * μέθοδος με την οποία ο πάροχος διαγράφει ένα απο τα καταλύματα του
      */
     public void Accommodation_delete() throws IOException {
         acc = search_acc(Accommodations);
@@ -412,7 +412,7 @@ public class Accommodation_Provider extends Person{
      */
     public void sum_resv_cancel() {
         for (Accommodation acc : Accommodations){
-            System.out.println("Το κατάλυμα "+acc.getName() + " εχει ακυρωθεί για : ");
+            System.out.println("Το κατάλυμα "+acc.getName() + " έχει ακυρωθεί για : ");
             for (Reservations resv : acc.cancellations){
                 resv.show();
             }

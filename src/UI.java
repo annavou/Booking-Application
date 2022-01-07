@@ -53,15 +53,27 @@ public class UI {
         acc_list.put(c1, p1);
         acc_list.put(c2, p2);
 
+        Moderator p3 = new Moderator("Διαχειριστής","Ouzi Makris","Germany","5467538428","ouzi@gmail.com");
+        Credentials c3 = new Credentials("ouzi_mak","10032002");
+        acc_list.put(c3,p3);
+
+        Customer p4 = new Customer("Πελάτης","Γιώργος Παπαχαραλαμπόπουλος","Θεσσαλονίκη","4354","georgepap@gmail.com");
+        Credentials c4 = new Credentials("geo_papaxar","123456");
+        acc_list.put(c4,p4);
+        p2.setActivated(true);
+        p4.setActivated(true);
+        p1.setActivated(true);
+
 
         Accommodation j = new Accommodation("Αθηνά","Ύδρα","300","50","5","4","10",true,false,false,false,false);
         Accommodation k = new Accommodation("Θέα","Καβάλα","500","68","3","4","8",true,false,true,false,true);
         LocalDate s = LocalDate.of(2021,1,2);
         LocalDate e = LocalDate.of(2021,1,5);
-        Reservations resv = new Reservations(s,e,"Γιώργος",k,null);
+        Reservations resv = new Reservations(s,e,p4,k,null,null);
         k.reservations.add(resv);
         p2.Accommodations.add(k);
         p2.Accommodations.add(j);
+        p4.My_Acc_Bookings.put(resv,k);
 
 
         Hotel b = new Hotel("Galaxy","Καβάλα","4");
@@ -70,97 +82,25 @@ public class UI {
         b.Rooms.add(d1);
         b.Rooms.add(d2);
         p1.Hotels.add(b);
-        resv = new Reservations(s,e,"Γιώργος",null,d1);
+        resv = new Reservations(s,e,p4,null,b,d1);
         d1.hotelroomreservations.add(resv);
+        p4.My_Hot_Bookings.put(resv,d1);
 
-        Moderator p3 = new Moderator("Διαχειριστής","Ouzi Makris","Germany","5467538428","ouzi@gmail.com");
-        Credentials c3 = new Credentials("ouzi_mak","10032002");
-        acc_list.put(c3,p3);
+        try(BufferedReader buffer= new BufferedReader(new FileReader("reservations.txt"))){
+            String line=buffer.readLine();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
 
-        Customer p4 = new Customer("Πελάτης","Γιώργος Παπαχαραλαμπόπουλος","Θεσσαλονίκη","4354","georgepap@gmail.com");
-        Credentials c4 = new Credentials("geo_papaxar","123456789");
-        acc_list.put(c4,p4);
-        p2.setActivated(true);
-        p4.setActivated(true);
-        p1.setActivated(true);
-
-
-        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("users.txt"))){
-            for (HashMap.Entry<Credentials, Person> entry : acc_list.entrySet()) {
-
-                buffer.write( "Username" + ":" + entry.getKey().getUsername()
-                       +" - " + "Κωδικός" + ":" + entry.getKey().getPassword() + " - " + entry.getValue().getType() +":" + entry.getValue().getName()   + " - " + "Τόπος Κατοικίας: " + entry.getValue().getHome_ground()
-                       + " - " + "Email: " + entry.getValue().getEmail() + " - " + "Τηλέφωνο Επικοινωνίας: " + entry.getValue().getPhone_number());
-
-                buffer.newLine();
-            }
-            buffer.flush();
+        try(BufferedReader buffer= new BufferedReader(new FileReader("users.txt"))){
+            String line=buffer.readLine();
         }catch (IOException ex){
             ex.printStackTrace();
         }
 
 
-        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt"))){
-            for(Person p: acc_list.values()){
-
-                    if (p instanceof Accommodation_Provider) {
-                        for(Accommodation a: ((Accommodation_Provider) p).Accommodations){
-
-                            buffer.write("Κατάλυμα:" + a.getName()+" - "+ "Τοποθεσία: " + a.getLocation() + " - "+ "Τιμή ανα βράδυ: " + a.getPrice() + "$"
-                                           + " - " + "Τετραγωνικά δωματίου: " + a.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + a.getCapacity() +"άτομα"
-                                            + " - " + "Αστέρια Δωματίου: " + a.getStars() +" - "+ "Το κατάλυμα προσφέρει: ");
-
-                            if(a.isAc()){
-                                buffer.write("Κλιματισμό ");
-                            }
-                            if(a.isBreakfast()){
-                                buffer.write("Πρωινό ");
-                            }
-                            if (a.isCleaning_services()){
-                                buffer.write("Υπηρεσίες Καθαρισμού ");
-                            }
-                            if (a.isParking()){
-                                buffer.write("Parking ");
-                            }
-                            if(a.isWifi()){
-                                buffer.write("Wifi.");
-                            }
-                            buffer.newLine();
-                        }
-                    } else if (p instanceof Hotel_Provider) {
-
-                        for(Hotel h:((Hotel_Provider) p).Hotels){
-                            buffer.write("Ξενοδοχείο: " + h.getName() +" - "+ "Στην τοποθεσία: " + h.getLocation() + " - " + "Αστέρια Ξενοδοχείου: " + h.getStars()
-                                          + " - " + "Με τα εξής δωμάτια: " );
-                            buffer.newLine();
-
-                            for(Hotel_room r: h.Rooms){
-                                buffer.write("            ");
-                                buffer.write("Δωμάτιο: " + r.getName() + " - "+"Τιμή ανα βράδυ: " + r.getPrice() + "$"
-                                        + " - " + "Τετραγωνικά δωματίου: " + r.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + r.getCapacity() +"άτομα"
-                                        + " - " + "Το κατάλυμα προσφέρει: ");
-
-                                if(r.isAc()){
-                                    buffer.write("Κλιματισμό ");
-                                }
-                                if(r.isBreakfast()){
-                                    buffer.write("Πρωινό ");
-                                }
-                                if (r.isCleaning_services()){
-                                    buffer.write("Υπηρεσίες Καθαρισμού ");
-                                }
-                                if (r.isParking()){
-                                    buffer.write("Parking ");
-                                }
-                                if(r.isWifi()){
-                                    buffer.write("Wifi.");
-                                }
-                                buffer.newLine();
-                            }
-                        }
-                    }
-                }
-            buffer.flush();
+        try(BufferedReader buffer= new BufferedReader(new FileReader("accommodations.txt"))){
+            String line=buffer.readLine();
         }catch (IOException ex){
             ex.printStackTrace();
         }
@@ -350,6 +290,7 @@ public class UI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 

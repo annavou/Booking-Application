@@ -176,7 +176,7 @@ public class Moderator extends Person{
 
         for (Person p : People){
             if(p instanceof Customer c){
-                if( to_cancel.getCustomer_name().equals(c.getName()) ){
+                if( to_cancel.getCustomer().getName().equals(c.getName()) ){
                     c.My_Acc_Bookings.remove(to_cancel);
                     c.My_Acc_Canceled.put(to_cancel,to_cancel.getAcc());
                 }
@@ -226,7 +226,7 @@ public class Moderator extends Person{
 
         for (Person p : People){
             if(p instanceof Customer c){
-                if( to_cancel.getCustomer_name().equals(c.getName()) ){
+                if( to_cancel.getCustomer().getName().equals(c.getName()) ){
                     c.My_Hot_Bookings.remove(to_cancel);
                     c.My_Hot_Canceled.put(to_cancel,to_cancel.getHot());
                 }
