@@ -4,11 +4,11 @@
  * Ακόμα έχει μία λίστα με ξενοδοχεία τα οποία είναι τα ξενοδοχεία τα οποία προσφέρει
  */
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.*;//
+import java.nio.file.Files;//
+import java.nio.file.Path;//
+import java.nio.file.Paths;//
+import java.nio.file.StandardCopyOption;//
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.time.temporal.ChronoUnit;
@@ -45,7 +45,7 @@ public class Hotel_Provider extends  Person {
             flag = false;
         }
         if (flag) {
-            System.out.println("Δεν έχετε καταχωριμένα Ξεναδοχεία");
+            System.out.println("Δεν έχετε καταχωρημένα Ξενοδοχεία");
         }
     }
 
@@ -98,7 +98,7 @@ public class Hotel_Provider extends  Person {
         }
         temp.show_Hotel();
 
-        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){
+        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
             buffer.write("Ξενοδοχείο: " + temp.getName() +" - "+ "Στην τοποθεσία: " + temp.getLocation() + " - " + "Αστέρια Ξενοδοχείου: "
                     + temp.getStars() + " - " + "Με τα εξής δωμάτια: " );
             buffer.newLine();
@@ -127,7 +127,7 @@ public class Hotel_Provider extends  Person {
             }
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
     }
 
 
@@ -142,11 +142,11 @@ public class Hotel_Provider extends  Person {
         }
         Hotels.remove(hotel);
 
-        String start= "Ξενοδοχείο: "+hotel.getName();
+        String start= "Ξενοδοχείο: "+hotel.getName();//
         String rooms="            ";
 
         BufferedReader reader = new BufferedReader(new FileReader("accommodations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp3.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -160,14 +160,14 @@ public class Hotel_Provider extends  Person {
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp3.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
         }
         catch (IOException e) {
             e.printStackTrace();
-        }
+        }//
     }
 
 
@@ -182,11 +182,11 @@ public class Hotel_Provider extends  Person {
             return;
         }
 
-        String start= "Ξενοδοχείο: "+hotel.getName();
+        String start= "Ξενοδοχείο: "+hotel.getName();//
         String rooms="            ";
 
         BufferedReader reader = new BufferedReader(new FileReader("accommodations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp3.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -200,14 +200,14 @@ public class Hotel_Provider extends  Person {
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp3.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
         }
         catch (IOException e) {
             e.printStackTrace();
-        }
+        }//
 
         System.out.println("Τι θα ήθελες να αλλάξεις; (Όνομα/Τοποθεσία/Αστέρια/Έξοδος/Δωμάτια)");
         next_string = sc.next();
@@ -269,8 +269,7 @@ public class Hotel_Provider extends  Person {
             }
         }
 
-
-        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){
+        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
             buffer.write("Ξενοδοχείο: " + hotel.getName() +" - "+ "Στην τοποθεσία: " + hotel.getLocation() + " - " + "Αστέρια Ξενοδοχείου: "
                     + hotel.getStars() + " - " + "Με τα εξής δωμάτια: " );
             buffer.newLine();
@@ -299,7 +298,7 @@ public class Hotel_Provider extends  Person {
             }
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
     }
 
 

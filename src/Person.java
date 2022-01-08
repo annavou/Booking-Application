@@ -3,21 +3,20 @@
  * να αναζητήσει ένα κατάλυμα ή ξενοδοχείο
  */
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.*;//
+import java.nio.file.Files;//
+import java.nio.file.Path;//
+import java.nio.file.Paths;//
+import java.nio.file.StandardCopyOption;//
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 
 public class Person {
 
-    private String Type;
+    private String Type;//
     private String Name;
     private String Home_ground;
     private String Phone_number;
@@ -40,7 +39,7 @@ public class Person {
      * Ο προκαθορισμένος κατασκευαστής
      */
     Person() {
-        Type=null;
+        Type=null;//
         Name = null;
         Home_ground = null;
         Phone_number = null;
@@ -52,7 +51,7 @@ public class Person {
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      */
     Person(String atype, String aname, String ahome_ground, String aphone_number, String aemail) {
-        Type=atype;
+        Type=atype;//
         Name = aname;
         Home_ground = ahome_ground;
         Phone_number = aphone_number;
@@ -60,15 +59,6 @@ public class Person {
         messages.add("Καλωσόρισες " + getName() + "!!");
         messages_count = 0;
         Activated = false;
-
-        try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){
-            buffer.write("Μήνυμα: " + "Καλωσόρισες " + getName() + "!!" + " - " + "Παραλήπτης: "
-                    + Name +" - " + "Αποστολέας: mybooking");
-            buffer.newLine();
-            buffer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public boolean isActivated() {
@@ -79,11 +69,11 @@ public class Person {
         Activated = activated;
     }
 
-    public String getType(){return Type;}
+    public String getType(){return Type;}//
 
     public void setType(String type){
         Type=type;
-    }
+    }//
 
     public String getName() {
         return Name;
@@ -210,16 +200,16 @@ public class Person {
         }
         System.out.println("Γράψτε το μήνυμα σας :");
         next_string = sc.next();
-        //next_string = sc.nextLine();
+        //next_string = sc.nextLine();  //
         temp.messages.add(next_string);
 
-        try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){
+        try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){//
             buffer.write("Μήνυμα: " + next_string + " - " + "Παραλήπτης: " + temp.getName() +" - " + "Αποστολέας: " + this.Name);
             buffer.newLine();
             buffer.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }//
     }
 
     /**
@@ -229,7 +219,7 @@ public class Person {
     public void message(Collection<Person> acc_list) throws IOException {
         boolean flag = true;
         while (flag) {
-            System.out.println("Θα θέλατε να δείτε να στείλετε να διαγράψετε μήνυμα?  (Αποστολή,Προβολή,Διαγραφή,Έξοδος)");
+            System.out.println("Θα θέλατε να δείτε, να στείλετε ή να διαγράψετε μήνυμα;  (Αποστολή,Προβολή,Διαγραφή,Έξοδος)");
 
             next_string = sc.next();
             switch (next_string) {
@@ -252,8 +242,8 @@ public class Person {
 
         String start= "Μήνυμα: "+ messages.get(next_int-1);
 
-        BufferedReader reader = new BufferedReader(new FileReader("messages.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp5.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("messages.txt"));//
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -267,7 +257,7 @@ public class Person {
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp5.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("messages.txt"), StandardCopyOption.REPLACE_EXISTING);
@@ -276,13 +266,23 @@ public class Person {
             e.printStackTrace();
         }
 
-        messages.remove(next_int - 1);
+        messages.remove(next_int - 1);//
     }
 
     /**
      * μέθοδος για την προβολή των μηνυμάτων
      */
     private void messages_view() {
+        if (messages.size()==1){//
+            try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){
+                buffer.write("Μήνυμα: " + "Καλωσόρισες " + getName() + "!!" + " - " + "Παραλήπτης: "
+                        + Name +" - " + "Αποστολέας: mybooking");
+                buffer.newLine();
+                buffer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }//
         for (int i = 0; i < messages.size(); i++)
             System.out.println((i + 1) + ") " + messages.get(i));
     }
@@ -331,7 +331,7 @@ public class Person {
         }
         this.show_person();
 
-        String start= "Username:"+c.getUsername();
+        String start= "Username:"+c.getUsername();//
 
         BufferedReader reader = new BufferedReader(new FileReader("users.txt"));
         BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
@@ -365,6 +365,6 @@ public class Person {
             buffer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }//
     }
 }

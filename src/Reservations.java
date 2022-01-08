@@ -9,9 +9,9 @@ public class Reservations {
 
     protected LocalDate start;
     protected LocalDate end ;
-    protected Customer customer;
+    protected Customer customer;//
     protected Accommodation acc;
-    protected Hotel hotel;
+    protected Hotel hotel;//
     protected Hotel_room hot ;
 
     /**
@@ -20,7 +20,7 @@ public class Reservations {
     public Reservations(){
         start = null;
         end = null ;
-        customer = null ;
+        customer = null ;//
     }
 
     /**
@@ -29,9 +29,9 @@ public class Reservations {
     public Reservations(LocalDate a, LocalDate b,Customer cus,Accommodation accom,Hotel h,Hotel_room hr){
         start = a ;
         end = b ;
-        customer = cus ;
+        customer = cus ;//
         acc = accom;
-        hotel=h;
+        hotel=h;//
         hot = hr;
     }
 
@@ -53,17 +53,17 @@ public class Reservations {
 
     public Customer getCustomer() {
         return customer;
-    }
+    }//
 
-    public void setCustomer(Customer customer) {this.customer = customer;}
+    public void setCustomer(Customer customer) {this.customer = customer;}//
 
     public Accommodation getAcc() {return acc;}
 
     public void setAcc(Accommodation acc) {this.acc = acc;}
 
-    public Hotel getHotel(){return hotel;}
+    public Hotel getHotel(){return hotel;}//
 
-    public void setHotel(Hotel h){hotel=h;}
+    public void setHotel(Hotel h){hotel=h;}//
 
     public Hotel_room getHot() {return hot;}
 
@@ -72,7 +72,7 @@ public class Reservations {
     /**
      * μέθοδος που εμφανίζει τα χαρακτηριστικά μιας κράτησης
      */
-    public void show(){
+    public void show(){//
         System.out.println(start.getDayOfMonth()+"/"+start.getMonth()+"/"+start.getYear()+" - "
                 +end.getDayOfMonth()+"/"+end.getMonth()+"/"+end.getYear() +" στο " );
         if(this.getHotel()!=null){
@@ -80,5 +80,5 @@ public class Reservations {
         }else {
             System.out.println("κατάλυμα " + this.getAcc().getName());
         }
-    }
+    }//
 }

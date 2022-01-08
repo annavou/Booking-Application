@@ -216,7 +216,7 @@ public class Hotel_room {
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει πρωινό
-     * @return αν εχει η οχι πρωίνο
+     * @return αν έχει η οχι πρωινό
      */
     public String hasBreakfast(){
         if(isBreakfast()){
@@ -228,7 +228,7 @@ public class Hotel_room {
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει wifi
-     * @return αν εχει η οχι wifi
+     * @return αν έχει η οχι wifi
      */
     public String hasWifi(){
         if(isWifi()){
@@ -240,7 +240,7 @@ public class Hotel_room {
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει parking
-     * @return αν εχει η οχι parking
+     * @return αν έχει η οχι parking
      */
     public String hasParking(){
         if(isParking()){
@@ -252,7 +252,7 @@ public class Hotel_room {
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει air conditioner
-     * @return αν εχει η οχι air conditioner
+     * @return αν έχει η οχι air conditioner
      */
     public String hasAc(){
         if(isAc()){
@@ -264,13 +264,13 @@ public class Hotel_room {
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει υπηρεσίες καθαρισμού
-     * @return αν εχει η οχι υπηρεσίες καθαρισμού
+     * @return αν έχει η οχι υπηρεσίες καθαρισμού
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -279,7 +279,7 @@ public class Hotel_room {
      */
     public void display() {
         System.out.println("Δωμάτιο '" + name + " είναι " + sqmeter + "τμ, και είναι για " + capacity +" άτομα");
-        System.out.println(hasBreakfast() + "Πρωίνο\n" + hasWifi()+"Wifi\n"+hasParking()+"Parking\n"+hasAc()+"Air conditioner\n"+hasCleaningservice()+"Υπηρεσία καθαρισμού");
+        System.out.println(hasBreakfast() + "Πρωινό\n" + hasWifi()+"Wifi\n"+hasParking()+"Parking\n"+hasAc()+"Air conditioner\n"+hasCleaningservice()+"Υπηρεσία καθαρισμού");
         System.out.println("Τιμή: "+price+"$ ανα Βράδυ\n");
     }
 }

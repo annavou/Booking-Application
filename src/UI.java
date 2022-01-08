@@ -16,7 +16,7 @@ public class UI {
 
     HashMap<Credentials, Person> acc_list = new HashMap<>();
 
-    Credentials usercred;
+    Credentials usercred;//
     Person user;
     Accommodation_Provider user_acc;
     Hotel_Provider user_hot ;
@@ -26,7 +26,6 @@ public class UI {
 
     String next_string;
     String next_string2;
-    String dump;
     Pattern p;
 
     Checker ch = new Checker();
@@ -44,21 +43,21 @@ public class UI {
      */
     public void initialize() {
 
-        Hotel_Provider p1 = new Hotel_Provider("Ξενοδόχος","Γιάννης_Παπαδόπουλος", "Ελλάδα", "6940519933", "giannhs@gmail.com");
-        Accommodation_Provider p2 = new Accommodation_Provider("Πάροχος Καταλύματος","Maria_McArthur", "USA", "0054861839", "mariamc@gmail.com");
+        Hotel_Provider p1 = new Hotel_Provider("Ξενοδόχος","Γιάννης_Παπαδόπουλος", "Ελλάδα", "6940519933", "giannhs@gmail.com");//
+        Accommodation_Provider p2 = new Accommodation_Provider("Πάροχος Καταλύματος","Maria_McArthur", "USA", "0054861839", "mariamc@gmail.com");//
 
-        Credentials c1 = new Credentials("giannis_pap", "12345");
-        Credentials c2 = new Credentials("maria_mc", "67890");
+        Credentials c1 = new Credentials("giannis_pap", "ab123");//
+        Credentials c2 = new Credentials("maria_mc", "hp123");//
 
         acc_list.put(c1, p1);
         acc_list.put(c2, p2);
 
-        Moderator p3 = new Moderator("Διαχειριστής","Ouzi_Makris","Germany","5467538428","ouzi@gmail.com");
-        Credentials c3 = new Credentials("ouzi_mak","10032002");
+        Moderator p3 = new Moderator("Διαχειριστής","Ouzi_Makris","Germany","5467538428","ouzi@gmail.com");//
+        Credentials c3 = new Credentials("ouzi_mak","pt123");
         acc_list.put(c3,p3);
 
-        Customer p4 = new Customer("Πελάτης","Γιώργος_Παπαχαραλαμπόπουλος","Θεσσαλονίκη","6940523697","georgepap@gmail.com");
-        Credentials c4 = new Credentials("geo_papaxar","123456");
+        Customer p4 = new Customer("Πελάτης","Γιώργος_Παπαχαραλαμπόπουλος","Θεσσαλονίκη","6940523697","georgepap@gmail.com");//
+        Credentials c4 = new Credentials("geo_papaxar","tl123");
         acc_list.put(c4,p4);
         p2.setActivated(true);
         p4.setActivated(true);
@@ -73,7 +72,7 @@ public class UI {
         k.reservations.add(resv);
         p2.Accommodations.add(k);
         p2.Accommodations.add(j);
-        p4.My_Acc_Bookings.put(resv,k);
+        p4.My_Acc_Bookings.put(resv,k);//
 
 
         Hotel b = new Hotel("Galaxy","Καβάλα","4");
@@ -84,32 +83,7 @@ public class UI {
         p1.Hotels.add(b);
         resv = new Reservations(s,e,p4,null,b,d1);
         d1.hotelroomreservations.add(resv);
-        p4.My_Hot_Bookings.put(resv,d1);
-
-        try(BufferedReader buffer= new BufferedReader(new FileReader("reservations.txt"))){
-            String line=buffer.readLine();
-        }catch (IOException ex){
-            ex.printStackTrace();
-        }
-
-        try(BufferedReader buffer= new BufferedReader(new FileReader("users.txt"))){
-            String line=buffer.readLine();
-        }catch (IOException ex){
-            ex.printStackTrace();
-        }
-
-
-        try(BufferedReader buffer= new BufferedReader(new FileReader("accommodations.txt"))){
-            String line=buffer.readLine();
-        }catch (IOException ex){
-            ex.printStackTrace();
-        }
-
-        try(BufferedReader buffer= new BufferedReader(new FileReader("messages.txt"))){
-            String line=buffer.readLine();
-        }catch (IOException ex){
-            ex.printStackTrace();
-        }
+        p4.My_Hot_Bookings.put(resv,d1);//
 
     }
 
@@ -288,15 +262,16 @@ public class UI {
         user = neos;
         System.out.println("Καλωσορίσατε  " + user.getName() +"!!");
 
-        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("users.txt",true))) {
-            buffer.write( "Username" + ":" + nea.getUsername() +" - " + "Κωδικός" + ":" + nea.getPassword()
-                    + " - " + user.getType() +":" + user.getName() +" - "+ "Τόπος Κατοικίας: " + user.getHome_ground()
-                    + " - " + "Email: " + user.getEmail() + " - " + "Τηλέφωνο Επικοινωνίας: " + user.getPhone_number());
+        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("users.txt",true))) {//
+            buffer.write( "Username" + ":" + nea.getUsername() +" - " + "Κωδικός" + ":" + nea.getPassword() + " - "
+                    + "Ενεργοποιημένος Λογαριασμός:" + user.isActivated() + " - " + user.getType() +":" + user.getName()
+                    +" - "+ "Τόπος Κατοικίας: " + user.getHome_ground() + " - " + "Email: " + user.getEmail()
+                    + " - " + "Τηλέφωνο Επικοινωνίας: " + user.getPhone_number());
 
             buffer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }//
 
     }
 

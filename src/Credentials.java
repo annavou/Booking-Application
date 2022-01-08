@@ -36,7 +36,7 @@ public class Credentials {
     /**
      *Μέθοδος η οποία ελέγχει αν δύο credentials είναι ίδια
      * @param a ενα απο τα 2 Credentials
-     * @return αν ειναι ισα
+     * @return αν είναι ισα
      */
     public boolean equal(Credentials a){
         return this.Username.equals(a.Username) && Objects.equals(this.Password, a.Password);
@@ -63,7 +63,7 @@ public class Credentials {
 
     /**
      *Μέθοδος που μας επιστρέφει το username
-     * @return usename
+     * @return username
      */
     public String getUsername() {
         return Username;
@@ -72,7 +72,7 @@ public class Credentials {
 
     /**
      *Μέθοδος αλλαγής username
-     * @param  username ονομα
+     * @param  username όνομα
      */
     public void setUsername(String username) {
         Username = username;

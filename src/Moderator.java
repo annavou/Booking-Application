@@ -3,11 +3,11 @@
  * Ο διαχειριστής έχει πρόσβαση στους χρήστες στις κρατήσεις μπορεί να ακύρωση κράτησης,
  * καθώς και να ενεργοποιήσει η να απενεργοποιήσει προφίλ άλλων χρηστών.
  */
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.*;//
+import java.nio.file.Files;//
+import java.nio.file.Path;//
+import java.nio.file.Paths;//
+import java.nio.file.StandardCopyOption;//
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
@@ -20,14 +20,14 @@ public class Moderator extends Person{
     Moderator(){}
 
     /**
-     * @param atype  Ο τύπος χρήστη
+     * @param atype  Ο τύπος χρήστη//
      * @param aname Το όνομα
      * @param ahome_ground Η έδρα
      * @param aphone_number Το τηλέφωνο
      * @param aemail Το email
      */
-    Moderator(String atype,String aname , String ahome_ground, String aphone_number, String aemail){
-        super(atype,aname,ahome_ground,aphone_number,aemail);
+    Moderator(String atype,String aname , String ahome_ground, String aphone_number, String aemail){//
+        super(atype,aname,ahome_ground,aphone_number,aemail);//
         super.setActivated(true);
     }
 
@@ -194,11 +194,10 @@ public class Moderator extends Person{
             }
         }
 
-        String start= "Κατάλυμα "+ to_cancel.getAcc().getName();
-        System.out.println(start);
+        String start= "Κατάλυμα "+ to_cancel.getAcc().getName();//
 
         BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp4.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -212,7 +211,7 @@ public class Moderator extends Person{
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp4.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
@@ -228,7 +227,7 @@ public class Moderator extends Person{
             buffer.flush();
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
     }
 
 
@@ -281,11 +280,11 @@ public class Moderator extends Person{
             }
         }
 
-        String start= "Ξενοδοχείο "+ to_cancel.getHotel().getName();
+        String start= "Ξενοδοχείο "+ to_cancel.getHotel().getName();//
         String roo= "Δωμάτιο " + to_cancel.getHot().getName();
 
         BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp4.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -299,7 +298,7 @@ public class Moderator extends Person{
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp4.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
@@ -315,7 +314,7 @@ public class Moderator extends Person{
             buffer.flush();
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
 
     }
 

@@ -4,11 +4,11 @@
  * της διαθεσιμότητας, να ακυρώσει οποιαδήποτε κράτηση του και να έχει πρόσβαση στις κρατήσεις και τις ακυρώσεις του.
  */
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.*;//
+import java.nio.file.Files;//
+import java.nio.file.Path;//
+import java.nio.file.Paths;//
+import java.nio.file.StandardCopyOption;//
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -32,14 +32,14 @@ public class Customer extends Person {
     /**
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      *
-     * @param atype Ο τύπος χρήστης
+     * @param atype Ο τύπος χρήστης  //
      * @param aname Το όνομα
      * @param alocation Η εδρα
      * @param aphone_number Το τηλέφωνο
      * @param aemail Το email
      */
-    public Customer(String atype, String aname, String alocation, String aphone_number, String aemail) {
-        super(atype, aname, alocation, aphone_number, aemail);
+    public Customer(String atype, String aname, String alocation, String aphone_number, String aemail) { //
+        super(atype, aname, alocation, aphone_number, aemail);//
     }
 
     /**
@@ -497,14 +497,14 @@ public class Customer extends Person {
             System.out.println("\nΕπιτυχής Κράτηση!!!\n");
         }
 
-        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("reservations.txt",true))){
+        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("reservations.txt",true))){ //
             buffer.write("Κατάλυμα " + resv.getAcc().getName()+" από " + resv.getStart() + " έως " + resv.getEnd() +  " πελάτης "
                     + resv.getCustomer().getName());
             buffer.newLine();
             buffer.flush();
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
 
 
     }
@@ -558,10 +558,10 @@ public class Customer extends Person {
         to_cancel.getAcc().cancellations.add(to_cancel);
 
 
-        String start= "Κατάλυμα "+ to_cancel.getAcc().getName();
+        String start= "Κατάλυμα "+ to_cancel.getAcc().getName();//
 
         BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp4.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -575,7 +575,7 @@ public class Customer extends Person {
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp4.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
@@ -591,7 +591,7 @@ public class Customer extends Person {
             buffer.flush();
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
     }
 
 
@@ -795,14 +795,14 @@ public class Customer extends Person {
             System.out.println("\nΕπιτυχής Κράτηση!!!\n");
         }
 
-        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("reservations.txt",true))){
+        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("reservations.txt",true))){//
             buffer.write("Ξενοδοχείο " + resv.getHotel().getName() + " δωμάτιο " + resv.getHot().getName() +
                     " από " + resv.getStart() + " έως " + resv.getEnd() +  " πελάτης " + resv.getCustomer().getName());
             buffer.newLine();
             buffer.flush();
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
 
     }
 
@@ -873,11 +873,11 @@ public class Customer extends Person {
         to_cancel.getHot().hotelroomcancellations.add(to_cancel);
 
 
-        String start= "Ξενοδοχείο "+ to_cancel.getHotel().getName();
+        String start= "Ξενοδοχείο "+ to_cancel.getHotel().getName();//
         String roo= "Δωμάτιο " + to_cancel.getHot().getName();
 
         BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp4.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -891,7 +891,7 @@ public class Customer extends Person {
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp4.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
@@ -907,7 +907,7 @@ public class Customer extends Person {
             buffer.flush();
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
     }
 
 

@@ -3,11 +3,11 @@
  * να δεί τα καταλύματα του, να κάνει αλλαγές αν επιθυμεί σε κάποιο, να δεί τις κρατήσεις του καθώς και τις ακυρώσεις του.
  */
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.*; //
+import java.nio.file.Files;//
+import java.nio.file.Path;//
+import java.nio.file.Paths;//
+import java.nio.file.StandardCopyOption;//
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -69,10 +69,10 @@ public class Accommodation_Provider extends Person{
             return;
         }
 
-        String start= "Κατάλυμα:"+acc.getName();
+        String start= "Κατάλυμα:"+acc.getName();//
 
         BufferedReader reader = new BufferedReader(new FileReader("accommodations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp2.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -86,14 +86,14 @@ public class Accommodation_Provider extends Person{
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp2.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
         }
         catch (IOException e) {
             e.printStackTrace();
-        }
+        }//
 
         System.out.println("Τι θα ήθελες να αλλάξεις");
         next_string = sc.next();
@@ -162,7 +162,7 @@ public class Accommodation_Provider extends Person{
                     acc.setAc(next_bool);
                     acc.show_accommodation();
                 }
-                case "Πρωίνο" -> {
+                case "Πρωινό" -> {
                     System.out.println("Θα παρέχει το κατάλυμα πρωινό? : (0-ΟΧΙ/1-ΝΑΙ)");
                     next_string = sc.next();
                     Pattern p = Pattern.compile("[0-1]");
@@ -209,7 +209,7 @@ public class Accommodation_Provider extends Person{
         }
 
 
-        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){
+        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
             buffer.write("Κατάλυμα:" + acc.getName()+" - "+ "Τοποθεσία: " + acc.getLocation() + " - "+ "Τιμή ανα βράδυ: " + acc.getPrice() + "$"
                     + " - " + "Τετραγωνικά δωματίου: " + acc.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + acc.getCapacity() +"άτομα"
                     + " - " + "Αστέρια Δωματίου: " + acc.getStars() +" - "+ "Το κατάλυμα προσφέρει: ");
@@ -233,7 +233,7 @@ public class Accommodation_Provider extends Person{
             buffer.flush();
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
     }
 
     /**
@@ -327,7 +327,7 @@ public class Accommodation_Provider extends Person{
         Accommodations.add(temp);
         temp.show_accommodation();
 
-        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){
+        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
             buffer.write("Κατάλυμα:" + temp.getName()+" - "+ "Τοποθεσία: " + temp.getLocation() + " - "+ "Τιμή ανα βράδυ: " + temp.getPrice() + "$"
                     + " - " + "Τετραγωνικά δωματίου: " + temp.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + temp.getCapacity() +"άτομα"
                     + " - " + "Αστέρια Δωματίου: " + temp.getStars() +" - "+ "Το κατάλυμα προσφέρει: ");
@@ -351,7 +351,7 @@ public class Accommodation_Provider extends Person{
             buffer.flush();
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }//
     }
 
     /**
@@ -364,10 +364,10 @@ public class Accommodation_Provider extends Person{
         }
         Accommodations.remove(acc);
 
-        String start= "Κατάλυμα:"+acc.getName();
+        String start= "Κατάλυμα:"+acc.getName();//
 
         BufferedReader reader = new BufferedReader(new FileReader("accommodations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp2.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
 
 
         String currentLine;
@@ -381,14 +381,14 @@ public class Accommodation_Provider extends Person{
         writer.close();
         reader.close();
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp2.txt");
+        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
 
         try {
             Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
         }
         catch (IOException e) {
             e.printStackTrace();
-        }
+        }//
 
     }
 
