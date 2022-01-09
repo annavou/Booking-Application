@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment="FINISH FILES &#10;με // στο τέλος της γραμμής οι αλλαγές" />
+    <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment="Τεστ 4">
+      <change afterPath="$PROJECT_DIR$/test/AccommodationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/CredentialsTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/Hotel_roomTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/ReservationsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyBooking.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MyBooking.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hotel_room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hotel_room.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,6 +19,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -31,21 +40,78 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
   </component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.AccommodationTest">
+    <configuration name="AccommodationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyBooking" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="AccommodationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CredentialsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBooking" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CredentialsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Hotel_roomTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBooking" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Hotel_roomTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReservationsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBooking" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ReservationsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReservationsTest.setCustomer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBooking" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ReservationsTest" />
+      <option name="METHOD_NAME" value="setCustomer" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.AccommodationTest" />
+        <item itemvalue="JUnit.Hotel_roomTest" />
+        <item itemvalue="JUnit.ReservationsTest" />
+        <item itemvalue="JUnit.ReservationsTest.setCustomer" />
+        <item itemvalue="JUnit.CredentialsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -198,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641673003369</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="README">
+      <created>1641673371690</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1641673371690</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,6 +302,8 @@
     <MESSAGE value="Cancellations" />
     <MESSAGE value="Messages" />
     <MESSAGE value="FINISH FILES &#10;με // στο τέλος της γραμμής οι αλλαγές" />
-    <option name="LAST_COMMIT_MESSAGE" value="FINISH FILES &#10;με // στο τέλος της γραμμής οι αλλαγές" />
+    <MESSAGE value="README" />
+    <MESSAGE value="Τεστ 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="Τεστ 4" />
   </component>
 </project>

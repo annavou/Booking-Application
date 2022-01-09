@@ -220,9 +220,9 @@ public class Hotel_room {
      */
     public String hasBreakfast(){
         if(isBreakfast()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -232,9 +232,9 @@ public class Hotel_room {
      */
     public String hasWifi(){
         if(isWifi()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -244,9 +244,9 @@ public class Hotel_room {
      */
     public String hasParking(){
         if(isParking()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -256,9 +256,9 @@ public class Hotel_room {
      */
     public String hasAc(){
         if(isAc()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
