@@ -1,14 +1,13 @@
 /**
- * Αυτή η κλάση αναπαριστά ένα πελάτη με τα βασικά του στοιχεία (όνομα, τηλέφωνο, email, τοποθεσία), ο οποίος μπορεί να αναζητήσει
- * διάφορα καταλύματα και ξενοδοχεία με τη χρήση φίλτρων, να κάνει κράτηση του καταλύματος που επιθυμεί με βάση
- * της διαθεσιμότητας, να ακυρώσει οποιαδήποτε κράτηση του και να έχει πρόσβαση στις κρατήσεις και τις ακυρώσεις του.
+ * Αύτη η κλάση αναπαριστά ένα πελάτη με τα βασικά του στοιχεία (όνομα,τηλέφωνο,μειλ,τοποθεσία), ο οποίος μπορεί να αναζητήσει
+ * διάφορα καταλύματα και ξενοδοχεία με την χρήση φίλτρων, να κάνει κράτηση του καταλύματος που επιθυμεί με βάση
+ * της διαθεσομότητας ,να ακυρώσει οποιαδήποτε κράτηση του και να έχει πρόσβαση στις κρατήσεις και τις ακυρώσεις του.
  */
 
-import java.io.*;//
-import java.nio.file.Files;//
-import java.nio.file.Path;//
-import java.nio.file.Paths;//
-import java.nio.file.StandardCopyOption;//
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -32,14 +31,13 @@ public class Customer extends Person {
     /**
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      *
-     * @param atype Ο τύπος χρήστης  //
      * @param aname Το όνομα
      * @param alocation Η εδρα
      * @param aphone_number Το τηλέφωνο
      * @param aemail Το email
      */
-    public Customer(String atype, String aname, String alocation, String aphone_number, String aemail) { //
-        super(atype, aname, alocation, aphone_number, aemail);//
+    public Customer(String aname, String alocation, String aphone_number, String aemail) {
+        super(aname, alocation, aphone_number, aemail);
     }
 
     /**
@@ -61,7 +59,7 @@ public class Customer extends Person {
 
 
     /**
-     * μέθοδος που αναζητά όλα τα καταλύματα που έχουν πάνω απο κάποια τετραγωνικά
+     * μέθοδος που αναζητά όλα τα καταλύματα που εχουν πανω απο καποια τετραγωνικά
      *
      * @param asqmeters Τετραγωνικά που θέλουμε
      */
@@ -148,7 +146,7 @@ public class Customer extends Person {
     }
 
     /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείων με βάση τη χωρητικότητα σε άτομα
+     * μέθοδος που αναζητά δωμάτια ξενοδοχείων με βάση την χωριτηκότητα σε άτομα
      * @param acapacity πόσα άτομα θέλουμε
      */
     public void search_HotelCapacity(String acapacity,ArrayList<Hotel> hotel_list){
@@ -186,7 +184,7 @@ public class Customer extends Person {
     }
 
     /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείου με βάση το αν διαθέτουν wifi
+     * μέθοδος που αναζητά δωμάτια ξενοδοχείου με βάση το αν διθέτουν wifi
      * @param awifi αν διαθέτει wifi
      */
     public void search_HotelWifi(boolean awifi,ArrayList<Hotel> hotel_list) {
@@ -197,7 +195,7 @@ public class Customer extends Person {
     }
 
     /**
-     * μέθοδος που αναζητά καταλύματα με βάση το αν διαθέτουν κλιματισμό
+     * μέθοδος που αναζητά καταλύματα με βάση το αν διθέτουν κλιματισμό
      * @param aac αν διαθέτει κλιματισμό
      */
     public void search_AirCondition(boolean aac,ArrayList<Accommodation> accom_list){
@@ -205,7 +203,7 @@ public class Customer extends Person {
     }
 
     /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείου με βάση το αν διαθέτουν κλιματισμό
+     * μέθοδος που αναζητά δωμάτια ξενοδοχείου με βάση το αν διθέτουν κλιματισμό
      * @param aac αν διαθέτει κλιματισμό
      */
     public void search_HotelAirCondition(boolean aac, ArrayList<Hotel> hotel_list){
@@ -218,7 +216,7 @@ public class Customer extends Person {
 
     /**
      * μέθοδος που αναζητά όλα τα καταλύματα που διαθέτουν πάρκινγκ
-     * @param aparking αν διαθέτει πάρκινγκ
+     * @param aparking αν διεθέτει πάρκινγκ
      */
     public void search_Parking(boolean aparking,ArrayList<Accommodation> accom_list){
         accom_list.removeIf(acc -> acc.isParking() != aparking);
@@ -261,25 +259,25 @@ public class Customer extends Person {
      */
     public void show_my_bookings(){
         if(!My_Acc_Bookings.isEmpty()) {
-            System.out.println("Έχετε κρατήσεις στα καταλύματα:");
+            System.out.println("Εχετε κρατήσεις στα καταλύματα :");
             for (Reservations res : My_Acc_Bookings.keySet()) {
                 System.out.println("Στο '" + My_Acc_Bookings.get(res).getName() + "' για τις:");
                 res.show();
             }
         }
         else{
-            System.out.println("Δεν έχετε κάνει καμία κράτηση σε κατάλυμα");
+            System.out.println("Δεν έχετε κανει καμία κράτηση σε κατάλυμα");
         }
 
         if(!My_Hot_Bookings.isEmpty()) {
-            System.out.println("Έχετε κρατήσεις στα Ξενοδοχεία :");
+            System.out.println("Εχετε κρατήσεις στα Ξεναδοχεία :");
             for (Reservations res : My_Hot_Bookings.keySet()) {
                 System.out.println("Στο '" + My_Hot_Bookings.get(res).getName() + "' για τις:");
                 res.show();
             }
         }
         else{
-            System.out.println("Δεν έχετε κάνει καμία κράτηση σε Ξενοδοχείο");
+            System.out.println("Δεν έχετε κανει καμία κράτηση σε Ξεναδοχείο");
         }
     }
 
@@ -288,33 +286,33 @@ public class Customer extends Person {
      */
     public void show_my_cancellations(){
         if(!My_Acc_Canceled.isEmpty()) {
-            System.out.println("Έχετε ακυρώσεις στα καταλύματα :");
+            System.out.println("Εχετε ακυρώσεις στα καταλύματα :");
             for (Reservations res : My_Acc_Canceled.keySet()) {
                 System.out.println("Στο '" + My_Acc_Canceled.get(res).getName() + "' για τις:");
                 res.show();
             }
         }
         else{
-            System.out.println("Δεν έχετε κάνει καμία ακύρωση σε κατάλυμα");
+            System.out.println("Δεν έχετε κανει καμία ακύρωση σε κατάλυμα");
         }
         if(!My_Hot_Canceled.isEmpty()) {
-            System.out.println("Έχετε ακυρώσεις Ξενοδοχεία στα :");
+            System.out.println("Εχετε ακυρώσεις Ξεναδοχεία στα :");
             for (Reservations res : My_Hot_Canceled.keySet()) {
                 System.out.println("Στο '" + My_Hot_Canceled.get(res).getName() + "' για τις:");
                 res.show();
             }
         }
         else{
-            System.out.println("Δεν έχετε κάνει καμία κράτηση σε Ξενοδοχείο");
+            System.out.println("Δεν έχετε κανει καμία κράτηση σε Ξεναδοχείο");
         }
     }
 
 
     /**
      *Μέθοδος με την οποία ο χρήστης κάνει κράτηση σε ένα κατάλυμα με χρήση φίλτρων
-     * @param people Συλλογή με όλους τους χρήστες
+  //   * @param people Συλλογή με όλους τους χρήστες
      */
-    public void make_a_resv_acc(Collection<Person> people) {
+ /*   public void make_a_resv_acc(Collection<Person> people) {
         boolean flag = true;
         Accommodation accommodation ;
         ArrayList<Accommodation> availiable = new ArrayList<>();
@@ -330,7 +328,7 @@ public class Customer extends Person {
             acc.show_accommodation();
         }
 
-        String s = "Θέλετε να βάλετε φίλτρο στην αναζήτηση σας? (0-όνομα/1-τοποθεσία/2-αστέρια/3-χωρητικότητα/4-δωμάτια/5-τιμή/6-τετραγωνικά/7-πρωινό/8-wifi/9-air condition/α-parking/β-υπηρεσία καθαρισμού/γ-χωρις φιλτρα/δ-εξοδος";
+        String s = "Θέλετε να βάλετε φίλτο στην αναζήτηση σας? (0-ονομα/1-τοποθεσία/2-αστέρια/3-χωρητικότητα/4-δωμάτια/5-τιμή/6-τετραγωνικά/7-πρωινό/8-wifi/9-air condition/α-parking/β-υπηρεσία καθαρισμού/γ-χωρις φιλτρα/δ-εξοδος";
         System.out.println(s);
         next_string = sc.next();
         p = Pattern.compile("[0-9]|[α]|[β]|[γ]|[δ]");
@@ -339,16 +337,16 @@ public class Customer extends Person {
         while (!next_string.equals("γ") && !next_string.equals("δ")) {
             switch (next_string) {
                 case "0" -> {
-                    Accommodation a = (Accommodation) search_acc(temp);
+                    Accommodation a = search_acc(temp);
                     temp.removeIf(z -> !z.equals(a));
                 }
                 case "1" -> {
-                    System.out.println("Που θέλεις να βρίσκετε το κατάλυμα ?");
+                    System.out.println("Που θέλεις να βρήσκετε το κατάλυμα ?");
                     next_string = sc.next();
                     search_location(next_string, temp);
                 }
                 case "2" -> {
-                    System.out.println("Πόσα αστέρια θέλετε να έχει το κατάλυμα?");
+                    System.out.println("Ποσα αστέργια θέλετε να έχει το κατάλυμα?");
                     next_string = sc.next();
                     p = Pattern.compile("[0-5]");
                     ch.validstring(next_string, p, "Μη έγκυρη τιμή");
@@ -356,21 +354,21 @@ public class Customer extends Person {
 
                 }
                 case "3" -> {
-                    System.out.println("Πόσα άτομα να υποστηρίζει?");
+                    System.out.println("Ποσα ατομα να υποστηρίζει?");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
                     ch.validstring(next_string, p, "Μη έγκυρη τιμή");
                     search_capacity(next_string, temp);
                 }
                 case "4" -> {
-                    System.out.println("Πόσα να δωμάτια να έχει το κατάλυμα?");
+                    System.out.println("Ποσα να δωμάτια να εχει το κατάλυμα?");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
                     ch.validstring(next_string, p, "Μη έγκυρη τιμή");
                     search_rooms(next_string, temp);
                 }
                 case "5" -> {
-                    System.out.println("Εύρος τιμής:\n απο:");
+                    System.out.println("Ευρος τιμης:\n απο:");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
                     ch.validstring(next_string, p, "Μη έγκυρη τιμή");
@@ -432,7 +430,7 @@ public class Customer extends Person {
             }
 
             if (temp.isEmpty()) {
-                System.out.println("Δεν βρέθηκαν καταλύματα με αυτά τα κριτήρια αναζήτησης. Θέλετε να αφαιρέσετε το τελευταίο φίλτρο(0-ναι/1-έξοδος)");
+                System.out.println("Δεν βρέθηκαν καταλύματα με αυτα τα κρητίρια αναζήτησης. Θελετε να αφαιρέσετε το τελευταίο φιλτρο(0-ναι/1-εξοδος)");
                 next_string = sc.next();
                 p = Pattern.compile("[0-1]");
                 next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
@@ -468,11 +466,11 @@ public class Customer extends Person {
             System.out.println("Εως:");
             LocalDate end = read_date();
             valid_dates(start,end);
-            resv = new Reservations(start,end,this,null,null,null);
+            resv = new Reservations(start,end,this.getName(),null,null);
             temp = availiables_acc(availiable, resv);
             flag1 = false;
             if (temp.isEmpty()) {
-                System.out.println("Δεν υπάρχει κατάλυμα με αυτές τις ημερομηνίες διαθέσιμες. Θέλετε να αλλάξετε ημερομηνία ? (0-έξοδος/1-αλλαγή ημερομηνίας) ");
+                System.out.println("Δεν υπάρχει κατάλυμα με αυτές τις ημερομηνίες διαθέσημες. Θέλετε να αλλάξετε ημερομηνια ? (0-εξοδος/1-αλλαγη ημερομηνίας) ");
                 next_string = sc.next();
                 p = Pattern.compile("[0-1]");
                 next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
@@ -486,9 +484,9 @@ public class Customer extends Person {
                 availiable = temp;
             }
         }
-        accommodation = (Accommodation) search_acc(availiable);
+        accommodation = search_acc(availiable);
         if(accommodation==null){
-            System.out.println("Δεν υπάρχει τέτοιο κατάλυμα");
+            System.out.println("Δεν υπάεχει τέτοιο κατάλυμα");
         }
         else {
             accommodation.reservations.add(resv);
@@ -496,16 +494,6 @@ public class Customer extends Person {
             resv.setAcc(accommodation);
             System.out.println("\nΕπιτυχής Κράτηση!!!\n");
         }
-
-        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("reservations.txt",true))){ //
-            buffer.write("Κατάλυμα " + resv.getAcc().getName()+" από " + resv.getStart() + " έως " + resv.getEnd() +  " πελάτης "
-                    + resv.getCustomer().getName());
-            buffer.newLine();
-            buffer.flush();
-        }catch (IOException e){
-            e.printStackTrace();
-        }//
-
 
     }
 
@@ -529,7 +517,7 @@ public class Customer extends Person {
     /**
      *Μέθοδος με την οποία ο χρήστης ακυρώνει μία κράτηση σε ένα κατάλυμα
      */
-    public void resv_canc_acc() throws IOException {
+    public void resv_canc_acc() {
         if(My_Acc_Bookings.isEmpty()){
             System.out.println("Δεν υπάρχουν κρατήσεις");
             return;
@@ -537,12 +525,12 @@ public class Customer extends Person {
         boolean flag = true;
         ArrayList<Reservations> resvs = new ArrayList<>(My_Acc_Bookings.keySet());
         for(int i = 0 ; i < resvs.size() ; i++ ){
-            System.out.println((i+1)+ ")");
+            System.out.println((i+1)+") ");
             resvs.get(i).show();
         }
         while (flag) {
             flag = false;
-            System.out.println("Ποία κράτηση θέλετε να ακυρώσετε? (Δώστε νούμερο)");
+            System.out.println("Ποιά κράτηση θέλετε να ακυρώσετε? (Δωστε νουμερο)");
             next_string = sc.next();
             p = Pattern.compile(".*[0-9]");
             next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -558,49 +546,16 @@ public class Customer extends Person {
         to_cancel.getAcc().cancellations.add(to_cancel);
 
 
-        String start= "Κατάλυμα "+ to_cancel.getAcc().getName();//
 
-        BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
-
-
-        String currentLine;
-
-        while((currentLine = reader.readLine()) != null) {
-            if(currentLine.contains(start)) continue;
-            writer.write(currentLine);
-            writer.newLine();
-        }
-
-        writer.close();
-        reader.close();
-
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-
-        try {
-            Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("cancellations.txt",true))){
-            buffer.write("Ακυρώθηκε η κράτηση για το κατάλυμα " + to_cancel.getAcc().getName() + " από " + to_cancel.getStart()
-                    + " έως " + to_cancel.getEnd() +  " πελάτης " + to_cancel.getCustomer().getName());
-            buffer.newLine();
-            buffer.flush();
-        }catch (IOException e){
-            e.printStackTrace();
-        }//
     }
 
 
     /**
      *Μέθοδος με την οποία ο χρήστης κάνει κράτηση σε ένα δωμάτιο ξενοδοχείου με χρήση φίλτρων
-     * @param people Συλλογή με όλους τους χρήστες
+   //  * @param people Συλλογή με όλους τους χρήστες
      *
      */
-    public void make_a_resv_hot(Collection<Person> people) {
+   /* public void make_a_resv_hot(Collection<Person> people) {
         Hotel_room room ;
         boolean flag = true;
         Hotel hotel ;
@@ -627,10 +582,10 @@ public class Customer extends Person {
 
 
         for (Hotel h : availiable) {
-            h.show_Hotel();
+           h.show_Hotel();
         }
 
-        String s = "Θέλετε να βάλετε φίλτρο στην αναζήτηση σας? (0-όνομα/1-τοποθεσία/2-αστέρια/3-χωρητικότητα/4-τιμή/5-τετραγωνικά/6-πρωινό/7-wifi/8-air condition/9-parking/α-υπηρεσία καθαρισμού/γ-χωρις φιλτρα/δ-εξοδος";
+        String s = "Θέλετε να βάλετε φίλτο στην αναζήτηση σας? (0-ονομα/1-τοποθεσία/2-αστέρια/3-χωρητικότητα/4-τιμή/5-τετραγωνικά/6-πρωινό/7-wifi/8-air condition/9-parking/α-υπηρεσία καθαρισμού/γ-χωρις φιλτρα/δ-εξοδος";
         System.out.println(s);
         next_string = sc.next();
         p = Pattern.compile("[0-9]|[α]|[β]|[γ]|[δ]");
@@ -642,12 +597,12 @@ public class Customer extends Person {
                     temp.removeIf(z -> !z.equals(a));
                 }
                 case "1" -> {
-                    System.out.println("Που θέλεις να βρίσκετε το κατάλυμα ?");
+                    System.out.println("Που θέλεις να βρήσκετε το κατάλυμα ?");
                     next_string = sc.next();
                     search_HotelLocation(next_string, temp);
                 }
                 case "2" -> {
-                    System.out.println("Πόσα αστέρια θέλετε να έχει το ?");
+                    System.out.println("Ποσα αστέργια θέλετε να έχει το ?");
                     next_string = sc.next();
                     p = Pattern.compile("[0-5]");
                     ch.validstring(next_string, p, "Μη έγκυρη τιμή");
@@ -655,14 +610,14 @@ public class Customer extends Person {
 
                 }
                 case "3" -> {
-                    System.out.println("Πόσα άτομα να υποστηρίζει?");
+                    System.out.println("Ποσα ατομα να υποστηρίζει?");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
                     ch.validstring(next_string, p, "Μη έγκυρη τιμή");
                     search_HotelCapacity(next_string, temp);
                 }
                 case "4" -> {
-                    System.out.println("Εύρος τιμής:\n απο:");
+                    System.out.println("Ευρος τιμης:\n απο:");
                     next_string = sc.next();
                     p = Pattern.compile(".*[0-9]");
                     ch.validstring(next_string, p, "Μη έγκυρη τιμή");
@@ -725,7 +680,7 @@ public class Customer extends Person {
 
 
             if (temp.isEmpty()) {
-                System.out.println("Δεν βρέθηκαν Ξενοδοχεία με αυτά τα κριτήρια αναζήτησης. Θέλετε να αφαιρέσετε το τελευταίο φίλτρο(0-ναι/1-έξοδος)");
+                System.out.println("Δεν βρέθηκαν Ξεναδοχεία με αυτα τα κρητίρια αναζήτησης. Θελετε να αφαιρέσετε το τελευταίο φιλτρο(0-ναι/1-εξοδος)");
                 next_string = sc.next();
                 p = Pattern.compile("[0-1]");
                 next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
@@ -762,10 +717,10 @@ public class Customer extends Person {
         LocalDate start = read_date();
         System.out.println("Εως:");
         LocalDate end = read_date();
-        Reservations resv = new Reservations(start,end,this,null,null,null);
+        Reservations resv = new Reservations(start,end,this.getName(),null,null);
         temp = availiables_hot(availiable,resv);
         if(temp.isEmpty()){
-            System.out.println("Δεν υπάρχει Ξενοδοχείο με αυτές τις ημερομηνίες διαθέσιμες. Θέλετε να αλλάξετε ημερομηνία ? (0-έξοδος/1-αλλαγή ημερομηνίας) ");
+            System.out.println("Δεν υπάρχει Ξεναδοχείο με αυτές τις ημερομηνίες διαθέσημες. Θέλετε να αλλάξετε ημερομηνια ? (0-εξοδος/1-αλλαγη ημερομηνίας) ");
             next_string = sc.next();
             p = Pattern.compile("[0-1]");
             next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -786,7 +741,7 @@ public class Customer extends Person {
 
         room = search_Hotel_room(rooms);
         if(room==null){
-            System.out.println("Δεν υπάρχει τέτοιο κατάλυμα");
+            System.out.println("Δεν υπάεχει τέτοιο κατάλυμα");
         }
         else {
             room.hotelroomreservations.add(resv);
@@ -795,23 +750,14 @@ public class Customer extends Person {
             System.out.println("\nΕπιτυχής Κράτηση!!!\n");
         }
 
-        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("reservations.txt",true))){//
-            buffer.write("Ξενοδοχείο " + resv.getHotel().getName() + " δωμάτιο " + resv.getHot().getName() +
-                    " από " + resv.getStart() + " έως " + resv.getEnd() +  " πελάτης " + resv.getCustomer().getName());
-            buffer.newLine();
-            buffer.flush();
-        }catch (IOException e){
-            e.printStackTrace();
-        }//
-
     }
 
 
     /**
      *Μέθοδος η οποία επιστρέφει τα δωμάτια ξενοδοχείων τα οποία είναι διαθέσιμα για μία συγκεκριμένη ημερομηνία
-     * @param hotels Λίστα με επιθυμητά Ξενοδοχεία
+     * @param hotels Λίστα με επιθυμητά Ξεναδοχεία
      * @param resv Ημερομηνία που θέλουμε να κάνουμε
-     * @return τα διαθέσιμα ξενοδοχεία
+     * @return τα διαθέσιμα ξεναδοχεία
      */
     private ArrayList<Hotel> availiables_hot(ArrayList<Hotel> hotels, Reservations resv) {
         boolean flag = false ;
@@ -844,7 +790,7 @@ public class Customer extends Person {
     /**
      *Μέθοδος με την οποία ακυρώνεται η κράτηση σε ένα δωμάτιο ξενοδοχείου
      */
-    public void resv_canc_hot() throws IOException {
+    public void resv_canc_hot() {
         if(My_Hot_Bookings.isEmpty()){
             System.out.println("Δεν υπάρχουν κρατήσεις");
             return;
@@ -857,7 +803,7 @@ public class Customer extends Person {
         }
         while (flag) {
             flag = false;
-            System.out.println("Ποία κράτηση θέλετε να ακυρώσετε? (Δώστε νούμερο)");
+            System.out.println("Ποιά κράτηση θέλετε να ακυρώσετε? (Δωστε νουμερο)");
             next_string = sc.next();
             p = Pattern.compile(".*[0-9]");
             next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -871,43 +817,6 @@ public class Customer extends Person {
         My_Hot_Canceled.put(to_cancel,to_cancel.getHot());
         to_cancel.getHot().hotelroomreservations.remove(to_cancel);
         to_cancel.getHot().hotelroomcancellations.add(to_cancel);
-
-
-        String start= "Ξενοδοχείο "+ to_cancel.getHotel().getName();//
-        String roo= "Δωμάτιο " + to_cancel.getHot().getName();
-
-        BufferedReader reader = new BufferedReader(new FileReader("reservations.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
-
-
-        String currentLine;
-
-        while((currentLine = reader.readLine()) != null) {
-            if(currentLine.contains(start) && currentLine.contains(roo)) continue;
-            writer.write(currentLine);
-            writer.newLine();
-        }
-
-        writer.close();
-        reader.close();
-
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-
-        try {
-            Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("cancellations.txt",true))){
-            buffer.write("Ακυρώθηκε η κράτηση για το Ξενοδοχείο " + to_cancel.getHotel().getName() + " από " + to_cancel.getStart()
-                    + " έως " + to_cancel.getEnd() +  " πελάτης " + to_cancel.getCustomer().getName());
-            buffer.newLine();
-            buffer.flush();
-        }catch (IOException e){
-            e.printStackTrace();
-        }//
     }
 
 
@@ -983,7 +892,7 @@ public class Customer extends Person {
 
     /**
      *Μέθοδος με την οποία διαλέγουμε ένα δωμάτιο ξενοδοχείου
-     * @param Rooms Λίστα με δωμάτια ξενοδοχείων
+     * @param Rooms Λίστα με δωμάτια ξεναδοχείων
      * @return Το επιλεγμένο δωμάτιο
      */
     public Hotel_room search_Hotel_room(ArrayList<Hotel_room> Rooms){
@@ -991,7 +900,7 @@ public class Customer extends Person {
         for (int i = 0; i < Rooms.size(); i++) {
             System.out.println((i + 1) + ") Δωμάτιο : " + Rooms.get(i).getName());
         }
-        System.out.println("Ποίο θέλετε? (δώστε το αντίστοιχο νούμερο)");
+        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
         next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -1013,7 +922,7 @@ public class Customer extends Person {
 
     private void valid_dates(LocalDate start,LocalDate till){
         if(start.isAfter(till)){
-            System.out.println("Μη έγκυρη ημερομηνία. Θέλετε να αλλάξετε την αρχή η το τέλος ?(0-αρχή/1-τέλος)");
+            System.out.println("Μη έγκυρη ημερομινία. Θελετε να αλλαξε την αρχή η το τελος ?(0-αρχη/1-τελος)");
             next_string = sc.next();
             p = Pattern.compile("[0-1]");
             next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -1026,5 +935,50 @@ public class Customer extends Person {
                 valid_dates(start,till);
             }
         }
+    }
+
+    public JPanel resv_canc_view() {
+        JPanel main = new JPanel();
+        JPanel resvs = new JPanel();
+        JPanel cancs = new JPanel();
+        Border border = BorderFactory.createLineBorder(Color.black);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
+        resvs.setBorder(titledBorder);
+        titledBorder = BorderFactory.createTitledBorder("Cancellations");
+        cancs.setBorder(titledBorder);
+        GridLayout gl = new GridLayout(2,2);
+        main.setLayout(gl);
+        main.add(resvs,Component.LEFT_ALIGNMENT);
+        main.add(cancs);
+        JPanel resvsa = new JPanel();
+        JPanel cancsa = new JPanel();
+        titledBorder = BorderFactory.createTitledBorder("Accommodations");
+        resvsa.setBorder(titledBorder);
+        cancsa.setBorder(titledBorder);
+        titledBorder = BorderFactory.createTitledBorder("Hotel Rooms");
+        JPanel resvsh = new JPanel();
+        JPanel cancsh = new JPanel();
+        resvsh.setBorder(titledBorder);
+        cancsh.setBorder(titledBorder);
+
+
+        for(Reservations re : My_Acc_Bookings.keySet()){
+            resvsa.add(new JLabel("Reservation at Accommodation : " + My_Acc_Bookings.get(re).getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString()));
+        }
+        for(Reservations re : My_Hot_Bookings.keySet()){
+            resvsh.add(new JLabel("Reservation at Hotel Room : " + My_Hot_Bookings.get(re).getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString()));
+        }
+        for(Reservations re : My_Acc_Canceled.keySet()){
+            cancsa.add(new JLabel("Cancellation at Accommodation : " + My_Acc_Canceled.get(re).getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString()));
+        }
+        for(Reservations re : My_Hot_Canceled.keySet()){
+            cancsh.add(new JLabel("Reservation at Hotel Room : " + My_Hot_Canceled.get(re).getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString()));
+        }
+
+        resvs.add(resvsa);
+        resvs.add(resvsh);
+        cancs.add(cancsa);
+        cancs.add(cancsh);
+        return main ;
     }
 }

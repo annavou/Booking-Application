@@ -9,8 +9,6 @@ import java.util.ArrayList;
 public class Hotel_room {
 
     String name ;
-
-
     private String capacity ;
     private String price ;
     private boolean breakfast, wifi, ac, parking, cleaning_services;
@@ -216,61 +214,61 @@ public class Hotel_room {
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει πρωινό
-     * @return αν έχει η οχι πρωινό
+     * @return αν εχει η οχι πρωίνο
      */
     public String hasBreakfast(){
         if(isBreakfast()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει wifi
-     * @return αν έχει η οχι wifi
+     * @return αν εχει η οχι wifi
      */
     public String hasWifi(){
         if(isWifi()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει parking
-     * @return αν έχει η οχι parking
+     * @return αν εχει η οχι parking
      */
     public String hasParking(){
         if(isParking()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει air conditioner
-     * @return αν έχει η οχι air conditioner
+     * @return αν εχει η οχι air conditioner
      */
     public String hasAc(){
         if(isAc()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει υπηρεσίες καθαρισμού
-     * @return αν έχει η οχι υπηρεσίες καθαρισμού
+     * @return αν εχει η οχι υπηρεσίες καθαρισμού
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
@@ -279,7 +277,7 @@ public class Hotel_room {
      */
     public void display() {
         System.out.println("Δωμάτιο '" + name + " είναι " + sqmeter + "τμ, και είναι για " + capacity +" άτομα");
-        System.out.println(hasBreakfast() + "Πρωινό\n" + hasWifi()+"Wifi\n"+hasParking()+"Parking\n"+hasAc()+"Air conditioner\n"+hasCleaningservice()+"Υπηρεσία καθαρισμού");
+        System.out.println(hasBreakfast() + "Πρωίνο\n" + hasWifi()+"Wifi\n"+hasParking()+"Parking\n"+hasAc()+"Air conditioner\n"+hasCleaningservice()+"Υπηρεσία καθαρισμού");
         System.out.println("Τιμή: "+price+"$ ανα Βράδυ\n");
     }
 }

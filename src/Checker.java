@@ -26,4 +26,7 @@ public class Checker {
             return validstring(s,p,y);
         }
     }
+    public boolean valid(String s, Pattern p){
+        return s.matches(p.pattern());
+    }
 }

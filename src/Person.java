@@ -1,22 +1,20 @@
 /**
- * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστικά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μηνύματα που έχει και
+ * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστηκά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μυνήματα που έχει και
  * να αναζητήσει ένα κατάλυμα ή ξενοδοχείο
  */
 
-import java.io.*;//
-import java.nio.file.Files;//
-import java.nio.file.Path;//
-import java.nio.file.Paths;//
-import java.nio.file.StandardCopyOption;//
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
+import javax.swing.*;
+import javax.swing.border.Border;
 
 public class Person {
 
-    private String Type;//
     private String Name;
     private String Home_ground;
     private String Phone_number;
@@ -24,7 +22,7 @@ public class Person {
     private boolean Activated;
 
 
-    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<messages> messages = new ArrayList<>();
     int messages_count;
 
     Scanner sc = new Scanner(System.in);
@@ -39,7 +37,6 @@ public class Person {
      * Ο προκαθορισμένος κατασκευαστής
      */
     Person() {
-        Type=null;//
         Name = null;
         Home_ground = null;
         Phone_number = null;
@@ -50,13 +47,12 @@ public class Person {
     /**
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      */
-    Person(String atype, String aname, String ahome_ground, String aphone_number, String aemail) {
-        Type=atype;//
+    Person(String aname, String ahome_ground, String aphone_number, String aemail) {
         Name = aname;
         Home_ground = ahome_ground;
         Phone_number = aphone_number;
         Email = aemail;
-        messages.add("Καλωσόρισες " + getName() + "!!");
+        messages.add(new messages("app","Welcome","Καλωσόρισες " + getName() + "!!"));
         messages_count = 0;
         Activated = false;
     }
@@ -68,12 +64,6 @@ public class Person {
     public void setActivated(boolean activated) {
         Activated = activated;
     }
-
-    public String getType(){return Type;}//
-
-    public void setType(String type){
-        Type=type;
-    }//
 
     public String getName() {
         return Name;
@@ -117,13 +107,13 @@ public class Person {
         for (int i = 0; i < accommodations.size(); i++) {
             System.out.println((i + 1) + ") Κατάλυμα : " + accommodations.get(i).getName());
         }
-        System.out.println("Ποίο θέλετε? (δώστε το αντίστοιχο νούμερο)");
+        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
         next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
         if( Integer.parseInt(next_string) > 0 && Integer.parseInt(next_string) <= accommodations.size()){
             acc = accommodations.get(Integer.parseInt(next_string) -1);
-            return acc;
+            return acc ;
         }
         else {
             System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Κατάλυμα");
@@ -133,15 +123,15 @@ public class Person {
 
     /**
      * μέθοδος με την οποία ένας χρήστης μπορεί να αναζητήσει κάποιο ξενοδοχείο
-     * @param hotels λίστα με όλα τα ξενοδοχεία
+    // * @param hotels λίστα με όλα τα ξενοδοχεία
      * @return το ξενοδοχείο που ψάχνει αν υπάρχει
      */
-    public Hotel search_hot(ArrayList<Hotel> hotels) {
+ /*   public Hotel search_hot(ArrayList<Hotel> hotels) {
         Hotel h;
         for (int i = 0; i < hotels.size(); i++) {
-            System.out.println((i + 1) + ") Ξενοδοχείο : " + hotels.get(i).getName());
+            System.out.println((i + 1) + ") Ξεναδοχείο : " + hotels.get(i).getName());
         }
-        System.out.println("Ποίο θέλετε? (δώστε το αντίστοιχο νούμερο)");
+        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
         next_string = sc.next();
         p = Pattern.compile(".*[0-9]");
         next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
@@ -150,7 +140,7 @@ public class Person {
             return h ;
         }
         else {
-            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Ξενοδοχείο");
+            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Ξεναδοχείο");
             return null;
         }
     }
@@ -159,14 +149,15 @@ public class Person {
     /**
      * μέθοδος που εμφανίζει τα στοιχεία του χρήστη
      */
+    /*
     public void show_person() {
-        System.out.println(" Ο/Η " + getName() + "\n τηλ: " + getPhone_number() + "\n Έδρα: " + getHome_ground() + "\n email: " + getEmail());
+        System.out.println(" Ο/Η " + getName() + "\n τηλ: " + getPhone_number() + "\n Εδρα: " + getHome_ground() + "\n email: " + getEmail());
         if (this instanceof Accommodation_Provider) {
-            System.out.println("Πάροχος καταλύματος\n");
+            System.out.println("Πάροχος καταλυμάτων\n");
         } else if (this instanceof Hotel_Provider) {
-            System.out.println("Πάροχος ξενοδοχείου\n");
+            System.out.println("Πάροχος ξεναδοχείων\n");
         } else if (this instanceof Moderator) {
-            System.out.println("Διαχειριστής\n");
+            System.out.println("Διαχηρηστής\n");
         } else {
             System.out.println("Πελάτης\n");
         }
@@ -179,7 +170,7 @@ public class Person {
     public void messages_notifications() {
         int mess = messages.size() - messages_count;
         if (mess > 0) {
-            System.out.println("Έχεις " + mess + " νέα μήνυμα(τα)");
+            System.out.println("Έχεις " + mess + " νέα μηνυμα(τα)");
             messages_count = messages.size();
         }
     }
@@ -188,183 +179,296 @@ public class Person {
      * μέθοδος με την οποία ένας χρήστης μπορεί να συντάξει και να στείλει ένα μήνυμα
      * @param acc_list λίστα με τα μηνύματα
      */
-    public void message_send(Collection<Person> acc_list) {
+    public void message_send(Collection<Person> acc_list,String myname) {
+        JFrame main = new JFrame();
+        JLabel to = new JLabel("To:");
+        JLabel topic = new JLabel("Topic:");
+        JLabel text = new JLabel("Text:");
+        JTextField To = new JTextField(),Topic = new JTextField(),Text = new JTextField();
+        GridLayout layout = new GridLayout(4,3);
+        main.add(to);
+        main.add(To);
+        main.add(topic);
+        main.add(Topic);
+        main.add(text);
+        main.add(Text);
+        main.setLayout(layout);
+        main.setSize(500,500);
+        main.setVisible(true);
+        JButton send = new JButton();
+        send.setText("Send");
+        send.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Person temp = new Person();
+                if(To.getText().equals("") | Topic.getText().equals("") | Text.getText().equals("")){
+                    System.out.println("adia");
+                }
+                boolean ex = false ;
+                for ( Person p : acc_list){
+                    if(p.getName().equals(To.getText())) {
+                       ex = true;
+                       temp = p ;
+                    }
+                }
+                if(!ex){
+                    System.out.println("oxi");
+                }
+                if(ex){
+                    messages mess = new messages(myname,Topic.getText(),Text.getText());
+                    temp.messages.add(mess);
+                    main.setVisible(false);
+                }
 
-        Person temp = new Person();
-        System.out.println("Σε ποιον χρήστη θα ήθελες να στείλεις μήνυμα; Όνομα χρήστη:");
-        next_string = sc.next();
-        for (Person p : acc_list) {
-            if (p.getName().equals(next_string)) {
-                temp = p;
             }
-        }
-        System.out.println("Γράψτε το μήνυμα σας :");
-        next_string = sc.next();
-        //next_string = sc.nextLine();  //
-        temp.messages.add(next_string);
+        });
+        JButton back = new JButton();
+        back.setText("Back");
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.setVisible(false);
+            }
+        });
 
-        try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){//
-            buffer.write("Μήνυμα: " + next_string + " - " + "Παραλήπτης: " + temp.getName() +" - " + "Αποστολέας: " + this.Name);
-            buffer.newLine();
-            buffer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }//
+
+      main.add(send);
+      main.add(back);
     }
 
     /**
-     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή, την προβολή, τη διαγραφή ή την έξοδο απο τα μηνύματα
+     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή,την προβολή, την διαγραφή ή υην έξοδο απο τα μηνύματα
      * @param acc_list λίστα με τα μηνύματα
+     * @return
      */
-    public void message(Collection<Person> acc_list) throws IOException {
-        boolean flag = true;
-        while (flag) {
-            System.out.println("Θα θέλατε να δείτε, να στείλετε ή να διαγράψετε μήνυμα;  (Αποστολή,Προβολή,Διαγραφή,Έξοδος)");
+    public JPanel message(Collection<Person> acc_list,String myname) {
+        final JPanel[] main = {new JPanel()};
+        GridLayout layout = new GridLayout(2,2);
+        main[0].setLayout(layout);
 
-            next_string = sc.next();
-            switch (next_string) {
-                case "Αποστολή" -> message_send(acc_list);
-                case "Προβολή" -> messages_view();
-                case "Διαγραφή" -> messages_delete();
-                case "Έξοδος" -> flag = false;
-
+        JButton view = new JButton();
+        view.setText("View and Delete messages");
+        view.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 main[0].removeAll();
+                 JPanel temp = messages_view();
+                 temp.setLocation(0,0);
+                 main[0].setLayout(new BorderLayout());
+                 main[0].add(temp);
+                 SwingUtilities.updateComponentTreeUI(main[0]);
             }
+        });
+        JButton send = new JButton();
+        send.setText("Send a message");
+        send.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                message_send(acc_list,myname);
+            }
+        });
+
+
+        if(view.isSelected()) {
+            return main[0];
         }
+        main[0].add(view);
+        main[0].add(send);
+        return main[0];
     }
 
     /**
-     * μέθοδος που διαγράφει ένα μήνυμα
+     * μέθοδος που διγράφει ένα μήνυμα
      */
-    private void messages_delete() throws IOException {
+    private void messages_delete() {
         messages_view();
         System.out.println("Ποίο θα θέλατε να σβήσετε?");
         next_int = sc.nextInt();
-
-        String start= "Μήνυμα: "+ messages.get(next_int-1);
-
-        BufferedReader reader = new BufferedReader(new FileReader("messages.txt"));//
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
-
-
-        String currentLine;
-
-        while((currentLine = reader.readLine()) != null) {
-            if(currentLine.contains(start)) continue;
-            writer.write(currentLine);
-            writer.newLine();
-        }
-
-        writer.close();
-        reader.close();
-
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-
-        try {
-            Files.move(oldFile, oldFile.resolveSibling("messages.txt"), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        messages.remove(next_int - 1);//
+        messages.remove(next_int - 1);
     }
 
     /**
      * μέθοδος για την προβολή των μηνυμάτων
+     * @return
      */
-    private void messages_view() {
-        if (messages.size()==1){//
-            try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){
-                buffer.write("Μήνυμα: " + "Καλωσόρισες " + getName() + "!!" + " - " + "Παραλήπτης: "
-                        + Name +" - " + "Αποστολέας: mybooking");
-                buffer.newLine();
-                buffer.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
+    private JPanel messages_view() {
+
+        final boolean[] press = new boolean[1];
+        press[0] = false;
+        final JPanel[] main = {new JPanel()};
+        JComboBox<String> list = new JComboBox<>();
+        final JPanel[] info = {new JPanel()};
+        messages mess ;
+        String sele ;
+
+
+        if(messages.isEmpty()){
+            main[0].add(new JLabel("geia"));
+            return main[0];
+        }
+
+        int i = 1 ;
+        for (messages mes : messages) {
+            list.addItem(i + ") " + mes.getFrom() + " : " + mes.getTopic());
+            i++;
+        }
+        main[0].add(list);
+
+        JLabel from = new JLabel("From:");
+        JLabel topic = new JLabel("Topic:");
+        JLabel text = new JLabel("Text:");
+        JTextField From = new JTextField(messages.get(0).getFrom()),Topic = new JTextField(messages.get(0).getTopic()),Text = new JTextField(messages.get(0).getText());
+        GridLayout layout = new GridLayout(3,2);
+        info[0].add(from);
+        info[0].add(From);
+        info[0].add(topic);
+        info[0].add(Topic);
+        info[0].add(text);
+        info[0].add(Text);
+        info[0].setLayout(layout);
+
+
+        JButton delete = new JButton("Delete");
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                messages mess ;
+                String sele ;
+                press[0] = true;
+                sele = String.valueOf(list.getSelectedItem());
+                char c = sele.charAt(0);
+                int in = (int) c ;
+                mess = messages.get(Character.getNumericValue(sele.charAt(0))-1);
+                messages.remove(mess);
+                list.removeAllItems();
+                int i = 1 ;
+                for (messages mes : messages) {
+                    list.addItem(i + ") " + mess.getFrom() + " : " + mess.getTopic());
+                    i++;
+                }
+                if(messages.isEmpty()){
+                    main[0].remove(list);
+                    main[0].remove(delete);
+                    main[0].remove(info[0]);
+                    main[0].add(new JLabel("geia"));
+
+                }
+                else {
+                    main[0].remove(list);
+                    main[0].remove(delete);
+                    main[0].remove(info[0]);
+                    SwingUtilities.updateComponentTreeUI(main[0]);
+                    SwingUtilities.updateComponentTreeUI(list);
+                    main[0].add(list);
+                    main[0].add(delete);
+                    sele = String.valueOf(list.getSelectedItem());
+                    mess = messages.get(Character.getNumericValue(sele.charAt(0))-1);
+                    From.setText(mess.getFrom());
+                    Topic.setText(mess.getTopic());
+                    Text.setText(mess.getText());
+                    main[0].add(info[0]);
+                }
+                SwingUtilities.updateComponentTreeUI(main[0]);
+
+                press[0] = false;
             }
-        }//
-        for (int i = 0; i < messages.size(); i++)
-            System.out.println((i + 1) + ") " + messages.get(i));
+
+        });
+
+
+        list.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                messages mess ;
+                String sele ;
+                if( press[0])
+                    return;
+                main[0].remove(info[0]);
+                SwingUtilities.updateComponentTreeUI(main[0]);
+                sele = String.valueOf(list.getSelectedItem());
+                mess = messages.get(Character.getNumericValue(sele.charAt(0))-1);
+                From.setText(mess.getFrom());
+                Topic.setText(mess.getTopic());
+                Text.setText(mess.getText());
+                main[0].add(info[0]);
+                SwingUtilities.updateComponentTreeUI(main[0]);
+            }
+
+        });
+
+
+        main[0].add(delete);
+        sele = String.valueOf(list.getSelectedItem());
+        mess = messages.get(Character.getNumericValue(sele.charAt(0))-1);
+        From.setText(mess.getFrom());
+        Topic.setText(mess.getTopic());
+        Text.setText(mess.getText());
+        main[0].add(info[0]);
+        return main[0];
     }
 
     /**
      * μέθοδος για την επεξεργασία και την αλλαγή των στοιχείων του χρήστη
+     * @return
      */
-    public void info_edit(Credentials c) throws IOException {
-        Pattern p ;
-        Checker ch = new Checker();
-        String dump  ;
-        boolean flag = true;
-        while (flag) {
-            System.out.println("Θα θέλατε να αλλάξετε κάτι (Όνομα,Έδρα,Τηλέφωνο,email,Έξοδος)");
+    public JPanel info_edit() {
+        JPanel main = new JPanel();
+        final JTextField[] output = {new JTextField("Change your info and press Save")};
+        output[0].setEditable(false);
+        final boolean[] switch_f = {false};
+        GridLayout layout = new GridLayout(5,2);
+        main.setLayout(layout);
+        final Person[] temp = {new Person()};
 
-            next_string = sc.next();
-            switch (next_string) {
-                case "Όνομα" -> {
-                    System.out.println("Δώστε το νέο όνομα:");
-                    dump = sc.nextLine();
-                    next_string = sc.nextLine();
-                    this.setName(next_string);
-                }
-                case "Έδρα" -> {
-                    System.out.println("Δώστε την νέα έδρα:");
-                    next_string = sc.next();
-                    this.setHome_ground(next_string);
-                }
-                case "Τηλέφωνο" -> {
-                    System.out.println("Δώστε το νέο τηλέφωνο:");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-9]{10}");
-                    next_string = ch.validstring(next_string,p,"Μη Έγκυρo Τηλέφωνο");
-                    this.setPhone_number(next_string);
-                }
-                case "email" -> {
-                    System.out.println("¨Δώστε το νέο email:");
-                    next_string = sc.next();
-                    p = Pattern.compile(".*@+[a-zA-Z]+[.]+[a-zA-Z]+$");
-                    next_string = ch.validstring(next_string,p,"Μη έγκυρη διεύθυνση email ");
-                    this.setEmail(next_string);
-                }
-                case "Έξοδος" -> flag = false;
+        JLabel namel= new JLabel ("Full name");
+        JLabel  phonel = new JLabel ("Phone Number");
+        JLabel home_groundl = new JLabel ("Home Ground");
+        JLabel  emaill= new JLabel ("email");
+        JTextField Name = new JTextField(this.getName());
+        JTextField Location = new JTextField(this.getHome_ground());
+        JTextField email = new JTextField(this.getEmail());
+        JTextField phone_number = new JTextField(this.getPhone_number());
+        p = Pattern.compile(".*[0-9]{10}");
+        JButton Save = new JButton("Save");
+        Save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            if(!phone_number.getText().matches(p.pattern())){
+                output[0].setText("Wrong phone number! (must be 10 digits from 0-9)");
+                 return;
+             }
+             else{
+                 switch_f[0] = true ;
+                 temp[0] = new Person(Name.getText(),Location.getText(),phone_number.getText(),email.getText());
+                 output[0].setText("Done!!!");
+                 updater(temp[0]);
+
 
             }
-        }
-        this.show_person();
+            }
 
-        String start= "Username:"+c.getUsername();//
-
-        BufferedReader reader = new BufferedReader(new FileReader("users.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
+        });
 
 
-        String currentLine;
 
-        while((currentLine = reader.readLine()) != null) {
-            if(currentLine.contains(start)) continue;
-            writer.write(currentLine);
-            writer.newLine();
-        }
+        main.add(namel);
+        main.add(Name);
+        main.add(home_groundl);
+        main.add(Location);
+        main.add(phonel);
+        main.add(phone_number);
+        main.add(emaill);
+        main.add(email);
+        main.add(Save);
+        main.add(output[0]);
+        return main;
 
-        writer.close();
-        reader.close();
+    }
 
-        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-
-        try {
-            Files.move(oldFile, oldFile.resolveSibling("users.txt"), StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e) {
-           e.printStackTrace();
-        }
-
-        try(BufferedWriter buffer=new BufferedWriter(new FileWriter("users.txt",true))) {
-            buffer.write("Username" + ":" + c.getUsername()
-                    +" - " + "Κωδικός" + ":" + c.getPassword() + " - " + this.getType() +":" + this.getName()   + " - " + "Τόπος Κατοικίας: " + this.getHome_ground()
-                    + " - " + "Email: " + this.getEmail() + " - " + "Τηλέφωνο Επικοινωνίας: " + this.getPhone_number());
-
-            buffer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }//
+    private void updater(Person person) {
+        this.setEmail(person.getEmail());
+        this.setName(person.getName());
+        this.setHome_ground(person.getHome_ground());
+        this.setPhone_number(person.getPhone_number());
     }
 }
