@@ -201,7 +201,7 @@ public class Moderator extends Person{
                         sub1[i].add(date);
                         sub1[i].add(customer);
                         JLabel b1 = new JLabel(temp.getStart().toString() + " / " + temp.getEnd().toString());
-                        JLabel b2 = new JLabel(non_empty.get(i).reservations.get(j).getCustomer_name());
+                        JLabel b2 = new JLabel(non_empty.get(i).reservations.get(j).getCustomer().getName());
                         sub1[i].add(b1);
                         sub1[i].add(b2);
 
@@ -237,7 +237,7 @@ public class Moderator extends Person{
                         sub2[i].add(date);
                         sub2[i].add(customer);
                         JLabel b1 = new JLabel(temp.getStart().toString() + " / " + temp.getEnd().toString());
-                        JLabel b2 = new JLabel(temp.getCustomer_name());
+                        JLabel b2 = new JLabel(temp.getCustomer().getName());
                         sub2[i].add(b1);
                         sub2[i].add(b2);
 
@@ -288,7 +288,7 @@ public class Moderator extends Person{
                             temp.add(date);
                             temp.add(customer);
                             JLabel b1 = new JLabel(y.getStart().toString() + " / " +y.getEnd().toString());
-                            JLabel b2 = new JLabel(non_empty2.get(k).hotelroomreservations.get(l).getCustomer_name());
+                            JLabel b2 = new JLabel(non_empty2.get(k).hotelroomreservations.get(l).getCustomer().getName());
                             temp.add(b1);
                             temp.add(b2);
                         }
@@ -337,7 +337,7 @@ public class Moderator extends Person{
                             temp.add(date);
                             temp.add(customer);
                             JLabel b1 = new JLabel(y.getStart().toString() + " / " +y.getEnd().toString());
-                            JLabel b2 = new JLabel(non_empty2c.get(k).hotelroomcancellations.get(l).getCustomer_name());
+                            JLabel b2 = new JLabel(non_empty2c.get(k).hotelroomcancellations.get(l).getCustomer().getName());
                             temp.add(b1);
                             temp.add(b2);
                         }

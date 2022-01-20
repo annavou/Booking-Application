@@ -5,6 +5,11 @@
  */
 
 import javax.swing.*;
+import java.io.*;//
+import java.nio.file.Files;//
+import java.nio.file.Path;//
+import java.nio.file.Paths;//
+import java.nio.file.StandardCopyOption;//
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -61,11 +66,11 @@ public class Hotel_Provider extends  Person {
             String s1 = Hotels.get(i).getName() + " is a " + Hotels.get(i).getStars() + " stars Hotel, is located at " + Hotels.get(i).getLocation() + " and has the rooms: ";
             jps[i].add(new JLabel(s1));
             JPanel[] jps_sub = new JPanel[Hotels.get(i).Rooms.size()];
-             box = new BoxLayout(jps[i],BoxLayout.Y_AXIS);
+            box = new BoxLayout(jps[i],BoxLayout.Y_AXIS);
             jps[i].setLayout(box);
             for(int j = 0 ; j < Hotels.get(i).Rooms.size();j++ ){
                 jps_sub[j] = new JPanel();
-               // jps_sub[i].setLayout(box);
+                // jps_sub[i].setLayout(box);
                 Hotel_room hr = Hotels.get(i).Rooms.get(j);
                 String s2 = "The room " + hr.getName() +" it has an area of " + hr.getSqmeter() + " and is suitable for up to " + hr.getCapacity() + " people.";
                 String s3 = hr.hasBreakfast() + " Breakfast\n " + hr.hasAc() + " Ac\n " + hr.hasParking() + " Parking\n " + hr.hasWifi() + " Wifi\n " + hr.hasCleaningservice() + " Cleaning Service\n ";
@@ -161,6 +166,15 @@ public class Hotel_Provider extends  Person {
                 }
                 Hotel temp = new Hotel(NameT.getText(),LocationT.getText(),StarsT.getText());
                 Hotels.add(temp);
+
+                try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
+                    buffer.write("Ξενοδοχείο: " + temp.getName() +" - "+ "Στην τοποθεσία: " + temp.getLocation() + " - " + "Αστέρια Ξενοδοχείου: "
+                            + temp.getStars() + " - " + "Με τα εξής δωμάτια: " );
+                    buffer.newLine();
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }//
+
                 NameT.setText("");
                 LocationT.setText("");
                 StarsT.setText("");
@@ -262,8 +276,85 @@ public class Hotel_Provider extends  Person {
                 for(Hotel h : Hotels)
                     if(list.getSelectedItem().equals(h.getName()))
                         hotel = h ;
+
+                String start= "Ξενοδοχείο: "+hotel.getName();//
+                String rooms="            ";
+
+                BufferedReader reader = null;
+                try {
+                    reader = new BufferedReader(new FileReader("accommodations.txt"));
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                BufferedWriter writer = null;
+                try {
+                    writer = new BufferedWriter(new FileWriter("temp.txt"));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+
+                String currentLine;
+                try {
+                    while((currentLine = reader.readLine()) != null) {
+                        if(currentLine.contains(start)|| currentLine.contains(rooms)) continue;
+                        writer.write(currentLine);
+                        writer.newLine();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                try {
+                    writer.close();
+                    reader.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+
+                try {
+                    Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }//
+
                 Hotel_room temp = new Hotel_room(NameT.getText(),PriceT.getText(),CapacityT.getText(),BreakfastT.isSelected(), WifiT.isSelected(),AcT.isSelected(),ParkingT.isSelected(),Cleaning_ServiceT.isSelected(),Square_metersT.getText());
                 hotel.Rooms.add(temp);
+
+                try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
+                    buffer.write("Ξενοδοχείο: " + hotel.getName() +" - "+ "Στην τοποθεσία: " + hotel.getLocation() + " - " + "Αστέρια Ξενοδοχείου: "
+                            + hotel.getStars() + " - " + "Με τα εξής δωμάτια: " );
+                    buffer.newLine();
+
+                    for(Hotel_room r: hotel.Rooms){
+                        buffer.write("            ");
+                        buffer.write("Δωμάτιο: " + r.getName() + " - "+"Τιμή ανα βράδυ: " + r.getPrice() + "$" + " - " + "Τετραγωνικά δωματίου: "
+                                + r.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + r.getCapacity() +"άτομα" + " - " + "Το κατάλυμα προσφέρει: ");
+
+                        if(r.isAc()){
+                            buffer.write("Κλιματισμό ");
+                        }
+                        if(r.isBreakfast()){
+                            buffer.write("Πρωινό ");
+                        }
+                        if (r.isCleaning_services()){
+                            buffer.write("Υπηρεσίες Καθαρισμού ");
+                        }
+                        if (r.isParking()){
+                            buffer.write("Parking ");
+                        }
+                        if(r.isWifi()){
+                            buffer.write("Wifi.");
+                        }
+                        buffer.newLine();
+                    }
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }//
+
                 NameT.setText("");
                 PriceT.setText("");
                 Square_metersT.setText("");
@@ -323,6 +414,51 @@ public class Hotel_Provider extends  Person {
                         }
                     }
                     Hotels.remove(h);
+
+                    String start= "Ξενοδοχείο: "+h.getName();//
+                    String rooms="            ";
+
+                    BufferedReader reader = null;
+                    try {
+                        reader = new BufferedReader(new FileReader("accommodations.txt"));
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                    BufferedWriter writer = null;
+                    try {
+                        writer = new BufferedWriter(new FileWriter("temp.txt"));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                    String currentLine;
+                    try {
+                        while((currentLine = reader.readLine()) != null) {
+                            if(currentLine.contains(start)|| currentLine.contains(rooms)) continue;
+                                 writer.write(currentLine);
+                                 writer.newLine();
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try {
+                        writer.close();
+                        reader.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+
+                    try {
+                        Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    catch (IOException ex) {
+                        ex.printStackTrace();
+                    }//
+
                     list1.removeAllItems();
                     for (Hotel hotel : Hotels) {
                         list1.addItem(hotel.getName());
@@ -361,6 +497,51 @@ public class Hotel_Provider extends  Person {
                     for(Hotel_room hr : h.Rooms)
                         if(hr.getName().equals(finalList[0].getSelectedItem()))
                             temp = hr ;
+
+                    String start= "Δωμάτιο: "+temp.getName();//
+                    String rooms="            ";
+
+                    BufferedReader reader = null;
+                    try {
+                        reader = new BufferedReader(new FileReader("accommodations.txt"));
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                    BufferedWriter writer = null;
+                    try {
+                        writer = new BufferedWriter(new FileWriter("temp.txt"));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                    String currentLine;
+                    try {
+                        while((currentLine = reader.readLine()) != null) {
+                            if(currentLine.contains(start) && currentLine.contains(rooms)) continue;
+                            writer.write(currentLine);
+                            writer.newLine();
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try {
+                        writer.close();
+                        reader.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+
+                    try {
+                        Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    catch (IOException ex) {
+                        ex.printStackTrace();
+                    }//
+
                     h.Rooms.remove(temp);
                     main[0].remove(finalList[0]);
                     main[0].remove(delete);
@@ -487,9 +668,85 @@ public class Hotel_Provider extends  Person {
                 }
                 for(int i = 0 ; i < list.getItemCount(); i++){
                     if(Hotels.get(i).getName().equals(sele)){
+
+                        String start= "Ξενοδοχείο: "+Hotels.get(i).getName();//
+                        String rooms="            ";
+
+                        BufferedReader reader = null;
+                        try {
+                            reader = new BufferedReader(new FileReader("accommodations.txt"));
+                        } catch (FileNotFoundException ex) {
+                            ex.printStackTrace();
+                        }
+                        BufferedWriter writer = null;
+                        try {
+                            writer = new BufferedWriter(new FileWriter("temp.txt"));
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+
+
+                        String currentLine;
+                        try {
+                            while ((currentLine = reader.readLine()) != null) {
+                                if (currentLine.contains(start) || currentLine.contains(rooms)) continue;
+                                writer.write(currentLine);
+                                writer.newLine();
+                            }
+                        }catch (IOException ex){
+                            ex.printStackTrace();
+                        }
+
+                        try {
+                            writer.close();
+                            reader.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+
+                        try {
+                            Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
+                        }
+                        catch (IOException ex) {
+                            ex.printStackTrace();
+                        }//
+
                         Hotels.get(i).setName(NameT.getText());
                         Hotels.get(i).setLocation(LocationT.getText());
                         Hotels.get(i).setStars(StarsT.getText());
+
+                        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
+                            buffer.write("Ξενοδοχείο: " + Hotels.get(i).getName() +" - "+ "Στην τοποθεσία: " + Hotels.get(i).getLocation() + " - " + "Αστέρια Ξενοδοχείου: "
+                                    + Hotels.get(i).getStars() + " - " + "Με τα εξής δωμάτια: " );
+                            buffer.newLine();
+
+                            for(Hotel_room r: hotel.Rooms){
+                                buffer.write("            ");
+                                buffer.write("Δωμάτιο: " + r.getName() + " - "+"Τιμή ανα βράδυ: " + r.getPrice() + "$" + " - " + "Τετραγωνικά δωματίου: "
+                                        + r.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + r.getCapacity() +"άτομα" + " - " + "Το κατάλυμα προσφέρει: ");
+
+                                if(r.isAc()){
+                                    buffer.write("Κλιματισμό ");
+                                }
+                                if(r.isBreakfast()){
+                                    buffer.write("Πρωινό ");
+                                }
+                                if (r.isCleaning_services()){
+                                    buffer.write("Υπηρεσίες Καθαρισμού ");
+                                }
+                                if (r.isParking()){
+                                    buffer.write("Parking ");
+                                }
+                                if(r.isWifi()){
+                                    buffer.write("Wifi.");
+                                }
+                                buffer.newLine();
+                            }
+                        }catch (IOException ex){
+                            ex.printStackTrace();
+                        }//
                     }
                 }
                 main[0].remove(list);
@@ -529,11 +786,11 @@ public class Hotel_Provider extends  Person {
     }
 
     private JPanel Hotel_Room_edit(String name) {
-       Hotel[] selected = {new Hotel()};
-       for(Hotel h : Hotels)
-           if(name.equals(h.getName()))
-               selected[0] = h ;
-       JComboBox<String> list = new JComboBox<>();
+        Hotel[] selected = {new Hotel()};
+        for(Hotel h : Hotels)
+            if(name.equals(h.getName()))
+                selected[0] = h ;
+        JComboBox<String> list = new JComboBox<>();
         JPanel main = new JPanel();
         final JTextField[] output = {new JTextField()};
         output[0].setEditable(false);
@@ -617,40 +874,40 @@ public class Hotel_Provider extends  Person {
         });
         JButton Save = new JButton("Save");
         Save.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String sele = String.valueOf(list.getSelectedItem());
-            output[0].setText(input_check(PriceT.getText(),Square_metersT.getText(),CapacityT.getText()));
-            if(!output[0].getText().equals("Done")){
-                return;
-            }
-            for(int i = 0 ; i < list.getItemCount(); i++){
-                if(selected[0].Rooms.get(i).getName().equals(sele)){
-                    selected[0].Rooms.get(i).setName(NameT.getText());
-                    selected[0].Rooms.get(i).setPrice(PriceT.getText());
-                    selected[0].Rooms.get(i).setSqmeter(Square_metersT.getText());
-                    selected[0].Rooms.get(i).setCapacity(CapacityT.getText());
-                    selected[0].Rooms.get(i).setBreakfast(BreakfastT.isSelected());
-                    selected[0].Rooms.get(i).setAc(AcT.isSelected());
-                    selected[0].Rooms.get(i).setParking(ParkingT.isSelected());
-                    selected[0].Rooms.get(i).setWifi(WifiT.isSelected());
-                    selected[0].Rooms.get(i).setCleaning_services(Cleaning_ServiceT.isSelected());
-
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String sele = String.valueOf(list.getSelectedItem());
+                output[0].setText(input_check(PriceT.getText(),Square_metersT.getText(),CapacityT.getText()));
+                if(!output[0].getText().equals("Done")){
+                    return;
                 }
+                for(int i = 0 ; i < list.getItemCount(); i++){
+                    if(selected[0].Rooms.get(i).getName().equals(sele)){
+                        selected[0].Rooms.get(i).setName(NameT.getText());
+                        selected[0].Rooms.get(i).setPrice(PriceT.getText());
+                        selected[0].Rooms.get(i).setSqmeter(Square_metersT.getText());
+                        selected[0].Rooms.get(i).setCapacity(CapacityT.getText());
+                        selected[0].Rooms.get(i).setBreakfast(BreakfastT.isSelected());
+                        selected[0].Rooms.get(i).setAc(AcT.isSelected());
+                        selected[0].Rooms.get(i).setParking(ParkingT.isSelected());
+                        selected[0].Rooms.get(i).setWifi(WifiT.isSelected());
+                        selected[0].Rooms.get(i).setCleaning_services(Cleaning_ServiceT.isSelected());
+
+                    }
+                }
+                main.remove(list);
+                main.remove(Save);
+                main.remove(output[0]);
+                list.removeAllItems();
+                for (Hotel_room hr : selected[0].Rooms) {
+                    list.addItem(hr.getName());
+                }
+                SwingUtilities.updateComponentTreeUI(main);
+                SwingUtilities.updateComponentTreeUI(list);
+                main.add(list);
+                main.add(Save);
+                main.add(output[0]);
             }
-            main.remove(list);
-            main.remove(Save);
-            main.remove(output[0]);
-            list.removeAllItems();
-            for (Hotel_room hr : selected[0].Rooms) {
-                list.addItem(hr.getName());
-            }
-            SwingUtilities.updateComponentTreeUI(main);
-            SwingUtilities.updateComponentTreeUI(list);
-            main.add(list);
-            main.add(Save);
-            main.add(output[0]);
-        }
         });
 
         main.add(list);
@@ -721,7 +978,7 @@ public class Hotel_Provider extends  Person {
                     temp.add(date);
                     temp.add(customer);
                     JLabel b1 = new JLabel(x.getStart().toString() + " / " +x.getEnd().toString());
-                    JLabel b2 = new JLabel(non_empty2.get(k).hotelroomreservations.get(l).getCustomer_name());
+                    JLabel b2 = new JLabel(non_empty2.get(k).hotelroomreservations.get(l).getCustomer().getName());
                     temp.add(b1);
                     temp.add(b2);
                 }
@@ -770,7 +1027,7 @@ public class Hotel_Provider extends  Person {
                     temp.add(date);
                     temp.add(customer);
                     JLabel b1 = new JLabel(x.getStart().toString() + " / " +x.getEnd().toString());
-                    JLabel b2 = new JLabel(non_empty2c.get(k).hotelroomcancellations.get(l).getCustomer_name());
+                    JLabel b2 = new JLabel(non_empty2c.get(k).hotelroomcancellations.get(l).getCustomer().getName());
                     temp.add(b1);
                     temp.add(b2);
                 }

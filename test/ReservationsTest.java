@@ -17,7 +17,7 @@ public class ReservationsTest {
     public void setUp() throws Exception {
         s= LocalDate.of(2022,3,15);
         e=LocalDate.of(2022,3,20);
-        c= new Customer("Πελάτης","Γιώργος_Παπαδόπουλος","Θεσσαλονίκη","6940526352","giwrgos@gmail.com");
+        c= new Customer("Γιώργος_Παπαδόπουλος","Θεσσαλονίκη","6940526352","giwrgos@gmail.com");
         acc=new Accommodation("Annas_House", "Χαλκιδική", "60", "35",
                 "4", "1", "3", false, true, true, false, false);
         h=new Hotel("Philoxenia","Χαλκιδική","4");

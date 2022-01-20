@@ -218,9 +218,9 @@ public class Hotel_room {
      */
     public String hasBreakfast(){
         if(isBreakfast()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -230,9 +230,9 @@ public class Hotel_room {
      */
     public String hasWifi(){
         if(isWifi()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -242,9 +242,9 @@ public class Hotel_room {
      */
     public String hasParking(){
         if(isParking()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -254,9 +254,9 @@ public class Hotel_room {
      */
     public String hasAc(){
         if(isAc()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -266,18 +266,9 @@ public class Hotel_room {
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
-
-    /**
-     * Μέθοδος που εμφανίζει μορφοποιημένο το δωμάτιο
-     */
-    public void display() {
-        System.out.println("Δωμάτιο '" + name + " είναι " + sqmeter + "τμ, και είναι για " + capacity +" άτομα");
-        System.out.println(hasBreakfast() + "Πρωίνο\n" + hasWifi()+"Wifi\n"+hasParking()+"Parking\n"+hasAc()+"Air conditioner\n"+hasCleaningservice()+"Υπηρεσία καθαρισμού");
-        System.out.println("Τιμή: "+price+"$ ανα Βράδυ\n");
-    }
 }

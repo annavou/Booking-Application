@@ -106,29 +106,4 @@ public class Hotel {
         this.stars = stars;
     }
 
-
-
-    /**
-     *Μέθοδος με την οποία διαλέγουμε ένα δωμάτιο ξενοδοχείου από μία λίστα με δωμάτια
-     * @param Rooms Λίστα με δωμάτια
-     * @return το επιλεγμένο δωμάτιο
-     */
-    public Hotel_room search_Hotel_room(ArrayList<Hotel_room> Rooms){
-        Hotel_room room;
-        for (int i = 0; i < Rooms.size(); i++) {
-            System.out.println((i + 1) + ") Δωμάτιο : " + Rooms.get(i).getName());
-        }
-        System.out.println("Ποιό θέλετε? (Δώστε το αντίστοιχο νουμερο)");
-        next_string = sc.next();
-        p = Pattern.compile(".*[0-9]");
-        next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
-        if( Integer.parseInt(next_string) > 0 && Integer.parseInt(next_string) <= Rooms.size()){
-            room = Rooms.get(Integer.parseInt(next_string) -1);
-            return room;
-        }
-        else {
-            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Δωμάτιο");
-            return null;
-        }
-    }
 }

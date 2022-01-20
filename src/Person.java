@@ -6,8 +6,14 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import javax.swing.*;
@@ -97,72 +103,6 @@ public class Person {
         Email = email;
     }
 
-    /**
-     * μέθοδος με την οποία ένας χρήστης μπορεί να αναζητήσει κάποιο κατάλυμα
-     * @param accommodations λίστα με όλα τα καταλύματα
-     * @return το κατάλυμα που ψάχνει αν υπάρχει
-     */
-    public Accommodation search_acc(ArrayList<Accommodation> accommodations) {
-        Accommodation acc ;
-        for (int i = 0; i < accommodations.size(); i++) {
-            System.out.println((i + 1) + ") Κατάλυμα : " + accommodations.get(i).getName());
-        }
-        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
-        next_string = sc.next();
-        p = Pattern.compile(".*[0-9]");
-        next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
-        if( Integer.parseInt(next_string) > 0 && Integer.parseInt(next_string) <= accommodations.size()){
-            acc = accommodations.get(Integer.parseInt(next_string) -1);
-            return acc ;
-        }
-        else {
-            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Κατάλυμα");
-            return null;
-        }
-    }
-
-    /**
-     * μέθοδος με την οποία ένας χρήστης μπορεί να αναζητήσει κάποιο ξενοδοχείο
-    // * @param hotels λίστα με όλα τα ξενοδοχεία
-     * @return το ξενοδοχείο που ψάχνει αν υπάρχει
-     */
- /*   public Hotel search_hot(ArrayList<Hotel> hotels) {
-        Hotel h;
-        for (int i = 0; i < hotels.size(); i++) {
-            System.out.println((i + 1) + ") Ξεναδοχείο : " + hotels.get(i).getName());
-        }
-        System.out.println("Ποιό θέλετε? (δωστε το αντίστοιχο νουμερο)");
-        next_string = sc.next();
-        p = Pattern.compile(".*[0-9]");
-        next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
-        if( Integer.parseInt(next_string) > 0 && Integer.parseInt(next_string) <= hotels.size()){
-            h = hotels.get(Integer.parseInt(next_string) -1);
-            return h ;
-        }
-        else {
-            System.out.println("O αριθμός αυτός δεν αντιστοιχεί σε Ξεναδοχείο");
-            return null;
-        }
-    }
-
-
-    /**
-     * μέθοδος που εμφανίζει τα στοιχεία του χρήστη
-     */
-    /*
-    public void show_person() {
-        System.out.println(" Ο/Η " + getName() + "\n τηλ: " + getPhone_number() + "\n Εδρα: " + getHome_ground() + "\n email: " + getEmail());
-        if (this instanceof Accommodation_Provider) {
-            System.out.println("Πάροχος καταλυμάτων\n");
-        } else if (this instanceof Hotel_Provider) {
-            System.out.println("Πάροχος ξεναδοχείων\n");
-        } else if (this instanceof Moderator) {
-            System.out.println("Διαχηρηστής\n");
-        } else {
-            System.out.println("Πελάτης\n");
-        }
-
-    }
 
     /**
      * μέθοδος η οποία εμφανίζει τις ειδοποιήσεις των μηνυμάτων
@@ -207,8 +147,8 @@ public class Person {
                 boolean ex = false ;
                 for ( Person p : acc_list){
                     if(p.getName().equals(To.getText())) {
-                       ex = true;
-                       temp = p ;
+                        ex = true;
+                        temp = p ;
                     }
                 }
                 if(!ex){
@@ -232,8 +172,8 @@ public class Person {
         });
 
 
-      main.add(send);
-      main.add(back);
+        main.add(send);
+        main.add(back);
     }
 
     /**
@@ -251,12 +191,12 @@ public class Person {
         view.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 main[0].removeAll();
-                 JPanel temp = messages_view();
-                 temp.setLocation(0,0);
-                 main[0].setLayout(new BorderLayout());
-                 main[0].add(temp);
-                 SwingUtilities.updateComponentTreeUI(main[0]);
+                main[0].removeAll();
+                JPanel temp = messages_view();
+                temp.setLocation(0,0);
+                main[0].setLayout(new BorderLayout());
+                main[0].add(temp);
+                SwingUtilities.updateComponentTreeUI(main[0]);
             }
         });
         JButton send = new JButton();
@@ -411,7 +351,7 @@ public class Person {
      * μέθοδος για την επεξεργασία και την αλλαγή των στοιχείων του χρήστη
      * @return
      */
-    public JPanel info_edit() {
+    public JPanel info_edit(HashMap<Credentials,Person> people,String s1) {
         JPanel main = new JPanel();
         final JTextField[] output = {new JTextField("Change your info and press Save")};
         output[0].setEditable(false);
@@ -419,6 +359,12 @@ public class Person {
         GridLayout layout = new GridLayout(5,2);
         main.setLayout(layout);
         final Person[] temp = {new Person()};
+
+        Credentials c  = new Credentials();
+        for(Credentials j : people.keySet()){
+            if(people.get(j).equals(this))
+                c = j ;
+        }
 
         JLabel namel= new JLabel ("Full name");
         JLabel  phonel = new JLabel ("Phone Number");
@@ -430,21 +376,74 @@ public class Person {
         JTextField phone_number = new JTextField(this.getPhone_number());
         p = Pattern.compile(".*[0-9]{10}");
         JButton Save = new JButton("Save");
+        Credentials finalC = c;
         Save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            if(!phone_number.getText().matches(p.pattern())){
-                output[0].setText("Wrong phone number! (must be 10 digits from 0-9)");
-                 return;
-             }
-             else{
-                 switch_f[0] = true ;
-                 temp[0] = new Person(Name.getText(),Location.getText(),phone_number.getText(),email.getText());
-                 output[0].setText("Done!!!");
-                 updater(temp[0]);
+                if(!phone_number.getText().matches(p.pattern())){
+                    output[0].setText("Wrong phone number! (must be 10 digits from 0-9)");
+                    return;
+                }
+                else{
+                    switch_f[0] = true ;
+                    temp[0] = new Person(Name.getText(),Location.getText(),phone_number.getText(),email.getText());
+                    output[0].setText("Done!!!");
+                    updater(temp[0]);
+
+                    String start= "Username:"+ finalC.getUsername();//
+
+                    BufferedReader reader = null;
+                    try {
+                        reader = new BufferedReader(new FileReader("users.txt"));
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                    BufferedWriter writer = null;
+                    try {
+                        writer = new BufferedWriter(new FileWriter("temp.txt"));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
 
 
-            }
+                    String currentLine;
+                    try {
+                        while ((currentLine = reader.readLine()) != null) {
+                            if (currentLine.contains(start)) continue;
+                            writer.write(currentLine);
+                            writer.newLine();
+                        }
+                    }catch (IOException ex){
+                        ex.printStackTrace();
+                    }
+
+                    try {
+                        writer.close();
+                        reader.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+
+                    try {
+                        Files.move(oldFile, oldFile.resolveSibling("users.txt"), StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try(BufferedWriter buffer=new BufferedWriter(new FileWriter("users.txt",true))) {
+                        buffer.write("Username" + ":" + finalC.getUsername()
+                                +" - " + "Κωδικός" + ":" + finalC.getPassword() + " - " + s1 +":" + Name.getText()  + " - " + "Τόπος Κατοικίας: " + Location.getText()
+                                + " - " + "Email: " + email.getText() + " - " + "Τηλέφωνο Επικοινωνίας: " + phone_number.getText());
+
+                        buffer.newLine();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }//
+
+                }
             }
 
         });
@@ -471,4 +470,6 @@ public class Person {
         this.setHome_ground(person.getHome_ground());
         this.setPhone_number(person.getPhone_number());
     }
+
+
 }
