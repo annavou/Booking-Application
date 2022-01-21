@@ -1,51 +1,46 @@
+import java.io.Serial;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 /**
  *Κλάση η οποία αναπαριστά ένα ξενοδοχείο.
  *Περιέχει string με το όνομα την τοποθεσία και τα αστέρια του ξενοδοχείου καθώς και μία λίστα με τα δωμάτια τα οποία περιέχει.
  *Έχει βοηθητικές μεταβλητές τύπου string boolean scanner pattern και checker οι οποίες είναι για προσωρινή αποθήκευση δεδομένων
  */
-public class Hotel {
+public class Hotel implements java.io.Serializable {
 
-    private String name ;
-    private String location ;
-    private String stars ;
+    private String name;
+    private String location;
+    private String stars;
     ArrayList<Hotel_room> Rooms = new ArrayList<>();
+
+
+    @Serial
+    private static final long serialVersionUID = 6529685040067757690L;
 
     /**
      * Ο προκαθορισμένος κατασκευαστής
      */
-    Hotel(){}
+    Hotel() {
+    }
 
 
     /**
-     *Κατασκευαστής ο οποίος δέχεται ως όρισμα το όνομα την τοποθεσία και τα αστέρια
-     * @param aname όνομα
+     * Κατασκευαστής ο οποίος δέχεται ως όρισμα το όνομα την τοποθεσία και τα αστέρια
+     *
+     * @param aname     όνομα
      * @param alocation τοποθεσία
-     * @param astars αστέρια
+     * @param astars    αστέρια
      */
-    Hotel(String aname,String alocation,String astars){
+    Hotel(String aname, String alocation, String astars) {
         name = aname;
-        location = alocation ;
-        stars = astars ;
+        location = alocation;
+        stars = astars;
     }
 
-
-    /**
-     * Κατασκευαστής ο οποίος δέχεται ως όρισμα ένα αντικείμενο της ίδιας κλάσης και το αντιγράφει
-     * @param hotel το ξενοδοχείο προς αντιγραφή
-     */
-    public Hotel(Hotel hotel) {
-        this.name = hotel.name;
-        this.location = hotel.location;
-        this.stars = hotel.stars;
-        this.Rooms = new ArrayList<>(hotel.Rooms);
-    }
 
 
     /**
      * Μέθοδος που επιστρέφει το όνομα
+     *
      * @return όνομα
      */
     public String getName() {
@@ -54,7 +49,8 @@ public class Hotel {
 
 
     /**
-     *  μέθοδος αλλαγής ονόματος
+     * μέθοδος αλλαγής ονόματος
+     *
      * @param name όνομα
      */
     public void setName(String name) {
@@ -64,6 +60,7 @@ public class Hotel {
 
     /**
      * Μέθοδος που επιστρέφει την τοποθεσία
+     *
      * @return τοποθεσία
      */
     public String getLocation() {
@@ -73,6 +70,7 @@ public class Hotel {
 
     /**
      * Μέθοδος αλλαγής τοποθεσίας
+     *
      * @param location τοποθεσία
      */
     public void setLocation(String location) {
@@ -82,6 +80,7 @@ public class Hotel {
 
     /**
      * Μέθοδος που επιστρέφει τα αστέρια
+     *
      * @return αστέρια
      */
     public String getStars() {
@@ -90,11 +89,12 @@ public class Hotel {
 
 
     /**
-     *Μέθοδος αλλαγής αστεριών
-     * @param  stars αστέρια
+     * Μέθοδος αλλαγής αστεριών
+     *
+     * @param stars αστέρια
      */
     public void setStars(String stars) {
         this.stars = stars;
     }
-
 }
+

@@ -1,12 +1,13 @@
 /**
  *Κλάση η οποία αναπαριστά ένα δωμάτιο ξενοδοχείου.
- * Περιλαμβάνει strings με τη χωρητικότητα την τιμή το όνομα και τετραγωνικά του δωματίου.
+ * Περιλαμβάνει strings με την χωρητικότητα την τιμή το όνομα και τετραγωνικά του δωματίου.
  * Και bullets για το αν παρέχει πρωινό internet air condition parking και υπηρεσίες καθαρισμού
  */
 
+import java.io.Serial;
 import java.util.ArrayList;
 
-public class Hotel_room {
+public class Hotel_room implements java.io.Serializable{
 
     String name ;
     private String capacity ;
@@ -15,6 +16,8 @@ public class Hotel_room {
     private  String sqmeter;
     ArrayList<Reservations> hotelroomreservations = new ArrayList<>();
     ArrayList<Reservations> hotelroomcancellations= new ArrayList<>();
+    @Serial
+    private static final long serialVersionUID = 6519685098263357690L;
 
     /**
      * Ο κενός κατασκευαστής
@@ -60,7 +63,7 @@ public class Hotel_room {
 
     /**
      *Μέθοδος αλλαγής ονόματος
-     * @param name όνομα
+     * @param name ονομα
      */
     public void setName(String name) {
         this.name = name;
@@ -218,9 +221,9 @@ public class Hotel_room {
      */
     public String hasBreakfast(){
         if(isBreakfast()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
@@ -230,9 +233,9 @@ public class Hotel_room {
      */
     public String hasWifi(){
         if(isWifi()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
@@ -242,9 +245,9 @@ public class Hotel_room {
      */
     public String hasParking(){
         if(isParking()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
@@ -254,9 +257,9 @@ public class Hotel_room {
      */
     public String hasAc(){
         if(isAc()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 
@@ -266,9 +269,9 @@ public class Hotel_room {
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
 }

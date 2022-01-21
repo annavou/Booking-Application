@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/src/messages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/CheckerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/HotelTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/PersonTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/messagesTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messages.txt" beforeDir="false" afterPath="$PROJECT_DIR$/messages.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations.txt" beforeDir="false" afterPath="$PROJECT_DIR$/reservations.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accommodations.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cancellations.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/messages.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservations.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Accommodation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Accommodation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Accommodation_Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Accommodation_Provider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Checker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Checker.java" afterDir="false" />
@@ -21,7 +18,12 @@
       <change beforePath="$PROJECT_DIR$/src/Hotel_room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hotel_room.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Moderator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moderator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reservations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reservations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/messages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ReservationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ReservationsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/untitled15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/untitled15.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +62,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Public/Downloads" />
@@ -72,7 +75,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.main">
+  <component name="RunManager" selected="JUnit.All in untitled15">
     <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main" />
       <module name="untitled15" />
@@ -80,11 +83,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HotelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in untitled15" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="untitled15" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="HotelTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -119,11 +121,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in untitled15" />
         <item itemvalue="Application.main" />
         <item itemvalue="JUnit.PersonTest" />
         <item itemvalue="JUnit.messagesTest" />
         <item itemvalue="JUnit.messagesTest.getTopic" />
-        <item itemvalue="JUnit.HotelTest" />
       </list>
     </recent_temporary>
   </component>
@@ -135,6 +137,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1638136835568</updated>
+      <workItem from="1642770458679" duration="308000" />
     </task>
     <task id="LOCAL-00001" summary="5 classes">
       <created>1638189679126</created>
@@ -293,6 +296,9 @@
     <option name="localTasksCounter" value="23" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -303,7 +309,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="5 classes" />

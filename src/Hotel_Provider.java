@@ -5,19 +5,16 @@
  */
 
 import javax.swing.*;
-import java.io.*;//
-import java.nio.file.Files;//
-import java.nio.file.Path;//
-import java.nio.file.Paths;//
-import java.nio.file.StandardCopyOption;//
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Pattern;
-import java.time.temporal.ChronoUnit;
 
 public class Hotel_Provider extends  Person {
 
@@ -25,7 +22,8 @@ public class Hotel_Provider extends  Person {
 
     Hotel hotel;
 
-
+    @Serial
+    private static final long serialVersionUID = 6529611098267757690L;
     /**
      * Ο κενός κατασκευαστής
      */
@@ -45,7 +43,7 @@ public class Hotel_Provider extends  Person {
 
     /**
      * Μέθοδος η οποία εμφανίζει όλα τα ξενοδοχεία
-     * @return
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
      */
     public JPanel Hotels_Display_All() {
         int lenght = Hotels.size();
@@ -56,24 +54,24 @@ public class Hotel_Provider extends  Person {
         TitledBorder border = BorderFactory.createTitledBorder("Accom_displ");
         Border black = BorderFactory.createLineBorder(Color.black);
         panel1.setBorder(border);
-        GridLayout layout = new GridLayout(lenght,1);
+       // GridLayout layout = new GridLayout(lenght,1);
         //panel1.setLayout(layout);
         BoxLayout box = new BoxLayout(panel1,BoxLayout.Y_AXIS);
         panel1.setLayout(box);
 
         for( int i =0 ; i < lenght ; i++) {
             jps[i] = new JPanel();
-            String s1 = Hotels.get(i).getName() + " είναι ένα " + Hotels.get(i).getStars() + " αστέρων ξενοδοχείο, βρίσκεται στην " + Hotels.get(i).getLocation() + " και έχει τα εξής δωμάτια: ";
+            String s1 = Hotels.get(i).getName() + " is a " + Hotels.get(i).getStars() + " stars Hotel, is located at " + Hotels.get(i).getLocation() + " and has the rooms: ";
             jps[i].add(new JLabel(s1));
             JPanel[] jps_sub = new JPanel[Hotels.get(i).Rooms.size()];
-            box = new BoxLayout(jps[i],BoxLayout.Y_AXIS);
+             box = new BoxLayout(jps[i],BoxLayout.Y_AXIS);
             jps[i].setLayout(box);
             for(int j = 0 ; j < Hotels.get(i).Rooms.size();j++ ){
                 jps_sub[j] = new JPanel();
-                // jps_sub[i].setLayout(box);
+               // jps_sub[i].setLayout(box);
                 Hotel_room hr = Hotels.get(i).Rooms.get(j);
-                String s2 = "Το δωμάτιο " + hr.getName() +" είναι " + hr.getSqmeter() + " τετραγωνικά και είναι κατάλληλο για " + hr.getCapacity() + " άτομα.";
-                String s3 = hr.hasBreakfast() + " Πρωινό\n " + hr.hasAc() + " Κλιματισμός\n " + hr.hasParking() + " Parking\n " + hr.hasWifi() + " Wifi\n " + hr.hasCleaningservice() + " Υπηρεσίες Καθαρισμού\n ";
+                String s2 = "The room " + hr.getName() +" it has an area of " + hr.getSqmeter() + " and is suitable for up to " + hr.getCapacity() + " people.";
+                String s3 = hr.hasBreakfast() + " Breakfast\n " + hr.hasAc() + " Ac\n " + hr.hasParking() + " Parking\n " + hr.hasWifi() + " Wifi\n " + hr.hasCleaningservice() + " Cleaning Service\n ";
                 jps_sub[j].add(new JLabel(s2));
                 jps_sub[j].add(new JLabel(s3));
                 jps_sub[j].setBorder(black);
@@ -90,6 +88,7 @@ public class Hotel_Provider extends  Person {
 
     /**
      * Μέθοδος η οποία εμφανίζει ένα συγκεκριμένο ξενοδοχείο
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
      */
     public JPanel Hotels_Display(String name) {
         Hotel hot = null;
@@ -98,19 +97,24 @@ public class Hotel_Provider extends  Person {
                 hot = h;
             }
         }
+
+        if(hot==null)
+            return null;
+
         Border brd = BorderFactory.createLineBorder(Color.black);
         JPanel main = new JPanel();
-        String s1 = hot.getName() + " είναι ένα " + hot.getStars() + " αστέρων ξενοδοχείο, βρίσκεται στην " + hot.getLocation() + " και έχει τα εξής δωμάτια: ";
-        main.add(new JLabel(s1));
+        String s1 = hot.getName() + " is a " + hot.getStars() + " stars Hotel, is located at " + hot.getLocation() + " and has the rooms: ";
+        TitledBorder tb = BorderFactory.createTitledBorder(s1);
+        main.setBorder(tb);
         JPanel[] jps_sub = new JPanel[hot.Rooms.size()];
-        BoxLayout box = new BoxLayout(main,BoxLayout.Y_AXIS);
-        //jps[i].setLayout(box);
+        FlowLayout flowLayout = new FlowLayout();
+        main.setLayout(flowLayout);
         for(int j = 0 ; j < hot.Rooms.size();j++ ){
             jps_sub[j] = new JPanel();
-            // jps_sub[i].setLayout(box);
+             jps_sub[j].setLayout(flowLayout);
             Hotel_room hr = hot.Rooms.get(j);
-            String s2 = "Το δωμάτιο " + hr.getName() +" είναι " + hr.getSqmeter() + " τετραγωνικά και είναι κατάλληλο για " + hr.getCapacity() + " άτομα.";
-            String s3 = hr.hasBreakfast() + " Πρωινό\n " + hr.hasAc() + " Κλιματισμός\n " + hr.hasParking() + " Parking\n " + hr.hasWifi() + " Wifi\n " + hr.hasCleaningservice() + " Υπηρεσίες Καθαρισμού\n ";
+            String s2 = "The room " + hr.getName() +" it has an area of " + hr.getSqmeter() + " and is suitable for up to " + hr.getCapacity() + " people.";
+            String s3 = hr.hasBreakfast() + " Breakfast\n " + hr.hasAc() + " Ac\n " + hr.hasParking() + " Parking\n " + hr.hasWifi() + " Wifi\n " + hr.hasCleaningservice() + " Cleaning Service\n ";
             jps_sub[j].add(new JLabel(s2));
             jps_sub[j].add(new JLabel(s3));
             jps_sub[j].setBorder(brd);
@@ -124,16 +128,17 @@ public class Hotel_Provider extends  Person {
 
     /**
      * Μέθοδος η οποία προσθέτει ένα καινούργιο ξενοδοχείο στη λίστα
-     * @return
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
      */
-    public JPanel Hotel_add() {
+    public JPanel Hotel_add(HashMap<Credentials, Person> acc_list) {
         JPanel[] main ={new JPanel()};
         final JTextField[] output = {new JTextField()};
         output[0].setEditable(false);
-        JLabel Name = new JLabel("Όνομα");
-        JLabel Location = new JLabel("Τοποθεσία");
-        JLabel Stars = new JLabel("Αστέρια");
-        JButton add_room = new JButton("Προσθήκη Δωματίων");
+        JLabel Name = new JLabel("Name");
+        JLabel Location = new JLabel("Location");
+        JLabel Stars = new JLabel("Stars");
+        JButton add_room = new JButton("Add Hotel Room");
 
 
 
@@ -152,50 +157,41 @@ public class Hotel_Provider extends  Person {
         main[0].add(Stars);
         main[0].add(StarsT);
 
-        JButton add = new JButton("Αποθήκευση");
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Pattern p = Pattern.compile("[1-5]");
-                if(!StarsT.getText().matches(p.pattern()))
-                    output[0].setText("Λάθος Αριθμός Αστερίων");
-                else
-                    output[0].setText("Αποθηκεύτηκαν");
-                if(!output[0].getText().equals("Αποθηκεύτηκαν")){
-                    return;
-                }
-                Hotel temp = new Hotel(NameT.getText(),LocationT.getText(),StarsT.getText());
-                Hotels.add(temp);
-
-                try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
-                    buffer.write("Ξενοδοχείο: " + temp.getName() +" - "+ "Στην τοποθεσία: " + temp.getLocation() + " - " + "Αστέρια Ξενοδοχείου: "
-                            + temp.getStars() + " - " + "Με τα εξής δωμάτια: " );
-                    buffer.newLine();
-                }catch (IOException ex){
-                    ex.printStackTrace();
-                }//
-
-                NameT.setText("");
-                LocationT.setText("");
-                StarsT.setText("");
-                if(!Hotels.isEmpty())
-                    main[0].add(add_room);
-                SwingUtilities.updateComponentTreeUI(main[0]);
+        JButton add = new JButton("Save");
+        add.addActionListener(e -> {
+            Pattern p = Pattern.compile("[1-5]");
+            if(!StarsT.getText().matches(p.pattern()))
+                output[0].setText("Wrong number of stars");
+            else
+                output[0].setText("Done");
+            if(!output[0].getText().equals("Done")){
+                return;
             }
+            Hotel temp = new Hotel(NameT.getText(),LocationT.getText(),StarsT.getText());
+            Hotels.add(temp);
+            try{ FileOutputStream fos = new FileOutputStream("pls.bin");
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(acc_list);
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+            NameT.setText("");
+            LocationT.setText("");
+            StarsT.setText("");
+            if(!Hotels.isEmpty())
+                main[0].add(add_room);
+            SwingUtilities.updateComponentTreeUI(main[0]);
         });
 
 
 
-        add_room.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main[0].removeAll();
-                JPanel temp = Hotel_Room_add();
-                temp.setLocation(0,0);
-                main[0].setLayout(new BorderLayout());
-                main[0].add(temp);
-                SwingUtilities.updateComponentTreeUI(main[0]);
-            }
+        add_room.addActionListener(e -> {
+            main[0].removeAll();
+            JPanel temp = Hotel_Room_add(acc_list);
+            temp.setLocation(0,0);
+            main[0].setLayout(new BorderLayout());
+            main[0].add(temp);
+            SwingUtilities.updateComponentTreeUI(main[0]);
         });
 
         if(!Hotels.isEmpty())
@@ -206,7 +202,13 @@ public class Hotel_Provider extends  Person {
         return main[0];
     }
 
-    private JPanel Hotel_Room_add() {
+    /**
+     * Μεθοδος προσθήκης ενος δωματίου σε ενα ξεναδοχείο
+     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     */
+
+    private JPanel Hotel_Room_add(HashMap<Credentials, Person> acc_list) {
         JPanel[] main ={new JPanel()};
         final JTextField[] output = {new JTextField()};
         output[0].setEditable(false);
@@ -220,15 +222,15 @@ public class Hotel_Provider extends  Person {
                 hotel = h ;
 
 
-        JLabel Price = new JLabel("Τιμή");
-        JLabel Square_meters = new JLabel("Τετραγωνικά Μέτρα");
-        JLabel Capacity = new JLabel("Χωρητικότητα");
-        JLabel Breakfast = new JLabel("Πρωινό");
+        JLabel Price = new JLabel("Price");
+        JLabel Square_meters = new JLabel("Square Meters");
+        JLabel Capacity = new JLabel("Capacity");
+        JLabel Breakfast = new JLabel("Breakfast");
         JLabel Wifi = new JLabel("Wifi");
         JLabel Parking = new JLabel("Parking");
-        JLabel Ac = new JLabel("Κλιματισμός");
-        JLabel Cleaning_Service = new JLabel("Υπηρεσία Καθαρισμού");
-        JLabel Name = new JLabel("Όνομα");
+        JLabel Ac = new JLabel("Ac");
+        JLabel Cleaning_Service = new JLabel("Cleaning Service");
+        JLabel Name = new JLabel("Name");
 
 
         JTextField NameT = new JTextField("");
@@ -265,106 +267,32 @@ public class Hotel_Provider extends  Person {
         main[0].add(Cleaning_ServiceT);
         main[0].add(list);
 
-        JButton add = new JButton("Αποθήκευση");
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                output[0].setText(input_check(PriceT.getText(),Square_metersT.getText(),CapacityT.getText()));
-                if(!output[0].getText().equals("Αποθηκεύτηκαν")){
-                    return;
-                }
-                for(Hotel h : Hotels)
-                    if(list.getSelectedItem().equals(h.getName()))
-                        hotel = h ;
-
-                String start= "Ξενοδοχείο: "+hotel.getName();//
-                String rooms="            ";
-
-                BufferedReader reader = null;
-                try {
-                    reader = new BufferedReader(new FileReader("accommodations.txt"));
-                } catch (FileNotFoundException ex) {
-                    ex.printStackTrace();
-                }
-                BufferedWriter writer = null;
-                try {
-                    writer = new BufferedWriter(new FileWriter("temp.txt"));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-
-                String currentLine;
-                try {
-                    while((currentLine = reader.readLine()) != null) {
-                        if(currentLine.contains(start)|| currentLine.contains(rooms)) continue;
-                        writer.write(currentLine);
-                        writer.newLine();
-                    }
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-                try {
-                    writer.close();
-                    reader.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-                Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-
-                try {
-                    Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
-                }
-                catch (IOException ex) {
-                    ex.printStackTrace();
-                }//
-
-                Hotel_room temp = new Hotel_room(NameT.getText(),PriceT.getText(),CapacityT.getText(),BreakfastT.isSelected(), WifiT.isSelected(),AcT.isSelected(),ParkingT.isSelected(),Cleaning_ServiceT.isSelected(),Square_metersT.getText());
-                hotel.Rooms.add(temp);
-
-                try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
-                    buffer.write("Ξενοδοχείο: " + hotel.getName() +" - "+ "Στην τοποθεσία: " + hotel.getLocation() + " - " + "Αστέρια Ξενοδοχείου: "
-                            + hotel.getStars() + " - " + "Με τα εξής δωμάτια: " );
-                    buffer.newLine();
-
-                    for(Hotel_room r: hotel.Rooms){
-                        buffer.write("            ");
-                        buffer.write("Δωμάτιο: " + r.getName() + " - "+"Τιμή ανα βράδυ: " + r.getPrice() + "$" + " - " + "Τετραγωνικά δωματίου: "
-                                + r.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + r.getCapacity() +"άτομα" + " - " + "Το κατάλυμα προσφέρει: ");
-
-                        if(r.isAc()){
-                            buffer.write("Κλιματισμό ");
-                        }
-                        if(r.isBreakfast()){
-                            buffer.write("Πρωινό ");
-                        }
-                        if (r.isCleaning_services()){
-                            buffer.write("Υπηρεσίες Καθαρισμού ");
-                        }
-                        if (r.isParking()){
-                            buffer.write("Parking ");
-                        }
-                        if(r.isWifi()){
-                            buffer.write("Wifi.");
-                        }
-                        buffer.newLine();
-                    }
-                }catch (IOException ex){
-                    ex.printStackTrace();
-                }//
-
-                NameT.setText("");
-                PriceT.setText("");
-                Square_metersT.setText("");
-                CapacityT.setText("");
-                BreakfastT.setSelected(false);
-                WifiT.setSelected(false);
-                ParkingT.setSelected(false);
-                AcT.setSelected(false);
-                Cleaning_ServiceT.setSelected(false);
+        JButton add = new JButton("Save");
+        add.addActionListener(e -> {
+            output[0].setText(input_check(PriceT.getText(),Square_metersT.getText(),CapacityT.getText()));
+            if(!output[0].getText().equals("Done")){
+                return;
             }
+            for(Hotel h : Hotels)
+                if(list.getSelectedItem().equals(h.getName()))
+                    hotel = h ;
+            Hotel_room temp = new Hotel_room(NameT.getText(),PriceT.getText(),CapacityT.getText(),BreakfastT.isSelected(), WifiT.isSelected(),AcT.isSelected(),ParkingT.isSelected(),Cleaning_ServiceT.isSelected(),Square_metersT.getText());
+            hotel.Rooms.add(temp);
+            try{ FileOutputStream fos = new FileOutputStream("pls.bin");
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(acc_list);
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+            NameT.setText("");
+            PriceT.setText("");
+            Square_metersT.setText("");
+            CapacityT.setText("");
+            BreakfastT.setSelected(false);
+            WifiT.setSelected(false);
+            ParkingT.setSelected(false);
+            AcT.setSelected(false);
+            Cleaning_ServiceT.setSelected(false);
         });
 
 
@@ -376,19 +304,20 @@ public class Hotel_Provider extends  Person {
 
 
     /**
-     * Μέθοδος η οποία φέρει ένα ξενοδοχείο από τη λίστα
-     * @return
+     * Μέθοδος η οποία διαγράφει ένα ξενοδοχείο
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
      */
-    public JPanel Hotel_delete() {
+    public JPanel Hotel_delete(HashMap<Credentials, Person> acc_list) {
         final boolean[] press = new boolean[1];
-        press[0] = false;
+        //press[0] = false;
         final JPanel[] main = {new JPanel()};
         JComboBox<String> list1 = new JComboBox<>();
         JComboBox<String> list2 = new JComboBox<>();
         final JComboBox<String>[] finalList = new JComboBox[]{list2};
         final JPanel[] info = {new JPanel()};
         if(Hotels.isEmpty()){
-            main[0].add(new JLabel("Δεν Υπάρχουν Καταχωρημένα Ξενοδοχεία"));
+            main[0].add(new JLabel("geia"));
             return main[0];
         }
 
@@ -400,186 +329,104 @@ public class Hotel_Provider extends  Person {
         main[0].add(finalList[0]);
 
 
-        JButton delete = new JButton("Διαγραφή");
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                press[0] = true;
-                if (finalList[0].getSelectedItem().equals("Ολόκληρο το Ξενοδοχείο")) {
-                    String sele = String.valueOf(list1.getSelectedItem());
-                    Hotel h = null;
-                    for (int i = 0; i < list1.getItemCount(); i++) {
-                        if (Hotels.get(i).getName().equals(sele)) {
-                            h = Hotels.get(i);
-                        }
+        JButton delete = new JButton("Delete");
+        delete.addActionListener(e -> {
+            press[0] = true;
+            if (finalList[0].getSelectedItem().equals("Whole Hotel")) {
+                String sele = String.valueOf(list1.getSelectedItem());
+                Hotel h = null;
+                for (int i = 0; i < list1.getItemCount(); i++) {
+                    if (Hotels.get(i).getName().equals(sele)) {
+                        h = Hotels.get(i);
                     }
-                    Hotels.remove(h);
-
-                    String start= "Ξενοδοχείο: "+h.getName();//
-                    String rooms="            ";
-
-                    BufferedReader reader = null;
-                    try {
-                        reader = new BufferedReader(new FileReader("accommodations.txt"));
-                    } catch (FileNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
-                    BufferedWriter writer = null;
-                    try {
-                        writer = new BufferedWriter(new FileWriter("temp.txt"));
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-
-                    String currentLine;
-                    try {
-                        while((currentLine = reader.readLine()) != null) {
-                            if(currentLine.contains(start)|| currentLine.contains(rooms)) continue;
-                                 writer.write(currentLine);
-                                 writer.newLine();
-                        }
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    try {
-                        writer.close();
-                        reader.close();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-
-                    try {
-                        Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
-                    }
-                    catch (IOException ex) {
-                        ex.printStackTrace();
-                    }//
-
-                    list1.removeAllItems();
-                    for (Hotel hotel : Hotels) {
-                        list1.addItem(hotel.getName());
-                    }
-                    if (Hotels.isEmpty()) {
-                        main[0].remove(list1);
-                        main[0].remove(finalList[0]);
-                        main[0].remove(delete);
-                        main[0].remove(info[0]);
-                        main[0].add(new JLabel("Δεν Υπάρχουν Καταχωρημένα Ξενοδοχεία"));
-
-                    } else {
-                        main[0].remove(list1);
-                        main[0].remove(finalList[0]);
-                        main[0].remove(delete);
-                        main[0].remove(info[0]);
-                        SwingUtilities.updateComponentTreeUI(main[0]);
-                        SwingUtilities.updateComponentTreeUI(list1);
-                        main[0].add(list1);
-                        main[0].add(finalList[0]);
-                        main[0].add(delete);
-                        info[0] = Hotels_Display((String) list1.getSelectedItem());
-                        main[0].add(info[0]);
-                    }
-
                 }
-                else{
-                    String sele = String.valueOf(list1.getSelectedItem());
-                    Hotel h = null;
-                    Hotel_room temp = new Hotel_room();
-
-                    for (int i = 0; i < list1.getItemCount(); i++)
-                        if (Hotels.get(i).getName().equals(sele))
-                            h = Hotels.get(i);
-
-                    for(Hotel_room hr : h.Rooms)
-                        if(hr.getName().equals(finalList[0].getSelectedItem()))
-                            temp = hr ;
-
-                    String start= "Δωμάτιο: "+temp.getName();//
-                    String rooms="            ";
-
-                    BufferedReader reader = null;
-                    try {
-                        reader = new BufferedReader(new FileReader("accommodations.txt"));
-                    } catch (FileNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
-                    BufferedWriter writer = null;
-                    try {
-                        writer = new BufferedWriter(new FileWriter("temp.txt"));
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-
-                    String currentLine;
-                    try {
-                        while((currentLine = reader.readLine()) != null) {
-                            if(currentLine.contains(start) && currentLine.contains(rooms)) continue;
-                            writer.write(currentLine);
-                            writer.newLine();
-                        }
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    try {
-                        writer.close();
-                        reader.close();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-
-                    try {
-                        Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
-                    }
-                    catch (IOException ex) {
-                        ex.printStackTrace();
-                    }//
-
-                    h.Rooms.remove(temp);
+                Hotels.remove(h);
+                try{ FileOutputStream fos = new FileOutputStream("pls.bin");
+                    ObjectOutputStream os = new ObjectOutputStream(fos);
+                    os.writeObject(acc_list);
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }
+                list1.removeAllItems();
+                for (Hotel hotel : Hotels) {
+                    list1.addItem(hotel.getName());
+                }
+                if (Hotels.isEmpty()) {
+                    main[0].remove(list1);
                     main[0].remove(finalList[0]);
                     main[0].remove(delete);
                     main[0].remove(info[0]);
-                    finalList[0].removeAllItems();
-                    finalList[0] = create_list(h.getName());
+                    main[0].add(new JLabel("geia"));
+
+                } else {
+                    main[0].remove(list1);
+                    main[0].remove(finalList[0]);
+                    main[0].remove(delete);
+                    main[0].remove(info[0]);
                     SwingUtilities.updateComponentTreeUI(main[0]);
                     SwingUtilities.updateComponentTreeUI(list1);
+                    main[0].add(list1);
                     main[0].add(finalList[0]);
                     main[0].add(delete);
                     info[0] = Hotels_Display((String) list1.getSelectedItem());
                     main[0].add(info[0]);
                 }
-                SwingUtilities.updateComponentTreeUI(main[0]);
 
-                press[0] = false;
             }
+            else{
+                String sele = String.valueOf(list1.getSelectedItem());
+                Hotel h = null;
+                Hotel_room temp = new Hotel_room();
+
+                for (int i = 0; i < list1.getItemCount(); i++)
+                    if (Hotels.get(i).getName().equals(sele))
+                        h = Hotels.get(i);
+
+                if(h == null)
+                    return;
+
+                for(Hotel_room hr : h.Rooms)
+                    if(hr.getName().equals(finalList[0].getSelectedItem()))
+                        temp = hr ;
+                h.Rooms.remove(temp);
+                try{ FileOutputStream fos = new FileOutputStream("pls.bin");
+                    ObjectOutputStream os = new ObjectOutputStream(fos);
+                    os.writeObject(acc_list);
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }
+                main[0].remove(finalList[0]);
+                main[0].remove(delete);
+                main[0].remove(info[0]);
+                finalList[0].removeAllItems();
+                finalList[0] = create_list(h.getName());
+                SwingUtilities.updateComponentTreeUI(main[0]);
+                SwingUtilities.updateComponentTreeUI(list1);
+                main[0].add(finalList[0]);
+                main[0].add(delete);
+                info[0] = Hotels_Display((String) list1.getSelectedItem());
+                main[0].add(info[0]);
+            }
+            SwingUtilities.updateComponentTreeUI(main[0]);
+
+            press[0] = false;
         });
 
 
 
-        list1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if( press[0])
-                    return;
-                main[0].remove(info[0]);
-                main[0].remove(delete);
-                main[0].remove(finalList[0]);
-                finalList[0] = create_list( (String) list1.getSelectedItem());
-                SwingUtilities.updateComponentTreeUI(main[0]);
-                info[0] = Hotels_Display( (String) list1.getSelectedItem());
-                main[0].add(finalList[0]);
-                main[0].add(delete);
-                main[0].add(info[0]);
-                SwingUtilities.updateComponentTreeUI(main[0]);
-            }
-
+        list1.addActionListener(e -> {
+            if( press[0])
+                return;
+            main[0].remove(info[0]);
+            main[0].remove(delete);
+            main[0].remove(finalList[0]);
+            finalList[0] = create_list( (String) list1.getSelectedItem());
+            SwingUtilities.updateComponentTreeUI(main[0]);
+            info[0] = Hotels_Display( (String) list1.getSelectedItem());
+            main[0].add(finalList[0]);
+            main[0].add(delete);
+            main[0].add(info[0]);
+            SwingUtilities.updateComponentTreeUI(main[0]);
         });
 
 
@@ -589,10 +436,15 @@ public class Hotel_Provider extends  Person {
         return main[0];
     }
 
+    /**
+     * Μεθοδος που δημιουργεί μια λίστα με τα δωμάτιου ενος ξεναδοχείου
+     * @param selectedItem το όνομα του ξεναδοχείου
+     * @return η λίστα με τα δωμάτια
+     */
     private JComboBox<String> create_list(String selectedItem) {
         Hotel hotel = new Hotel() ;
         JComboBox<String> list = new JComboBox<>();
-        list.addItem("Ολόκληρο το Ξενοδοχείο");
+        list.addItem("Whole Hotel");
         for(Hotel h : Hotels)
             if(h.getName().equals(selectedItem))
                 hotel = h ;
@@ -604,20 +456,21 @@ public class Hotel_Provider extends  Person {
 
     /**
      * Μέθοδος επεξεργασίας ενός ξενοδοχείου
-     * @return
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
      */
-    public JPanel Hotel_edit() {
+    public JPanel Hotel_edit(HashMap<Credentials, Person> acc_list) {
 
         JComboBox<String> list = new JComboBox<>();
-        JButton edit_room = new JButton("Επεξεργασία Δωματίου του συγκεκριμένου Ξενοδοχείου");
+        JButton edit_room = new JButton("Edit a Hotel Room from Selected Hotel");
         JPanel[] main = {new JPanel()};
         final JTextField[] output = {new JTextField()};
         output[0].setEditable(false);
-        JLabel Name = new JLabel("Όνομα");
-        JLabel Location = new JLabel("Τοποθεσία");
-        JLabel Stars = new JLabel("Αστέρια");
+        JLabel Name = new JLabel("Name");
+        JLabel Location = new JLabel("Location");
+        JLabel Stars = new JLabel("Stars");
         if(Hotels.isEmpty()){
-            JLabel er = new JLabel("Δεν Υπάρχουν Καταχωρημένα Δωμάτια");
+            JLabel er = new JLabel("Den exeis");
             main[0].add(er);
             return main[0];
         }
@@ -639,143 +492,64 @@ public class Hotel_Provider extends  Person {
             list.addItem(hotel.getName());
         }
 
-        list.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sele = String.valueOf(list.getSelectedItem());
-                for(int i = 0 ; i < list.getItemCount(); i++){
-                    if(Hotels.get(i).getName().equals(sele)){
-                        NameT.setText(Hotels.get(i).getName());
-                        LocationT.setText(Hotels.get(i).getLocation());
-                        StarsT.setText(Hotels.get(i).getStars());
-                    }
+        list.addActionListener(e -> {
+            String sele = String.valueOf(list.getSelectedItem());
+            for(int i = 0 ; i < list.getItemCount(); i++){
+                if(Hotels.get(i).getName().equals(sele)){
+                    NameT.setText(Hotels.get(i).getName());
+                    LocationT.setText(Hotels.get(i).getLocation());
+                    StarsT.setText(Hotels.get(i).getStars());
                 }
             }
         });
 
-        JButton Save = new JButton("Αποθήκευση");
-        Save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sele = String.valueOf(list.getSelectedItem());
-                Pattern p = Pattern.compile("[1-5]");
-                if(!StarsT.getText().matches(p.pattern()))
-                    output[0].setText("Λάθος Αριθμός Αστεριών");
-                else
-                    output[0].setText("Αποθηκεύτηκαν");
-                if(!output[0].getText().equals("Αποθηκεύτηκαν")){
-                    return;
-                }
-                for(int i = 0 ; i < list.getItemCount(); i++){
-                    if(Hotels.get(i).getName().equals(sele)){
-
-                        String start= "Ξενοδοχείο: "+Hotels.get(i).getName();//
-                        String rooms="            ";
-
-                        BufferedReader reader = null;
-                        try {
-                            reader = new BufferedReader(new FileReader("accommodations.txt"));
-                        } catch (FileNotFoundException ex) {
-                            ex.printStackTrace();
-                        }
-                        BufferedWriter writer = null;
-                        try {
-                            writer = new BufferedWriter(new FileWriter("temp.txt"));
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-
-
-                        String currentLine;
-                        try {
-                            while ((currentLine = reader.readLine()) != null) {
-                                if (currentLine.contains(start) || currentLine.contains(rooms)) continue;
-                                writer.write(currentLine);
-                                writer.newLine();
-                            }
-                        }catch (IOException ex){
-                            ex.printStackTrace();
-                        }
-
-                        try {
-                            writer.close();
-                            reader.close();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-
-                        Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
-
-                        try {
-                            Files.move(oldFile, oldFile.resolveSibling("accommodations.txt"), StandardCopyOption.REPLACE_EXISTING);
-                        }
-                        catch (IOException ex) {
-                            ex.printStackTrace();
-                        }//
-
-                        Hotels.get(i).setName(NameT.getText());
-                        Hotels.get(i).setLocation(LocationT.getText());
-                        Hotels.get(i).setStars(StarsT.getText());
-
-                        try(BufferedWriter buffer= new BufferedWriter(new FileWriter("accommodations.txt",true))){//
-                            buffer.write("Ξενοδοχείο: " + Hotels.get(i).getName() +" - "+ "Στην τοποθεσία: " + Hotels.get(i).getLocation() + " - " + "Αστέρια Ξενοδοχείου: "
-                                    + Hotels.get(i).getStars() + " - " + "Με τα εξής δωμάτια: " );
-                            buffer.newLine();
-
-                            for(Hotel_room r: hotel.Rooms){
-                                buffer.write("            ");
-                                buffer.write("Δωμάτιο: " + r.getName() + " - "+"Τιμή ανα βράδυ: " + r.getPrice() + "$" + " - " + "Τετραγωνικά δωματίου: "
-                                        + r.getSqmeter() + " - " + "Χωρητικότητα Δωματίου: " + r.getCapacity() +"άτομα" + " - " + "Το κατάλυμα προσφέρει: ");
-
-                                if(r.isAc()){
-                                    buffer.write("Κλιματισμό ");
-                                }
-                                if(r.isBreakfast()){
-                                    buffer.write("Πρωινό ");
-                                }
-                                if (r.isCleaning_services()){
-                                    buffer.write("Υπηρεσίες Καθαρισμού ");
-                                }
-                                if (r.isParking()){
-                                    buffer.write("Parking ");
-                                }
-                                if(r.isWifi()){
-                                    buffer.write("Wifi.");
-                                }
-                                buffer.newLine();
-                            }
-                        }catch (IOException ex){
-                            ex.printStackTrace();
-                        }//
-                    }
-                }
-                main[0].remove(list);
-                main[0].remove(Save);
-                main[0].remove(output[0]);
-                main[0].remove(edit_room);
-                list.removeAllItems();
-                for (Hotel hotel : Hotels) {
-                    list.addItem(hotel.getName());
-                }
-                SwingUtilities.updateComponentTreeUI(main[0]);
-                SwingUtilities.updateComponentTreeUI(list);
-                main[0].add(list);
-                main[0].add(Save);
-                main[0].add(output[0]);
-                main[0].add(edit_room);
-
+        JButton Save = new JButton("Save");
+        Save.addActionListener(e -> {
+            String sele = String.valueOf(list.getSelectedItem());
+            Pattern p = Pattern.compile("[1-5]");
+            if(!StarsT.getText().matches(p.pattern()))
+                output[0].setText("Wrong number of stars");
+            else
+                output[0].setText("Done");
+            if(!output[0].getText().equals("Done")){
+                return;
             }
+            for(int i = 0 ; i < list.getItemCount(); i++){
+                if(Hotels.get(i).getName().equals(sele)){
+                    Hotels.get(i).setName(NameT.getText());
+                    Hotels.get(i).setLocation(LocationT.getText());
+                    Hotels.get(i).setStars(StarsT.getText());
+                }
+            }
+            try{ FileOutputStream fos = new FileOutputStream("pls.bin");
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(acc_list);
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+            main[0].remove(list);
+            main[0].remove(Save);
+            main[0].remove(output[0]);
+            main[0].remove(edit_room);
+            list.removeAllItems();
+            for (Hotel hotel : Hotels) {
+                list.addItem(hotel.getName());
+            }
+            SwingUtilities.updateComponentTreeUI(main[0]);
+            SwingUtilities.updateComponentTreeUI(list);
+            main[0].add(list);
+            main[0].add(Save);
+            main[0].add(output[0]);
+            main[0].add(edit_room);
+
         });
-        edit_room.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main[0].removeAll();
-                JPanel temp = Hotel_Room_edit((String) list.getSelectedItem());
-                temp.setLocation(0,0);
-                main[0].setLayout(new BorderLayout());
-                main[0].add(temp);
-                SwingUtilities.updateComponentTreeUI(main[0]);
-            }
+        edit_room.addActionListener(e -> {
+            main[0].removeAll();
+            JPanel temp = Hotel_Room_edit((String) list.getSelectedItem(),acc_list);
+            temp.setLocation(0,0);
+            main[0].setLayout(new BorderLayout());
+            main[0].add(temp);
+            SwingUtilities.updateComponentTreeUI(main[0]);
         });
 
         main[0].add(list);
@@ -785,26 +559,32 @@ public class Hotel_Provider extends  Person {
         return main[0];
     }
 
-    private JPanel Hotel_Room_edit(String name) {
-        Hotel[] selected = {new Hotel()};
-        for(Hotel h : Hotels)
-            if(name.equals(h.getName()))
-                selected[0] = h ;
-        JComboBox<String> list = new JComboBox<>();
+    /**
+     * Μέθοδος επεξεργασίας ενός δωμάτιου ξενοδοχείου
+     * @param name Το όνομα του ξεναδοχείου που ανοίκει το δωμάτιο
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     */
+    private JPanel Hotel_Room_edit(String name, HashMap<Credentials, Person> acc_list) {
+       Hotel[] selected = {new Hotel()};
+       for(Hotel h : Hotels)
+           if(name.equals(h.getName()))
+               selected[0] = h ;
+       JComboBox<String> list = new JComboBox<>();
         JPanel main = new JPanel();
         final JTextField[] output = {new JTextField()};
         output[0].setEditable(false);
-        JLabel Name = new JLabel("Όνομα");
-        JLabel Price = new JLabel("Τιμή");
-        JLabel Square_meters = new JLabel("Τετραγωνικά Μέτρα");
-        JLabel Capacity = new JLabel("Χωρητικότητα");
-        JLabel Breakfast = new JLabel("Πρωινό");
+        JLabel Name = new JLabel("Name");
+        JLabel Price = new JLabel("Price");
+        JLabel Square_meters = new JLabel("Square Meters");
+        JLabel Capacity = new JLabel("Capacity");
+        JLabel Breakfast = new JLabel("Breakfast");
         JLabel Wifi = new JLabel("Wifi");
         JLabel Parking = new JLabel("Parking");
-        JLabel Ac = new JLabel("Κλιματισμός");
-        JLabel Cleaning_Service = new JLabel("Υπηρεσία Καθαρισμού");
+        JLabel Ac = new JLabel("Ac");
+        JLabel Cleaning_Service = new JLabel("Cleaning Service");
         if(selected[0].Rooms.isEmpty()){
-            JLabel er = new JLabel("Δεν υπάρχουν Καταχωρημένα Δωμάτια");
+            JLabel er = new JLabel("Den exeis");
             main.add(er);
             return main;
         }
@@ -851,63 +631,63 @@ public class Hotel_Provider extends  Person {
         for (Hotel_room hr : selected[0].Rooms) {
             list.addItem(hr.getName());
         }
-        list.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sele = String.valueOf(list.getSelectedItem());
-                for(int i = 0 ; i < list.getItemCount(); i++){
-                    if(selected[0].Rooms.get(i).getName().equals(sele)){
-                        NameT.setText(selected[0].Rooms.get(i).getName());
-                        PriceT.setText(selected[0].Rooms.get(i).getPrice());
-                        Square_metersT.setText(selected[0].Rooms.get(i).getSqmeter());
-                        CapacityT.setText(selected[0].Rooms.get(i).getCapacity());
-                        BreakfastT.setSelected(selected[0].Rooms.get(i).isBreakfast());
-                        WifiT.setSelected(selected[0].Rooms.get(i).isWifi());
-                        ParkingT.setSelected(selected[0].Rooms.get(i).isParking());
-                        AcT.setSelected(selected[0].Rooms.get(i).isAc());
-                        Cleaning_ServiceT.setSelected(selected[0].Rooms.get(i).isCleaning_services());
+        list.addActionListener(e -> {
+            String sele = String.valueOf(list.getSelectedItem());
+            for(int i = 0 ; i < list.getItemCount(); i++){
+                if(selected[0].Rooms.get(i).getName().equals(sele)){
+                    NameT.setText(selected[0].Rooms.get(i).getName());
+                    PriceT.setText(selected[0].Rooms.get(i).getPrice());
+                    Square_metersT.setText(selected[0].Rooms.get(i).getSqmeter());
+                    CapacityT.setText(selected[0].Rooms.get(i).getCapacity());
+                    BreakfastT.setSelected(selected[0].Rooms.get(i).isBreakfast());
+                    WifiT.setSelected(selected[0].Rooms.get(i).isWifi());
+                    ParkingT.setSelected(selected[0].Rooms.get(i).isParking());
+                    AcT.setSelected(selected[0].Rooms.get(i).isAc());
+                    Cleaning_ServiceT.setSelected(selected[0].Rooms.get(i).isCleaning_services());
 
-                    }
                 }
-
             }
+
         });
-        JButton Save = new JButton("Αποθήκευσε");
-        Save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sele = String.valueOf(list.getSelectedItem());
-                output[0].setText(input_check(PriceT.getText(),Square_metersT.getText(),CapacityT.getText()));
-                if(!output[0].getText().equals("Αποθηκεύτηκαν")){
-                    return;
-                }
-                for(int i = 0 ; i < list.getItemCount(); i++){
-                    if(selected[0].Rooms.get(i).getName().equals(sele)){
-                        selected[0].Rooms.get(i).setName(NameT.getText());
-                        selected[0].Rooms.get(i).setPrice(PriceT.getText());
-                        selected[0].Rooms.get(i).setSqmeter(Square_metersT.getText());
-                        selected[0].Rooms.get(i).setCapacity(CapacityT.getText());
-                        selected[0].Rooms.get(i).setBreakfast(BreakfastT.isSelected());
-                        selected[0].Rooms.get(i).setAc(AcT.isSelected());
-                        selected[0].Rooms.get(i).setParking(ParkingT.isSelected());
-                        selected[0].Rooms.get(i).setWifi(WifiT.isSelected());
-                        selected[0].Rooms.get(i).setCleaning_services(Cleaning_ServiceT.isSelected());
-
-                    }
-                }
-                main.remove(list);
-                main.remove(Save);
-                main.remove(output[0]);
-                list.removeAllItems();
-                for (Hotel_room hr : selected[0].Rooms) {
-                    list.addItem(hr.getName());
-                }
-                SwingUtilities.updateComponentTreeUI(main);
-                SwingUtilities.updateComponentTreeUI(list);
-                main.add(list);
-                main.add(Save);
-                main.add(output[0]);
+        JButton Save = new JButton("Save");
+        Save.addActionListener(e -> {
+            String sele = String.valueOf(list.getSelectedItem());
+            output[0].setText(input_check(PriceT.getText(),Square_metersT.getText(),CapacityT.getText()));
+            if(!output[0].getText().equals("Done")){
+                return;
             }
+            for(int i = 0 ; i < list.getItemCount(); i++){
+                if(selected[0].Rooms.get(i).getName().equals(sele)){
+                    selected[0].Rooms.get(i).setName(NameT.getText());
+                    selected[0].Rooms.get(i).setPrice(PriceT.getText());
+                    selected[0].Rooms.get(i).setSqmeter(Square_metersT.getText());
+                    selected[0].Rooms.get(i).setCapacity(CapacityT.getText());
+                    selected[0].Rooms.get(i).setBreakfast(BreakfastT.isSelected());
+                    selected[0].Rooms.get(i).setAc(AcT.isSelected());
+                    selected[0].Rooms.get(i).setParking(ParkingT.isSelected());
+                    selected[0].Rooms.get(i).setWifi(WifiT.isSelected());
+                    selected[0].Rooms.get(i).setCleaning_services(Cleaning_ServiceT.isSelected());
+
+                }
+            }
+            try{ FileOutputStream fos = new FileOutputStream("pls.bin");
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(acc_list);
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+            main.remove(list);
+            main.remove(Save);
+            main.remove(output[0]);
+            list.removeAllItems();
+            for (Hotel_room hr : selected[0].Rooms) {
+                list.addItem(hr.getName());
+            }
+            SwingUtilities.updateComponentTreeUI(main);
+            SwingUtilities.updateComponentTreeUI(list);
+            main.add(list);
+            main.add(Save);
+            main.add(output[0]);
         });
 
         main.add(list);
@@ -919,17 +699,17 @@ public class Hotel_Provider extends  Person {
 
 
     /**
-     * Μέθοδος προβολής συνολικών κρατήσεων σε όλα τα ξενοδοχεία
-     * @return
+     * Μέθοδος προβολής συνολικών κρατήσεων και ακυρώσεων σε όλα τα ξενοδοχεία
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
      */
     public JPanel sum_resv() {
         JPanel main = new JPanel();
         JPanel resvs = new JPanel();
         JPanel cancs = new JPanel();
         Border border = BorderFactory.createLineBorder(Color.black);
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Κρατήσεις");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
         resvs.setBorder(titledBorder);
-        titledBorder = BorderFactory.createTitledBorder("Ακυρώσεις");
+        titledBorder = BorderFactory.createTitledBorder("Cancellations");
         cancs.setBorder(titledBorder);
         GridLayout gl = new GridLayout(2,2);
         main.setLayout(gl);
@@ -974,7 +754,7 @@ public class Hotel_Provider extends  Person {
                 sub1[i].add(temp);
                 for(int l = 0 ; l < non_empty2.get(k).hotelroomreservations.size();l++ ){
                     Reservations x = non_empty2.get(k).hotelroomreservations.get(l);
-                    JLabel date = new JLabel("Ημερομηνία") , customer = new JLabel("Πελάτης");
+                    JLabel date = new JLabel("DATE") , customer = new JLabel("CUSTOMER");
                     temp.add(date);
                     temp.add(customer);
                     JLabel b1 = new JLabel(x.getStart().toString() + " / " +x.getEnd().toString());
@@ -1001,7 +781,7 @@ public class Hotel_Provider extends  Person {
             GridLayout layout = new GridLayout(2,2);
             sub1c[i].setLayout(layout);
             sub1c[i].setBorder(border);
-            titledBorder = BorderFactory.createTitledBorder(non_empty.get(i).getName());
+            titledBorder = BorderFactory.createTitledBorder(non_emptyc.get(i).getName());
             sub1c[i].setBorder(titledBorder);
             cancs.add(sub1c[i]);
         }
@@ -1023,7 +803,7 @@ public class Hotel_Provider extends  Person {
                 sub1c[i].add(temp);
                 for(int l = 0 ; l < non_empty2c.get(k).hotelroomcancellations.size();l++ ){
                     Reservations x = non_empty2c.get(k).hotelroomcancellations.get(l);
-                    JLabel date = new JLabel("Ημερομηνία") , customer = new JLabel("Πελάτης");
+                    JLabel date = new JLabel("DATE") , customer = new JLabel("CUSTOMER");
                     temp.add(date);
                     temp.add(customer);
                     JLabel b1 = new JLabel(x.getStart().toString() + " / " +x.getEnd().toString());
@@ -1042,15 +822,15 @@ public class Hotel_Provider extends  Person {
 
     private String input_check(String price, String sqmtrs, String capacity) {
         String x = "";
-        p = Pattern.compile(".*[0-9]");
+        Pattern p = Pattern.compile(".*[0-9]");
         if(!price.matches(p.pattern()))
-            x = x + "Λάθος Τιμή/";
+            x = x + "Wrong Price/";
         if(!capacity.matches(p.pattern()))
-            x = x + "Λάθος Χωρητικότητα/";
+            x = x + "Wrong Capacity/";
         if(!sqmtrs.matches(p.pattern()))
-            x = x + "Λάθος Τετραγωνικά/";
+            x = x + "Wrong Square meters/";
         if(!x.equals(""))
             return x ;
-        return "Αποθηκεύτηκαν";
+        return "Done";
     }
 }

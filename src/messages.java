@@ -1,8 +1,12 @@
-public class messages {
+import java.io.Serial;
+
+public class messages implements java.io.Serializable{
     private String from;
     private String topic;
     private String text;
 
+    @Serial
+    private static final long serialVersionUID = 6529685093367757690L;
 
     public String getFrom() {
         return from;

@@ -1,10 +1,11 @@
 /**
- *Αυτή η κλάση αναπαριστά ένα κατάλυμα με τα χαρακτηριστικά του και τις παροχές του
+ *Αυτή η κλάση αναπαριστά ένα κατάλυμα με τα χαρακτηριστηκά του και τις παροχές του
  */
 
+import java.io.Serial;
 import java.util.ArrayList;
 
-public class Accommodation {
+public class Accommodation implements java.io.Serializable {
 
     private String name;
     private String location;
@@ -15,6 +16,9 @@ public class Accommodation {
     private String capacity;
     ArrayList<Reservations> reservations = new ArrayList<>();
     ArrayList<Reservations> cancellations= new ArrayList<>();
+
+    @Serial
+    private static final long serialVersionUID = 9029685098267757690L;
 
 
     private boolean breakfast, wifi, ac, parking, cleaning_services;
@@ -170,9 +174,9 @@ public class Accommodation {
      */
     public String hasWifi(){
         if(isWifi()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
     /**
@@ -181,9 +185,9 @@ public class Accommodation {
      */
     public String hasParking(){
         if(isParking()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
     /**
@@ -192,9 +196,9 @@ public class Accommodation {
      */
     public String hasAc(){
         if(isAc()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 
     /**
@@ -203,8 +207,8 @@ public class Accommodation {
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "Παρέχει";
+            return "Παρέχει ";
         }
-        return "Δεν παρέχει";
+        return "Δεν παρέχει ";
     }
 }

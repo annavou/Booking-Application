@@ -22,7 +22,7 @@ public class ReservationsTest {
                 "4", "1", "3", false, true, true, false, false);
         h=new Hotel("Philoxenia","Χαλκιδική","4");
         hr= new Hotel_room("Δίκλινο","2","50",true,true,true,true,true,"30");
-        r=new Reservations(s,e,c,acc,h,hr);
+        r=new Reservations(s,e,c,acc,hr,h);
     }
 
     @Test

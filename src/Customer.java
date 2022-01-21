@@ -1,18 +1,17 @@
 /**
- * Αυτή η κλάση αναπαριστά ένα πελάτη με τα βασικά του στοιχεία (όνομα, τηλέφωνο, μειλ, τοποθεσία), ο οποίος μπορεί να αναζητήσει
- * διάφορα καταλύματα και ξενοδοχεία με τη χρήση φίλτρων, να κάνει κράτηση του καταλύματος που επιθυμεί με βάση
- * της διαθεσιμότητας, να ακυρώσει οποιαδήποτε κράτηση του και να έχει πρόσβαση στις κρατήσεις και τις ακυρώσεις του.
+ * Αύτη η κλάση αναπαριστά ένα πελάτη με τα βασικά του στοιχεία (όνομα,τηλέφωνο,μειλ,τοποθεσία), ο οποίος μπορεί να αναζητήσει
+ * διάφορα καταλύματα και ξενοδοχεία με την χρήση φίλτρων, να κάνει κράτηση του καταλύματος που επιθυμεί με βάση
+ * της διαθεσομότητας ,να ακυρώσει οποιαδήποτε κράτηση του και να έχει πρόσβαση στις κρατήσεις και τις ακυρώσεις του.
  */
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
+import java.util.*;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
@@ -26,8 +25,9 @@ public class Customer extends Person {
 
 
 
-    LocalDate from = null;
-    LocalDate till = null ;
+
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
 
 
     /**
@@ -49,701 +49,15 @@ public class Customer extends Person {
         super();
     }
 
-
     /**
-     * μέθοδος που αναζητά όλα τα καταλύματα που εχουν πανω απο κάποια δωμάτια
-     *
-     * @param arooms τα δώματια που θέλουμε
+     * Μέθοδος με την οποία ο πελάτης βλέπει τις κρατήσεις και τις ακυρώσεις του
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
      */
-    public void search_rooms(String arooms, ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> Integer.parseInt(arooms) < Integer.parseInt(acc.getRooms()));
-    }
-
-
-    /**
-     * μέθοδος που αναζητά όλα τα καταλύματα που εχουν πανω απο καποια τετραγωνικά
-     *
-     * @param asqmeters Τετραγωνικά που θέλουμε
-     */
-    public void search_sqmeters(String asqmeters, ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> Integer.parseInt(asqmeters) > Integer.parseInt(acc.getSqmeter()));
-    }
-
-
-    /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείων που εχουν πανω απο καποια τετραγωνικά
-     * @param asqmeters Τετραγωνικά που θέλουμε
-     */
-    private void search_Hotelsqmeters(String asqmeters, ArrayList<Hotel> hotel_list) {
-        for (Hotel hotel : hotel_list) {
-            hotel.Rooms.removeIf(room -> Integer.parseInt(asqmeters) > Integer.parseInt(room.getSqmeter()));
-        }
-        hotel_list.removeIf(hotel -> hotel.Rooms.isEmpty());
-    }
-
-    /**
-     * μέθοδος που αναζητά όλα τα καταλύματα που βρίσκονται σε μια τοποθεσία
-     *
-     * @param alocation η τοποθεσία που θέλουμε
-     */
-    public void search_location(String alocation, ArrayList<Accommodation> accom_list) {
-        accom_list.removeIf(acc -> !alocation.equals(acc.getLocation()));
-    }
-
-    /**
-     * μέθοδος που αναζητά όλα τα ξενοδοχεία που βρίσκονται σε μια τοποθεσία
-     *
-     * @param alocation η τοποθεσία που θέλουμε
-     */
-    public void search_HotelLocation(String alocation, ArrayList<Hotel> hotel_list) {
-        hotel_list.removeIf(hotel -> !alocation.equals(hotel.getLocation()));
-    }
-
-    /**
-     * μέθοδος που αναζητά καταλύματα με βάση το εύρος των τιμών ανά βράδυ
-     *
-     * @param from η κατώτατη τιμή που θέλουμε ανά βράδυ
-     * @param till η ανώτατη τιμή που θέλουμε ανά βράδυ
-     */
-    public void search_PriceRange(Double from, double till, ArrayList<Accommodation> accom_list) {
-        accom_list.removeIf(acc -> Double.parseDouble(acc.getPrice()) < from || Double.parseDouble(acc.getPrice()) > till);
-
-    }
-
-    /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείων με βάση το εύρος των τιμών ανά βράδυ
-     *
-     * @param from       η μέγιστη τιμή που θέλουμε ανά βράδυ
-     * @param till       η ανώτατη τιμή που θέλουμε ανά βράδυ
-     */
-    public void search_HotelPriceRange(double from, double till, ArrayList<Hotel> hotel_list) {
-        for (Hotel hotel : hotel_list) {
-            hotel.Rooms.removeIf(room -> Double.parseDouble(room.getPrice()) < from || Double.parseDouble(room.getPrice()) > till);
-        }
-        hotel_list.removeIf(hotel -> hotel.Rooms.isEmpty());
-    }
-
-    /**
-     * μέθοδος που αναζητά καταλύματα με βάση τα αστέρια τους
-     * @param astars πόσα αστέρια θέλουμε να είναι το κατάλυμα
-     */
-    public void search_stars(String astars,ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> Integer.parseInt(astars) > Integer.parseInt(acc.getStars()));
-    }
-
-    /**
-     * μέθοδος που αναζητά ξενοδοχεία με βάση τα αστέρια τους
-     * @param astars πόσα αστέρια θέλουμε να είναι το ξενοδοχείο
-     */
-    public void search_HotelStars(String astars,ArrayList<Hotel> hotel_list){
-        hotel_list.removeIf(hotel -> Integer.parseInt(astars) > Integer.parseInt(hotel.getStars()));
-    }
-
-    /**
-     * μέθοδος που αναζητά καταλύματα με βάση την χωριτηκότητα σε άτομα
-     * @param acapacity πόσα άτομα θέλουμε
-     */
-    public void search_capacity(String acapacity,ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> Integer.parseInt(acapacity) > Integer.parseInt(acc.getCapacity()));
-    }
-
-    /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείων με βάση την χωριτηκότητα σε άτομα
-     * @param acapacity πόσα άτομα θέλουμε
-     */
-    public void search_HotelCapacity(String acapacity,ArrayList<Hotel> hotel_list){
-        for (Hotel hotel : hotel_list) {
-            hotel.Rooms.removeIf(room -> Integer.parseInt(acapacity) > Integer.parseInt(room.getCapacity()));
-        }
-        hotel_list.removeIf(hotel -> hotel.Rooms.isEmpty());
-    }
-
-    /**
-     * μέθοδος που αναζητά καταλύματα με βάση το αν προσφέρουν πρωινό
-     * @param abreakfast αν διαθέτει πρωινό
-     */
-    public void search_breakfast(boolean abreakfast,ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> acc.isBreakfast() != abreakfast);
-    }
-
-    /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείων με βάση το αν προσφέρουν πρωινό
-     * @param abreakfast αν διαθέτει πρωινό
-     */
-    public void search_HotelBreakfast(boolean abreakfast,ArrayList<Hotel> hotel_list) {
-        for (Hotel hotel : hotel_list) {
-            hotel.Rooms.removeIf(room -> room.isBreakfast() != abreakfast);
-        }
-        hotel_list.removeIf(hotel -> hotel.Rooms.isEmpty());
-    }
-
-    /**
-     * μέθοδος που αναζητά καταλύματα με βάση το αν διθέτουν wifi
-     * @param awifi αν διαθέτει wifi
-     */
-    public void search_wifi(boolean awifi,ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> acc.isWifi() != awifi);
-    }
-
-    /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείου με βάση το αν διθέτουν wifi
-     * @param awifi αν διαθέτει wifi
-     */
-    public void search_HotelWifi(boolean awifi,ArrayList<Hotel> hotel_list) {
-        for (Hotel hotel : hotel_list) {
-            hotel.Rooms.removeIf(room -> room.isWifi() != awifi);
-        }
-        hotel_list.removeIf(hotel -> hotel.Rooms.isEmpty());
-    }
-
-    /**
-     * μέθοδος που αναζητά καταλύματα με βάση το αν διθέτουν κλιματισμό
-     * @param aac αν διαθέτει κλιματισμό
-     */
-    public void search_AirCondition(boolean aac,ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> acc.isAc() != aac);
-    }
-
-    /**
-     * μέθοδος που αναζητά δωμάτια ξενοδοχείου με βάση το αν διθέτουν κλιματισμό
-     * @param aac αν διαθέτει κλιματισμό
-     */
-    public void search_HotelAirCondition(boolean aac, ArrayList<Hotel> hotel_list){
-
-        for (Hotel hotel : hotel_list) {
-            hotel.Rooms.removeIf(room -> room.isAc() != aac);
-        }
-        hotel_list.removeIf(hotel -> hotel.Rooms.isEmpty());
-    }
-
-    /**
-     * μέθοδος που αναζητά όλα τα καταλύματα που διαθέτουν πάρκινγκ
-     * @param aparking αν διεθέτει πάρκινγκ
-     */
-    public void search_Parking(boolean aparking,ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> acc.isParking() != aparking);
-    }
-
-    /**
-     * μέθοδος που αναζητά όλα τα δωμάτια ξενοδοχείου που διαθέτουν πάρκινγκ
-     * @param aparking αν διεθέτει πάρκινγκ
-     */
-    public void search_HotelParking(boolean aparking,ArrayList<Hotel> hotel_list){
-
-        for (Hotel hotel : hotel_list) {
-            hotel.Rooms.removeIf(room -> room.isParking() != aparking);
-        }
-        hotel_list.removeIf(hotel -> hotel.Rooms.isEmpty());
-    }
-
-    /**
-     * μέθοδος που αναζητά όλα τα καταλύματα που προσφέρουν υπηρεσίες καθαριότητας
-     * @param acleaning αν προφέρει υπηρεσίες καθαριότητας
-     */
-    public void search_CleaningServices(boolean acleaning,ArrayList<Accommodation> accom_list){
-        accom_list.removeIf(acc -> acc.isCleaning_services() != acleaning);
-    }
-
-    /**
-     * μέθοδος που αναζητά όλα τα δωμάτια ξενοδοχείων που προσφέρουν υπηρεσίες καθαριότητας
-     * @param acleaning αν προφέρει υπηρεσίες καθαριότητας
-     */
-    public void search_HotelCleaningServices(boolean acleaning,ArrayList<Hotel> hotel_list){
-        for (Hotel hotel : hotel_list) {
-            hotel.Rooms.removeIf(room -> room.isCleaning_services() != acleaning);
-        }
-        hotel_list.removeIf(hotel -> hotel.Rooms.isEmpty());
-    }
-
-
-    /**
-     *Μέθοδος με την οποία ο χρήστης κάνει κράτηση σε ένα κατάλυμα με χρήση φίλτρων
-     //   * @param people Συλλογή με όλους τους χρήστες
-     */
- /*   public void make_a_resv_acc(Collection<Person> people) {
-        boolean flag = true;
-        Accommodation accommodation ;
-        ArrayList<Accommodation> availiable = new ArrayList<>();
-        for (Person p : people){
-            if( p instanceof Accommodation_Provider){
-                availiable.addAll(((Accommodation_Provider) p).Accommodations);
-            }
-        }
-
-        ArrayList<Accommodation> temp = new ArrayList<>(availiable);
-
-        for (Accommodation acc : availiable) {
-            acc.show_accommodation();
-        }
-
-        String s = "Θέλετε να βάλετε φίλτο στην αναζήτηση σας? (0-ονομα/1-τοποθεσία/2-αστέρια/3-χωρητικότητα/4-δωμάτια/5-τιμή/6-τετραγωνικά/7-πρωινό/8-wifi/9-air condition/α-parking/β-υπηρεσία καθαρισμού/γ-χωρις φιλτρα/δ-εξοδος";
-        System.out.println(s);
-        next_string = sc.next();
-        p = Pattern.compile("[0-9]|[α]|[β]|[γ]|[δ]");
-        next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
-
-        while (!next_string.equals("γ") && !next_string.equals("δ")) {
-            switch (next_string) {
-                case "0" -> {
-                    Accommodation a = search_acc(temp);
-                    temp.removeIf(z -> !z.equals(a));
-                }
-                case "1" -> {
-                    System.out.println("Που θέλεις να βρήσκετε το κατάλυμα ?");
-                    next_string = sc.next();
-                    search_location(next_string, temp);
-                }
-                case "2" -> {
-                    System.out.println("Ποσα αστέργια θέλετε να έχει το κατάλυμα?");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-5]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_stars(next_string, temp);
-
-                }
-                case "3" -> {
-                    System.out.println("Ποσα ατομα να υποστηρίζει?");
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_capacity(next_string, temp);
-                }
-                case "4" -> {
-                    System.out.println("Ποσα να δωμάτια να εχει το κατάλυμα?");
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_rooms(next_string, temp);
-                }
-                case "5" -> {
-                    System.out.println("Ευρος τιμης:\n απο:");
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    System.out.println("εως:");
-                    String a = next_string;
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_PriceRange(Double.parseDouble(a), Double.parseDouble(next_string), temp);
-                }
-                case "6" -> {
-                    System.out.println("Πόσα τετραγωνικά τουλάχιστον?");
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_sqmeters(next_string, temp);
-                }
-                case "7" -> {
-                    System.out.println("Θέλετε να παρέχει πρωινό (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_breakfast(next_bool, temp);
-                }
-                case "8" -> {
-                    System.out.println("Θέλετε να παρέχει Wifi (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_wifi(next_bool, temp);
-                }
-                case "9" -> {
-                    System.out.println("Θέλετε να παρέχει air conditioner (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_AirCondition(next_bool, temp);
-                }
-                case "α" -> {
-                    System.out.println("Θέλετε να παρέχει parking (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_Parking(next_bool, temp);
-                }
-                case "β" -> {
-                    System.out.println("Θέλετε να παρέχει υπηρεσία καθαρισμού (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_CleaningServices(next_bool, temp);
-                }
-
-            }
-
-            if (temp.isEmpty()) {
-                System.out.println("Δεν βρέθηκαν καταλύματα με αυτα τα κρητίρια αναζήτησης. Θελετε να αφαιρέσετε το τελευταίο φιλτρο(0-ναι/1-εξοδος)");
-                next_string = sc.next();
-                p = Pattern.compile("[0-1]");
-                next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                if (next_string.equals("1")) {
-                    return;
-                }
-                else {
-                    temp.addAll(availiable);
-                }
-            } else {
-                availiable.clear();
-                availiable.addAll(temp);
-            }
-            for (Accommodation acc : availiable) {
-                acc.show_accommodation();
-            }
-            System.out.println(s);
-            next_string = sc.next();
-            p = Pattern.compile("[0-9]|[α]|[β]|[γ]|[δ]");
-            next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-            if(next_string.equals("δ") ){
-                flag = false;
-            }
-        }
-        if(flag && !next_string.equals("γ")){
-            return;
-        }
-        Reservations resv = new Reservations() ;
-        boolean flag1 = true;
-        while (flag1) {
-            System.out.println("Δώστε τις ημερομηνίες:\n απο:");
-            LocalDate start = read_date();
-            System.out.println("Εως:");
-            LocalDate end = read_date();
-            valid_dates(start,end);
-            resv = new Reservations(start,end,this.getName(),null,null);
-            temp = availiables_acc(availiable, resv);
-            flag1 = false;
-            if (temp.isEmpty()) {
-                System.out.println("Δεν υπάρχει κατάλυμα με αυτές τις ημερομηνίες διαθέσημες. Θέλετε να αλλάξετε ημερομηνια ? (0-εξοδος/1-αλλαγη ημερομηνίας) ");
-                next_string = sc.next();
-                p = Pattern.compile("[0-1]");
-                next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                if (next_string.equals("0")) {
-                    return;
-                } else {
-                    temp.addAll(availiable);
-                    flag1 = true;
-                }
-            } else {
-                availiable = temp;
-            }
-        }
-        accommodation = search_acc(availiable);
-        if(accommodation==null){
-            System.out.println("Δεν υπάεχει τέτοιο κατάλυμα");
-        }
-        else {
-            accommodation.reservations.add(resv);
-            My_Acc_Bookings.put(resv,accommodation);
-            resv.setAcc(accommodation);
-            System.out.println("\nΕπιτυχής Κράτηση!!!\n");
-        }
-
-    }
-
-
-
-    /**
-     *Μέθοδος με την οποία ο χρήστης κάνει κράτηση σε ένα δωμάτιο ξενοδοχείου με χρήση φίλτρων
-   //  * @param people Συλλογή με όλους τους χρήστες
-     *
-     */
-   /* public void make_a_resv_hot(Collection<Person> people) {
-        Hotel_room room ;
-        boolean flag = true;
-        Hotel hotel ;
-        ArrayList<Hotel> availiable = new ArrayList<>();
-        ArrayList<Hotel_room> rooms = new ArrayList<>();
-        ArrayList<ArrayList<Hotel_room>> hr = new ArrayList<>();
-
-        for (Person p : people){
-            if( p instanceof Hotel_Provider){
-                for (int i = 0 ; i < ((Hotel_Provider) p).Hotels.size() ; i++){
-                    availiable.add(new Hotel(((Hotel_Provider) p).Hotels.get(i)) );
-                }
-            }
-        }
-
-
-        ArrayList<Hotel> temp = new ArrayList<>();
-        for (int i = 0 ; i < availiable.size(); i++){
-            hr.add(new ArrayList<Hotel_room>());
-            for (int j=0 ; j< availiable.get(i).Rooms.size() ;j ++){
-                hr.get(i).add(availiable.get(i).Rooms.get(j));
-            }
-        }
-
-
-        for (Hotel h : availiable) {
-           h.show_Hotel();
-        }
-
-        String s = "Θέλετε να βάλετε φίλτο στην αναζήτηση σας? (0-ονομα/1-τοποθεσία/2-αστέρια/3-χωρητικότητα/4-τιμή/5-τετραγωνικά/6-πρωινό/7-wifi/8-air condition/9-parking/α-υπηρεσία καθαρισμού/γ-χωρις φιλτρα/δ-εξοδος";
-        System.out.println(s);
-        next_string = sc.next();
-        p = Pattern.compile("[0-9]|[α]|[β]|[γ]|[δ]");
-        next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
-        while (!next_string.equals("γ") && !next_string.equals("δ")) {
-            switch (next_string) {
-                case "0" -> {
-                    Hotel a = search_hot(temp);
-                    temp.removeIf(z -> !z.equals(a));
-                }
-                case "1" -> {
-                    System.out.println("Που θέλεις να βρήσκετε το κατάλυμα ?");
-                    next_string = sc.next();
-                    search_HotelLocation(next_string, temp);
-                }
-                case "2" -> {
-                    System.out.println("Ποσα αστέργια θέλετε να έχει το ?");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-5]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_HotelStars(next_string, temp);
-
-                }
-                case "3" -> {
-                    System.out.println("Ποσα ατομα να υποστηρίζει?");
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_HotelCapacity(next_string, temp);
-                }
-                case "4" -> {
-                    System.out.println("Ευρος τιμης:\n απο:");
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    System.out.println("εως:");
-                    String a = next_string;
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_HotelPriceRange(Double.parseDouble(a), Double.parseDouble(next_string), temp);
-                }
-                case "5" -> {
-                    System.out.println("Πόσα τετραγωνικά τουλάχιστον?");
-                    next_string = sc.next();
-                    p = Pattern.compile(".*[0-9]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    search_Hotelsqmeters(next_string, temp);
-                }
-                case "6" -> {
-                    System.out.println("Θέλετε να παρέχει πρωινό (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_HotelBreakfast(next_bool, temp);
-                }
-                case "7" -> {
-                    System.out.println("Θέλετε να παρέχει Wifi (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_HotelWifi(next_bool, temp);
-                }
-                case "8" -> {
-                    System.out.println("Θέλετε να παρέχει air conditioner (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_HotelAirCondition(next_bool, temp);
-                }
-                case "9" -> {
-                    System.out.println("Θέλετε να παρέχει parking (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_HotelParking(next_bool, temp);
-                }
-                case "α" -> {
-                    System.out.println("Θέλετε να παρέχει υπηρεσία καθαρισμού (0-ΟΧΙ/1-ΝΑΙ)");
-                    next_string = sc.next();
-                    p = Pattern.compile("[0-1]");
-                    ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                    next_bool = next_string.equals("1");
-                    search_HotelCleaningServices(next_bool, temp);
-                }
-
-            }
-
-
-            if (temp.isEmpty()) {
-                System.out.println("Δεν βρέθηκαν Ξεναδοχεία με αυτα τα κρητίρια αναζήτησης. Θελετε να αφαιρέσετε το τελευταίο φιλτρο(0-ναι/1-εξοδος)");
-                next_string = sc.next();
-                p = Pattern.compile("[0-1]");
-                next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-                if (next_string.equals("1")) {
-                    return;
-                }
-                else{
-                    for (int i = 0 ; i < hr.size() ; i++){
-                        temp.add(new Hotel(availiable.get(i)));
-                        for (int j = 0 ; j < availiable.get(i).Rooms.size() ; j++){
-                            temp.get(i).Rooms.add(hr.get(i).get(j));
-                        }
-                    }
-                }
-            } else {
-                availiable.clear();
-                availiable.addAll(temp);
-            }
-            for (Hotel h : temp) {
-                h.show_Hotel();
-            }
-            System.out.println(s);
-            next_string = sc.next();
-            p = Pattern.compile("[0-9]|[α]|[β]|[γ]|[δ]");
-            next_string = ch.validstring(next_string, p, "Μη έγκυρη τιμή");
-            if(next_string.equals("δ") ){
-                flag = false;
-            }
-        }
-        if(flag && !next_string.equals("γ")){
-            return;
-        }
-        System.out.println("Δώστε τις ημερομηνίες:\n απο:");
-        LocalDate start = read_date();
-        System.out.println("Εως:");
-        LocalDate end = read_date();
-        Reservations resv = new Reservations(start,end,this.getName(),null,null);
-        temp = availiables_hot(availiable,resv);
-        if(temp.isEmpty()){
-            System.out.println("Δεν υπάρχει Ξεναδοχείο με αυτές τις ημερομηνίες διαθέσημες. Θέλετε να αλλάξετε ημερομηνια ? (0-εξοδος/1-αλλαγη ημερομηνίας) ");
-            next_string = sc.next();
-            p = Pattern.compile("[0-1]");
-            next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
-            if(next_string.equals("0")){
-                return;
-            }
-            else{
-                temp.addAll(availiable);
-            }
-        }
-        else{
-            availiable = temp;
-        }
-
-        for(Hotel h : availiable){
-            rooms.addAll(h.Rooms);
-        }
-
-        room = search_Hotel_room(rooms);
-        if(room==null){
-            System.out.println("Δεν υπάεχει τέτοιο κατάλυμα");
-        }
-        else {
-            room.hotelroomreservations.add(resv);
-            My_Hot_Bookings.put(resv,room);
-            resv.setHot(room);
-            System.out.println("\nΕπιτυχής Κράτηση!!!\n");
-        }
-
-    }
-
-
-    /**
-     *Μέθοδος η οποία επιστρέφει τα δωμάτια ξενοδοχείων τα οποία είναι διαθέσιμα για μία συγκεκριμένη ημερομηνία
-     * @param hotels Λίστα με επιθυμητά Ξεναδοχεία
-     * @param resv Ημερομηνία που θέλουμε να κάνουμε
-     * @return τα διαθέσιμα ξεναδοχεία
-     */
-    private ArrayList<Hotel> availiables_hot(ArrayList<Hotel> hotels, Reservations resv) {
-        boolean flag = false ;
-        for(int i = 0 ; i < hotels.size() ; i++) {
-            for (int j = 0 ; j < hotels.get(i).Rooms.size() ; j++) {
-                for (Reservations r : hotels.get(i).Rooms.get(j).hotelroomreservations) {
-                    if (r.start.equals(resv.start) || r.end.equals(resv.end)) {
-                        flag = true;
-                        break;
-                    }
-                    if (resv.start.isAfter(r.start) && resv.start.isBefore(r.end) || resv.end.isBefore(r.end) && resv.end.isAfter(r.start)) {
-                        flag = true;
-                        break;
-                    }
-                    if (resv.start.isBefore(r.start) && resv.end.isAfter(r.end)) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (flag) {
-                    hotels.get(i).Rooms.remove(hotels.get(i).Rooms.get(j));
-                }
-            }
-        }
-        hotels.removeIf(hotel -> hotel.Rooms.isEmpty());
-        return hotels;
-    }
-
-
-
-    /**
-     *Μέθοδος με την οποία επιστρέφονται τα καταλύματα τα οποία είναι διαθέσιμα για μία συγκεκριμένη ημερομηνία
-     * @param accommodations Λίστα με επιθυμητά καταλύματα
-     * @param resv Ημερομηνία που θέλουμε να κάνουμε
-     * @return τα διαθέσιμα καταλύματα
-     */
-    private ArrayList<Accommodation> availiables_acc(ArrayList<Accommodation> accommodations, Reservations resv) {
-        boolean flag = false;
-        for (int i = 0 ; i < accommodations.size() ; i++) {
-            for (Reservations r : accommodations.get(i).reservations) {
-                if (r.start.equals(resv.start) || r.end.equals(resv.end)) {
-                    flag = true;
-                    break;
-                }
-                if (resv.start.isAfter(r.start) && resv.start.isBefore(r.end) || resv.end.isBefore(r.end) && resv.end.isAfter(r.start)) {
-                    flag = true;
-                    break;
-                }
-                if (resv.start.isBefore(r.start) && resv.end.isAfter(r.end)) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (flag) {
-                accommodations.remove(accommodations.get(i));
-            }
-        }
-        return accommodations;
-    }
-
-
-    /**
-     *Μέθοδος η οποία ελέγχει για δύο ημερομηνίες ότι αρχή είναι πριν το τέλος
-     * @param start Ημερομηνία αρχής
-     * @param till Ημερομηνία Τέλους
-     */
-
-    private void valid_dates(LocalDate start,LocalDate till){
-        if(start.isAfter(till)){
-            System.out.println("Μη έγκυρη ημερομινία. Θελετε να αλλαξε την αρχή η το τελος ?(0-αρχη/1-τελος)");
-            next_string = sc.next();
-            p = Pattern.compile("[0-1]");
-            next_string = ch.validstring(next_string,p,"Μη έγκυρη τιμή");
-            if( next_string.equals("0")){
-                ///start = read_date();
-                valid_dates(start,till);
-            }
-            else {
-                // till = read_date();
-                valid_dates(start,till);
-            }
-        }
-    }
-
     public JPanel resv_canc_view() {
         JPanel main = new JPanel();
         JPanel resvs = new JPanel();
         JPanel cancs = new JPanel();
-        Border border = BorderFactory.createLineBorder(Color.black);
+       // Border border = BorderFactory.createLineBorder(Color.black);
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
         resvs.setBorder(titledBorder);
         titledBorder = BorderFactory.createTitledBorder("Cancellations");
@@ -784,10 +98,15 @@ public class Customer extends Person {
         return main ;
     }
 
-    public JPanel Cancel() {
+    /**
+     * Μέθοδος με την οποια ο πελάτης ακυρώνει μια κράτηση του
+     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     */
+    public JPanel Cancel(HashMap<Credentials, Person> acc_list) {
         JPanel main = new JPanel();
         JPanel resvs = new JPanel();
-        Border border = BorderFactory.createLineBorder(Color.black);
+       // Border border = BorderFactory.createLineBorder(Color.black);
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
         resvs.setBorder(titledBorder);
         JPanel acc = new JPanel();
@@ -816,47 +135,50 @@ public class Customer extends Person {
 
         JButton Cancel = new JButton();
         Cancel.setText("Cancel");
-        Cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sele = (String) list3.getSelectedItem();
-                char c = sele.charAt(0);
-                int x = Character.getNumericValue(c);
-                Reservations to_canc = list4.get(x-1);
-                if(to_canc.getHot() == null){
-                    My_Acc_Bookings.remove(to_canc);
-                    My_Acc_Canceled.put(to_canc,to_canc.getAcc());
-                    to_canc.getAcc().reservations.remove(to_canc);
-                    to_canc.getAcc().cancellations.add(to_canc);
-                    //acc
-                }
-                else{
-                    My_Hot_Bookings.remove(to_canc);
-                    My_Hot_Canceled.put(to_canc,to_canc.getHot());
-                    to_canc.getHot().hotelroomreservations.remove(to_canc);
-                    to_canc.getHot().hotelroomcancellations.add(to_canc);
-                    //hot
-                }
-                main.removeAll();
-                SwingUtilities.updateComponentTreeUI(main);
-                list1.clear();
-                list2.clear();
-                list3.removeAllItems();
-                list4.clear();
-                subsa.clear();
-                subsc.clear();
-                acc.removeAll();
-                hot.removeAll();
-                updater(list1,list2,list3,list4,subsa,subsc,acc,hot);
-                if(list4.isEmpty()){
-                    JLabel er = new JLabel("hh");
-                    main.add(er);
-                }
-                else {
-                    main.add(resvs);
-                    main.add(list3);
-                    main.add(Cancel);
-                }
+        Cancel.addActionListener(e -> {
+            String sele = (String) list3.getSelectedItem();
+            if(sele == null)
+                return;
+            char c = sele.charAt(0);
+            int x = Character.getNumericValue(c);
+            Reservations to_canc = list4.get(x-1);
+            if(to_canc.getHot() == null){
+                My_Acc_Bookings.remove(to_canc);
+                My_Acc_Canceled.put(to_canc,to_canc.getAcc());
+                to_canc.getAcc().reservations.remove(to_canc);
+                to_canc.getAcc().cancellations.add(to_canc);
+            }
+            else{
+                My_Hot_Bookings.remove(to_canc);
+                My_Hot_Canceled.put(to_canc,to_canc.getHot());
+                to_canc.getHot().hotelroomreservations.remove(to_canc);
+                to_canc.getHot().hotelroomcancellations.add(to_canc);
+            }
+            try{ FileOutputStream fos = new FileOutputStream("pls.bin");
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(acc_list);
+            }catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            main.removeAll();
+            SwingUtilities.updateComponentTreeUI(main);
+            list1.clear();
+            list2.clear();
+            list3.removeAllItems();
+            list4.clear();
+            subsa.clear();
+            subsc.clear();
+            acc.removeAll();
+            hot.removeAll();
+            updater(list1,list2,list3,list4,subsa,subsc,acc,hot);
+            if(list4.isEmpty()){
+                JLabel er = new JLabel("hh");
+                main.add(er);
+            }
+            else {
+                main.add(resvs);
+                main.add(list3);
+                main.add(Cancel);
             }
         });
 
@@ -869,13 +191,17 @@ public class Customer extends Person {
         return main;
     }
 
-
-
-
-
-
-
-
+    /**
+     * Μέθοδος με την οποια ενημερώνονται και δημιουργούνται καποιες λιστες και γραφικά στοιχεία βοηθητικα για την ακύρωσει κράτησης
+     * @param list1 Λιστα με ολα τα καταλύματα που εχουν κρατήσεις
+     * @param list2 Λίστα με ολα τα δωμάτια ξεναδοχείων που εχουν κρατήσεις
+     * @param list3 JCombo Box με τα ονόματα των κατήσεων
+     * @param list4 Arraylist με τις κρατήσεις
+     * @param subsa Βoηθητικο HashMap για να βαζει τις κρατησείς στα σωστά JPanels για καταλύματα
+     * @param subsc Βoηθητικο HashMap για να βαζει τις κρατησείς στα σωστά JPanels για Δωμάτια
+     * @param acc Το JPanel με τις κρατήσεις σε καταλύματα
+     * @param hot Το JPanel με τις κρατήσεις σε Δωμάτια
+     */
     private void updater(ArrayList<Accommodation> list1, ArrayList<Hotel_room> list2, JComboBox<String> list3, ArrayList<Reservations> list4, HashMap<String, JPanel> subsa, HashMap<String, JPanel> subsc,JPanel acc,JPanel hot) {
         for(Reservations re : My_Acc_Bookings.keySet()){
             if(!list1.contains(re.getAcc())){
@@ -939,14 +265,34 @@ public class Customer extends Person {
         }
     }
 
-    public JPanel Reserv(Collection<Person> People) {
+    /**
+     * Μέθοδος με τον οποιά ο χρήστης κάνει μια κράτηση
+     * @param People ολοι οι χρήστες
+     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     */
+    public JPanel Reserv(Collection<Person> People, HashMap<Credentials, Person> acc_list) {
         JPanel main = new JPanel();
         JPanel opt = new JPanel();
-        JPanel view = new JPanel();
+        final JPanel[] view = {new JPanel()};
+        JComboBox<String> list  = new JComboBox<>();
+        JLabel output = new JLabel();
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Options");
         opt.setBorder(titledBorder);
         titledBorder = BorderFactory.createTitledBorder("Avail");
-        view.setBorder(titledBorder);
+        view[0].setBorder(titledBorder);
+        Customer egw = this;
+        final JButton[] Make_Reservation = {new JButton()};
+
+        ArrayList<Accommodation> list2 = new ArrayList<>();
+        ArrayList<Hotel_room> list3 = new ArrayList<>();
+
+        final int[] Day1 = new int[1];
+        final int[] Month1 = new int[1];
+        final int[] Year1 = new int[1];
+        final int[] Day2 = new int[1];
+        final int[] Month2 = new int[1];
+        final int[] Year2 = new int[1];
 
 
         JLabel Name = new JLabel("Name : ");
@@ -962,6 +308,8 @@ public class Customer extends Person {
         JLabel Parking = new JLabel("Parking : ");
         JLabel Ac = new JLabel("Ac : ");
         JLabel Cleaning_Service = new JLabel("Cleaning Service : ");
+        JLabel From = new JLabel("From : (dd/mm/yyyy) ");
+        JLabel Till = new JLabel("Till : (dd/mm/yyyy)");
 
 
         JTextField NameT = new JTextField("");
@@ -977,9 +325,12 @@ public class Customer extends Person {
         JCheckBox ParkingT = new JCheckBox();
         JCheckBox AcT = new JCheckBox();
         JCheckBox Cleaning_ServiceT = new JCheckBox();
+        JTextField from = new JTextField("");
+        JTextField till = new JTextField("");
 
 
-        GridLayout layout = new GridLayout(13,2);
+
+        GridLayout layout = new GridLayout(15,2);
         opt.setLayout(layout);
         opt.add(Name);
         opt.add(NameT);
@@ -989,7 +340,9 @@ public class Customer extends Person {
         opt.add(StarsT);
         opt.add(Square_meters);
         opt.add(Square_metersT);
+        opt.add(PriceF);
         opt.add(PriceFT);
+        opt.add(PriceT);
         opt.add(PriceTT);
         opt.add(Rooms);
         opt.add(RoomsT);
@@ -1005,42 +358,468 @@ public class Customer extends Person {
         opt.add(AcT);
         opt.add(Cleaning_Service);
         opt.add(Cleaning_ServiceT);
+        opt.add(From);
+        opt.add(from);
+        opt.add(Till);
+        opt.add(till);
 
-        view =  matching(People,NameT.getText(),LocationT.getText(),StarsT.getText(),Square_metersT.getText(),PriceFT.getText(),PriceTT.getText(),RoomsT.getText(),CapacityT.getText(),BreakfastT.isSelected(),WifiT.isSelected(),ParkingT.isSelected(),AcT.isSelected(),Cleaning_ServiceT.isSelected());
+       // LocalDate f = null;
+       // LocalDate t = null;
+        JButton Search = new JButton();
+        Search.setText("Search");
+        Search.addActionListener(e -> {
+            output.setText(valid_input(from.getText(),till.getText(),StarsT.getText(),Square_metersT.getText(),PriceFT.getText(),PriceTT.getText(),RoomsT.getText(),CapacityT.getText()));
+            if(!output.getText().equals("Done")){
+                main.add(output);
+                main.remove(list);
+                main.remove(Make_Reservation[0]);
+                return;
+            }
+            else{
+                char[] s = from.getText().toCharArray();
+                ArrayList<Character> d = new ArrayList<>();
+                ArrayList<Character> m = new ArrayList<>();
+                ArrayList<Character> y = new ArrayList<>();
+                for (int i = 0; i < s.length; i++) {
+                    if (s[i] != '/') {
+                        d.add(s[i]);
+                        s[i] = '0';
+                    } else {
+                        s[i] = '0';
+                        break;
+                    }
+                }
+                for (int i = 0; i < s.length; i++) {
+                    if (s[i] != '/') {
+                        m.add(s[i]);
+                        s[i] = '0';
+                    } else {
+                        s[i] = '0';
+                        break;
+                    }
+                }
+                for (int i = 0; i < s.length; i++) {
+                    if (s[i] != '/') {
+                        y.add(s[i]);
+                        s[i] = '0';
+                    } else {
+                        s[i] = '0';
+                        break;
+                    }
+                }
+                StringBuilder day = new StringBuilder();
+                StringBuilder month = new StringBuilder();
+                StringBuilder year = new StringBuilder();
+                for(char c : d)
+                    day.append(c);
+                for(char c : m)
+                    month.append(c);
+                for(char c : y)
+                    year.append(c);
+                String s1 = day.toString();
+                String s2 = month.toString();
+                String s3 = year.toString();
+
+
+
+                Day1[0] = Integer.parseInt(s1);
+                Month1[0] = Integer.parseInt(s2);
+                Year1[0] = Integer.parseInt(s3);
+
+
+                char[] w = till.getText().toCharArray();
+                ArrayList<Character> d2 = new ArrayList<>();
+                ArrayList<Character> m2 = new ArrayList<>();
+                ArrayList<Character> y2 = new ArrayList<>();
+                for (int i = 0; i < w.length; i++) {
+                    if (w[i] != '/') {
+                        d2.add(w[i]);
+                        w[i] = '0';
+                    } else {
+                        w[i] = '0';
+                        break;
+                    }
+                }
+                for (int i = 0; i < w.length; i++) {
+                    if (w[i] != '/') {
+                        m2.add(w[i]);
+                        w[i] = '0';
+                    } else {
+                        w[i] = '0';
+                        break;
+                    }
+                }
+                for (int i = 0; i < w.length; i++) {
+                    if (w[i] != '/') {
+                        y2.add(w[i]);
+                        w[i] = '0';
+                    } else {
+                        w[i] = '0';
+                        break;
+                    }
+                }
+                StringBuilder day2 = new StringBuilder();
+                StringBuilder month2 = new StringBuilder();
+                StringBuilder year2 = new StringBuilder();
+                for(char c : d2)
+                    day2.append(c);
+                for(char c : m2)
+                    month2.append(c);
+                for(char c : y2)
+                    year2.append(c);
+                String s12 = day2.toString();
+                String s22 = month2.toString();
+                String  s32 = year2.toString();
+
+
+                Day2[0] = Integer.parseInt(s12);
+                Month2[0] = Integer.parseInt(s22);
+                Year2[0] = Integer.parseInt(s32);
+
+            }
+            LocalDate f1 = LocalDate.of(Year1[0],Month1[0],Day1[0]);
+            LocalDate t1 = LocalDate.of(Year2[0],Month2[0],Day2[0]);
+            view[0].removeAll();
+            view[0].add(matching(f1, t1,list,list2,list3,People,NameT.getText(),LocationT.getText(),StarsT.getText(),Square_metersT.getText(),PriceFT.getText(),PriceTT.getText(),RoomsT.getText(),CapacityT.getText(),BreakfastT.isSelected(),WifiT.isSelected(),ParkingT.isSelected(),AcT.isSelected(),Cleaning_ServiceT.isSelected()));
+            if(list2.isEmpty() && list3.isEmpty()){
+                main.remove(list);
+                main.remove(output);
+                main.remove(Make_Reservation[0]);
+                SwingUtilities.updateComponentTreeUI(main);
+            }
+            else {
+                main.remove(opt);
+                main.remove(view[0]);
+                main.remove(Search);
+                main.remove(list);
+                main.remove(output);
+                main.remove(Make_Reservation[0]);
+                SwingUtilities.updateComponentTreeUI(main);
+                main.add(opt);
+                main.add(view[0]);
+                main.add(Search);
+                main.add(list);
+                main.add(output);
+                main.add(Make_Reservation[0]);
+                System.out.println(Day1[0]);
+                System.out.println(Day2[0]);
+                System.out.println(Month1[0]);
+                System.out.println(Month2[0]);
+                System.out.println(Year1[0]);
+                System.out.println(Year2[0]);
+
+
+            }
+        });
+         Make_Reservation[0] = new JButton();
+        Make_Reservation[0].setText("Make Reservation");
+        Make_Reservation[0].addActionListener(e -> {
+              String sele = (String) list.getSelectedItem();
+            if(sele == null)
+                return;
+              char q = sele.charAt(0);
+              int in = Character.getNumericValue(q) - 1 ;
+              Reservations re = new Reservations();
+            LocalDate f = LocalDate.of(Year1[0],Month1[0],Day1[0]);
+            LocalDate t = LocalDate.of(Year2[0],Month2[0],Day2[0]);
+              if( in < list2.size() ){
+                  re = new Reservations(f,t,egw,list2.get(in),null,null);
+                  System.out.println("acc" + in);
+                  My_Acc_Bookings.put(re,list2.get(in));
+                  list2.get(in).reservations.add(re);
+              }
+              else{
+                  in = in - list2.size() ;
+                  re = new Reservations(f,t,egw,null,list3.get(in),null);
+                  System.out.println("hot" + in);
+                  My_Hot_Bookings.put(re,list3.get(in));
+                  list3.get(in).hotelroomreservations.add(re);
+              }
+            try{ FileOutputStream fos = new FileOutputStream("pls.bin");
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                os.writeObject(acc_list);
+            }catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        });
 
 
 
         main.add(opt);
-        main.add(view);
+        main.add(view[0]);
+        main.add(Search);
+        main.add(output);
+       // main.add(Make_Reservation);
         return main;
     }
 
-    private JPanel matching(Collection<Person> People,String name, String loc, String stars, String sqm, String Pf, String Pt, String rooms, String capac, boolean breakfast, boolean wifi, boolean parking, boolean ac, boolean clean) {
+    /**
+     * Μέθοδος με την οποια ελέγχετε αν οι ημερομηνιες ειναι σωστες και κάποια επιθυμητά πεδία εχουν αριθμητική τιμή κατα την αναζήτηση καταλύματος η Ξεναδοχείου
+     * @param from Ημερομηνιά απο
+     * @param till Ημερομηνιά εως
+     * @param stars Αστέρια
+     * @param sqmtrs Τετραγωνικά
+     * @param pricef Τιμή απο
+     * @param pricet Τιμή εως
+     * @param rooms Δωμάτια
+     * @param capacity Χωρητικότητα
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     */
+    private String valid_input(String from ,String till,String stars, String sqmtrs, String pricef, String pricet, String rooms, String capacity) {
+        String x = "";
+        Pattern p = Pattern.compile(".*[0-9]");
+        if(!(pricef.equals("") && pricet.equals("")) && (!pricef.matches(p.pattern()) || !pricet.matches(p.pattern())) )
+            x = x + "Wrong Price/";
+        if(!rooms.equals("") && !rooms.matches(p.pattern()))
+            x = x + "Wrong Rooms/";
+        if(!capacity.equals("") && !capacity.matches(p.pattern()))
+            x = x + "Wrong Capacity/";
+        if(!sqmtrs.equals("") && !sqmtrs.matches(p.pattern()))
+            x = x + "Wrong Square meters/";
+        if(!correct_date(from) || !correct_date(till) )
+            x = x + "Wrong Date/";
+        p = Pattern.compile("[1-5]");
+        if(!stars.equals("") && !stars.matches(p.pattern()))
+            x = x + "Wrong Stars/";
+        if(!x.equals(""))
+            return x ;
+        return "Done";
+
+    }
+
+    /**
+     * Μέθοδος που ελέγχει αν οι ημερομηνιες αναπαριστούν οντως ημερομηνιες και
+     * @param from Ημερονια προς έλεγχο
+     * @return αν ειναι σωστή
+     */
+    private boolean correct_date(String from) {
+        char[] s = from.toCharArray();
+        ArrayList<Character> d = new ArrayList<>();
+        ArrayList<Character> m = new ArrayList<>();
+        ArrayList<Character> y = new ArrayList<>();
+        for (int i = 0; i < s.length; i++) {
+            if (s[i] != '/') {
+                d.add(s[i]);
+                s[i] = '0';
+            } else {
+                s[i] = '0';
+                break;
+            }
+        }
+        for (int i = 0; i < s.length; i++) {
+            if (s[i] != '/') {
+                m.add(s[i]);
+                s[i] = '0';
+            } else {
+                s[i] = '0';
+                break;
+            }
+        }
+        for (int i = 0; i < s.length; i++) {
+            if (s[i] != '/') {
+                y.add(s[i]);
+                s[i] = '0';
+            } else {
+                s[i] = '0';
+                break;
+            }
+        }
+        StringBuilder day = new StringBuilder();
+        StringBuilder month = new StringBuilder();
+        StringBuilder year = new StringBuilder();
+        for(char c : d)
+            day.append(c);
+        for(char c : m)
+            month.append(c);
+        for(char c : y)
+            year.append(c);
+        String s1 = day.toString();
+        String s2 = month.toString();
+        String s3 = year.toString();
+        Pattern p = Pattern.compile(".*[0-9]");
+
+        if(!s1.matches(p.pattern()) || !s2.matches(p.pattern()) || !s3.matches(p.pattern()))
+            return false;
+
+        int Day,Month,Year;
+        Day = Integer.parseInt(s1);
+        Month = Integer.parseInt(s2);
+        Year = Integer.parseInt(s3);
+
+
+        if(Day > 31 || Day < 1 || Month < 1 || Month > 12 || Year < 2000 || Year > 2100)
+            return false;
+        return Month != 2 || Day <= 28;
+    }
+
+    /**
+     * Μέθος η οποια επιστρέφει τα Καταλύματα/Ξεναδοχεία που ταιριάζουν στα φίλτρα του χρήστη
+     * @param from Ημερομηνία απο
+     * @param till Ημερομηνία εως
+     * @param list το JCombo box με τα ονόματα των ξεναδοχειων και καταλυμάτων που ταιριάζουν
+     * @param list2 τα καταλύματα που ταιριάζουν
+     * @param list3 τα δωμάτια ξεναδοχείου που ταιριάζουν
+     * @param People Ολοι οι χρήστες
+     * @param name όνομα
+     * @param loc τοποθεσία
+     * @param stars Αστέρια
+     * @param sqm Τετραγωνικά
+     * @param Pf Τιμή απο
+     * @param Pt Τιμή εως
+     * @param rooms Δωμάτια
+     * @param capac Χωρητικότητα
+     * @param breakfast Πρωινό
+     * @param wifi  Wifi
+     * @param parking Parkign
+     * @param ac Air Conditioner
+     * @param clean Υπηρεσία Καθαρισμού
+     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     */
+    private JPanel matching(LocalDate from ,LocalDate till, JComboBox<String> list,ArrayList<Accommodation> list2,ArrayList<Hotel_room> list3,Collection<Person> People,String name, String loc, String stars, String sqm, String Pf, String Pt, String rooms, String capac, boolean breakfast, boolean wifi, boolean parking, boolean ac, boolean clean) {
         JPanel main = new JPanel();
         ArrayList<Accommodation> accs = new ArrayList<>();
         ArrayList<Hotel> hots = new ArrayList<>();
+        list.removeAllItems();
+        list2.clear();
+        list3.clear();
+
+
         for(Person p : People)
             if(p instanceof  Accommodation_Provider a)
                 accs.addAll(a.Accommodations);
+
         for(Person p : People)
             if(p instanceof  Hotel_Provider a)
                 hots.addAll(a.Hotels);
+
+        ArrayList<Accommodation> to_remv = new ArrayList<>();
         for(Accommodation acc : accs){
             int n = 0 ;
             if(name.equals("") || acc.getName().contains(name))
                 n++;
             if(loc.equals("") || acc.getLocation().contains(loc))
                 n++;
-            if(stars.equals("0") || Integer.parseInt(acc.getStars()) < Integer.parseInt(stars))
+            if(stars.equals("") || Integer.parseInt(acc.getStars()) >= Integer.parseInt(stars))
                 n++;
-            if(name.equals("") || acc.getName().contains(name))
+            if(sqm.equals("") ||Integer.parseInt(acc.getSqmeter()) >= Integer.parseInt(sqm))
                 n++;
-            if(name.equals("") || acc.getName().contains(name))
+            if(rooms.equals("") || Integer.parseInt(acc.getRooms()) >= Integer.parseInt(rooms))
                 n++;
+            if(capac.equals("") || Integer.parseInt(acc.getCapacity()) >= Integer.parseInt(capac))
+                n++;
+            if((Pf.equals("") && Pt.equals("")) || (Integer.parseInt(acc.getPrice()) <= Integer.parseInt(Pt) && Integer.parseInt(acc.getPrice()) >= Integer.parseInt(Pf) ))
+                n++;
+            if(!breakfast || acc.isBreakfast())
+                n++;
+            if(!parking || acc.isParking())
+                n++;
+            if(!ac || acc.isAc())
+                n++;
+            if(!wifi || acc.isWifi())
+                n++;
+            if(!clean || acc.isCleaning_services())
+                n++;
+            if(chrono(from,till,acc.reservations))
+                n++;
+            if(n != 13 )
+               to_remv.add(acc);
 
         }
 
 
+        ArrayList<Hotel> to_remv2 = new ArrayList<>();
+        ArrayList<Hotel_room> to_remv3 = new ArrayList<>();
+        for(Hotel hotel : hots){
+            int n = 0 ;
+            if(name.equals("") || hotel.getName().contains(name))
+                n++;
+            if(loc.equals("") || hotel.getLocation().contains(loc))
+                n++;
+            if(stars.equals("") || Integer.parseInt(hotel.getStars()) > Integer.parseInt(stars))
+                n++;
+                for(Hotel_room hr : hotel.Rooms) {
+                    int m = 0;
+                    if (sqm.equals("") || Integer.parseInt(hr.getSqmeter()) > Integer.parseInt(sqm))
+                        m++;
+                    if (capac.equals("") || Integer.parseInt(hr.getCapacity()) > Integer.parseInt(capac))
+                        m++;
+                    if((Pf.equals("") && Pt.equals("")) || (Integer.parseInt(hr.getPrice()) <= Integer.parseInt(Pt) && Integer.parseInt(hr.getPrice()) >= Integer.parseInt(Pf) ))
+                        m++;
+                    if (!breakfast || hr.isBreakfast())
+                        m++;
+                    if (!parking || hr.isParking())
+                        m++;
+                    if (!ac || hr.isAc())
+                        m++;
+                    if (!wifi || hr.isWifi())
+                        m++;
+                    if (!clean || hr.isCleaning_services())
+                        m++;
+                    if(chrono(from,till,hr.hotelroomreservations))
+                        m++;
+                    if( m != 9 )
+                        to_remv3.add(hr);
+                }
+                if(to_remv3.containsAll(hotel.Rooms) || n!= 3)
+                    to_remv2.add(hotel);
+        }
+
+        int k1= 1;
+        for(Accommodation acc : accs)
+            if(!to_remv.contains(acc)) {
+                main.add(new JLabel(acc.getName()));
+                list.addItem(k1 +") " + acc.getName());
+                list2.add(acc);
+                k1++;
+            }
+        for(Hotel hotel : hots)
+            if(!to_remv2.contains(hotel)) {
+                JPanel temp = new JPanel();
+                TitledBorder titledBorder = BorderFactory.createTitledBorder(hotel.getName());
+                temp.setBorder(titledBorder);
+                main.add(temp);
+                for (Hotel_room hr : hotel.Rooms)
+                    if (!to_remv3.contains(hr)) {
+                        temp.add(new JLabel(hr.getName()));
+                        list.addItem(k1 + ") " + hotel.getName() + " : " + hr.getName());
+                        k1++;
+                        list3.add(hr);
+                    }
+            }
+        if(to_remv.containsAll(accs) && to_remv2.containsAll(hots)){
+            JLabel er = new JLabel("kanena");
+            main.removeAll();
+            main.add(er);
+            return main;
+        }
+
         return main;
+    }
+
+    /**
+     * Μέθοδος που ελέγχει αν η ημερομηνιά from,till συμπίπτει με καποιο ήδη υπάρχουσα κράτηση του συγκεκριμένου καταλύματος/Δωματίου
+     * @param from ημερομηνιά from/απο
+     * @param till ημερομηνιά till/εως
+     * @param Res πινακας με ήδη υπάρχουσες κρατήσεις
+     * @return αν δεν συμπίπτει
+     */
+    private boolean chrono(LocalDate from, LocalDate till, ArrayList<Reservations> Res) {
+        boolean flag = true;
+            for (Reservations r : Res) {
+                if (r.start.equals(from) || r.end.equals(till)) {
+                    flag = false;
+                    break;
+                }
+                if (from.isAfter(r.start) && from.isBefore(r.end) || till.isBefore(r.end) && till.isAfter(r.start)) {
+                    flag = false;
+                    break;
+                }
+                if (from.isBefore(r.start) && till.isAfter(r.end)) {
+                    flag = false;
+                    break;
+                }
+            }
+        return flag;
     }
 }

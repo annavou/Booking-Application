@@ -112,26 +112,26 @@ public class Hotel_roomTest {
 
     @Test
     public void hasBreakfast() {
-        assertEquals("Παρέχει",hr.hasBreakfast());
+        assertEquals("Παρέχει ",hr.hasBreakfast());
     }
 
     @Test
     public void hasWifi() {
-        assertEquals("Παρέχει",hr.hasWifi());
+        assertEquals("Παρέχει ",hr.hasWifi());
     }
 
     @Test
     public void hasParking() {
-        assertEquals("Παρέχει",hr.hasParking());
+        assertEquals("Παρέχει ",hr.hasParking());
     }
 
     @Test
     public void hasAc() {
-        assertEquals("Παρέχει",hr.hasAc());
+        assertEquals("Παρέχει ",hr.hasAc());
     }
 
     @Test
     public void hasCleaningservice() {
-        assertEquals("Παρέχει",hr.hasCleaningservice());
+        assertEquals("Παρέχει ",hr.hasCleaningservice());
     }
 }
