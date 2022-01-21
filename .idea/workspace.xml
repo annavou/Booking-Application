@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment="Τεστ 4">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment=".">
+      <change afterPath="$PROJECT_DIR$/src/messages.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/CheckerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/HotelTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/PersonTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/messagesTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyBooking.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MyBooking.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accommodations.txt" beforeDir="false" afterPath="$PROJECT_DIR$/accommodations.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messages.txt" beforeDir="false" afterPath="$PROJECT_DIR$/messages.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservations.txt" beforeDir="false" afterPath="$PROJECT_DIR$/reservations.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Accommodation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Accommodation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Accommodation_Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Accommodation_Provider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Checker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Checker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Credentials.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Credentials.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hotel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hotel_Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hotel_Provider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hotel_room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hotel_room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Moderator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moderator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Reservations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reservations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ReservationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ReservationsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/untitled15.iml" beforeDir="false" afterPath="$PROJECT_DIR$/untitled15.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +62,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Public/Downloads" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
@@ -77,37 +80,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AccommodationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyBooking" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="AccommodationTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in untitled15" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HotelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="untitled15" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="MAIN_CLASS_NAME" value="HotelTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CheckerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="untitled15" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CheckerTest" />
+      <option name="MAIN_CLASS_NAME" value="PersonTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Hotel_roomTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyBooking" />
+    <configuration name="messagesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="untitled15" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Hotel_roomTest" />
+      <option name="MAIN_CLASS_NAME" value="messagesTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="messagesTest.getTopic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="untitled15" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="messagesTest" />
+      <option name="METHOD_NAME" value="getTopic" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -115,10 +120,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.main" />
-        <item itemvalue="JUnit.CheckerTest" />
-        <item itemvalue="JUnit.All in untitled15" />
-        <item itemvalue="JUnit.AccommodationTest" />
-        <item itemvalue="JUnit.Hotel_roomTest" />
+        <item itemvalue="JUnit.PersonTest" />
+        <item itemvalue="JUnit.messagesTest" />
+        <item itemvalue="JUnit.messagesTest.getTopic" />
+        <item itemvalue="JUnit.HotelTest" />
       </list>
     </recent_temporary>
   </component>
@@ -278,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641673371690</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary=".">
+      <created>1642709258995</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1642709258995</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -311,6 +323,7 @@
     <MESSAGE value="FINISH FILES &#10;με // στο τέλος της γραμμής οι αλλαγές" />
     <MESSAGE value="README" />
     <MESSAGE value="Τεστ 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="Τεστ 4" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>

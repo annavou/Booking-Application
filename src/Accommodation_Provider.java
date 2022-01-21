@@ -1,5 +1,5 @@
 /**
- * Αυτή η κλάση αναπαριστά έναν πάροχο καταλύματος με τα χαρακτηριστηκά του, ο οποίος μπορεί να προσθέσει το κατάλυμα του,
+ * Αυτή η κλάση αναπαριστά έναν πάροχο καταλύματος με τα χαρακτηριστικά του, ο οποίος μπορεί να προσθέσει το κατάλυμα του,
  * να δεί τα καταλύματα του, να κάνει αλλαγές αν επιθυμεί σε κάποιο, να δεί τις κρατήσεις του καθώς και τις ακυρώσεις του.
  */
 
@@ -51,9 +51,9 @@ public class Accommodation_Provider extends Person{
 
         for( int i =0 ; i < lenght ; i++) {
             jps[i] = new JPanel();
-            String s1 = Accommodations.get(i).getName() + " is a " + Accommodations.get(i).getStars() + " stars accommodation , located at " + Accommodations.get(i).getLocation() + " and is at " + Accommodations.get(i).getPrice() + "$ per night." ;
-            String s2 = " It has an area of " + Accommodations.get(i).getSqmeter() + "m2 with " + Accommodations.get(i).getRooms() + " rooms and is suitable for up to " + Accommodations.get(i).getCapacity() + " people.";
-            String s3 = Accommodations.get(i).hasBreakfast() + " Breakfast\n " + Accommodations.get(i).hasAc() + " Ac\n " + Accommodations.get(i).hasParking() + " Parking\n " + Accommodations.get(i).hasWifi() + " Wifi\n " + Accommodations.get(i).hasCleaningservice() + " Cleaning Service\n ";
+            String s1 = Accommodations.get(i).getName() + " είναι ένα " + Accommodations.get(i).getStars() + " αστέρων κατάλυμα , που βρίσκεται " + Accommodations.get(i).getLocation() + " και η τιμή είναι " + Accommodations.get(i).getPrice() + "$ ανά βράδυ." ;
+            String s2 = " Είναι " + Accommodations.get(i).getSqmeter() + "τετραγωνικά με " + Accommodations.get(i).getRooms() + " δωμάτιο και η χωρητικότητα του είναι για " + Accommodations.get(i).getCapacity() + " άτομα.";
+            String s3 = Accommodations.get(i).hasBreakfast() + " Πρωινό\n " + Accommodations.get(i).hasAc() + " Κλιματισμός\n " + Accommodations.get(i).hasParking() + " Parking\n " + Accommodations.get(i).hasWifi() + " Wifi\n " + Accommodations.get(i).hasCleaningservice() + " Υπηρεσίες Καθαρισμού\n ";
             jps[i].add(new JLabel(s1));
             jps[i].add(new JLabel(s2));
             jps[i].add(new JLabel(s3));
@@ -77,9 +77,9 @@ public class Accommodation_Provider extends Person{
 
 
         JPanel panel = new JPanel();
-        String s1 = acc.getName() + " is a " + acc.getStars() + " stars accommodation , located at " + acc.getLocation() + " and is at " + acc.getPrice() + "$ per night." ;
-        String s2 = " It has an area of " + acc.getSqmeter() + "m2 with " + acc.getRooms() + " rooms and is suitable for up to " + acc.getCapacity() + " people.";
-        String s3 = acc.hasBreakfast() + " Breakfast\n " + acc.hasAc() + " Ac\n " + acc.hasParking() + " Parking\n " + acc.hasWifi() + " Wifi\n " + acc.hasCleaningservice() + " Cleaning Service\n ";
+        String s1 = acc.getName() + " είναι ένα " + acc.getStars() + " αστέρων κατάλυμα , που βρίσκεται στην " + acc.getLocation() + " και η τιμή του είναι " + acc.getPrice() + "$ ανά βράδυ." ;
+        String s2 = " Είναι " + acc.getSqmeter() + " τετραγωνικά με " + acc.getRooms() + " δωμάτια και είναι κατάλληλο για " + acc.getCapacity() + " άτομα.";
+        String s3 = acc.hasBreakfast() + " Πρωινό\n " + acc.hasAc() + " Κλιματισμός\n " + acc.hasParking() + " Parking\n " + acc.hasWifi() + " Wifi\n " + acc.hasCleaningservice() + " Υπηρεσίες Καθαρισμού\n ";
         panel.add(new JLabel(s1));
         panel.add(new JLabel(s2));
         panel.add(new JLabel(s3));
@@ -104,20 +104,20 @@ public class Accommodation_Provider extends Person{
         JPanel main = new JPanel();
         final JTextField[] output = {new JTextField()};
         output[0].setEditable(false);
-        JLabel Name = new JLabel("Name");
-        JLabel Location = new JLabel("Location");
-        JLabel Stars = new JLabel("Stars");
-        JLabel Price = new JLabel("Price");
-        JLabel Square_meters = new JLabel("Square Meters");
-        JLabel Rooms = new JLabel("Rooms");
-        JLabel Capacity = new JLabel("Capacity");
-        JLabel Breakfast = new JLabel("Breakfast");
+        JLabel Name = new JLabel("Όνομα");
+        JLabel Location = new JLabel("Τοποθεσία");
+        JLabel Stars = new JLabel("Αστέρια");
+        JLabel Price = new JLabel("Τιμή");
+        JLabel Square_meters = new JLabel("Τετραγωνικά Μέτρα");
+        JLabel Rooms = new JLabel("Δωμάτια");
+        JLabel Capacity = new JLabel("Χωρητικότητα");
+        JLabel Breakfast = new JLabel("Πρωινό");
         JLabel Wifi = new JLabel("Wifi");
         JLabel Parking = new JLabel("Parking");
-        JLabel Ac = new JLabel("Ac");
-        JLabel Cleaning_Service = new JLabel("Cleaning Service");
+        JLabel Ac = new JLabel("Κλιματισμός");
+        JLabel Cleaning_Service = new JLabel("Υπηρεσίες Καθαρισμού");
         if(Accommodations.isEmpty()){
-            JLabel er = new JLabel("Den exeis");
+            JLabel er = new JLabel("Δεν υπάρχουν καταχωρημένα");
             main.add(er);
             return main;
         }
@@ -199,13 +199,13 @@ public class Accommodation_Provider extends Person{
 
             }
         });
-        JButton Save = new JButton("Save");
+        JButton Save = new JButton("Αποθήκευση");
         Save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String sele = String.valueOf(list.getSelectedItem());
                 output[0].setText(input_check(PriceT.getText(),Square_metersT.getText(),StarsT.getText(),RoomsT.getText(),CapacityT.getText()));
-                if(!output[0].getText().equals("Done")){
+                if(!output[0].getText().equals("Αποθηκεύτηκε")){
                     return;
                 }
                 String start= "Κατάλυμα:"+sele;//
@@ -321,18 +321,18 @@ public class Accommodation_Provider extends Person{
         JPanel main = new JPanel();
         final JTextField[] output = {new JTextField()};
         output[0].setEditable(false);
-        JLabel Name = new JLabel("Name");
-        JLabel Location = new JLabel("Location");
-        JLabel Stars = new JLabel("Stars");
-        JLabel Price = new JLabel("Price");
-        JLabel Square_meters = new JLabel("Square Meters");
-        JLabel Rooms = new JLabel("Rooms");
-        JLabel Capacity = new JLabel("Capacity");
-        JLabel Breakfast = new JLabel("Breakfast");
+        JLabel Name = new JLabel("Όνομα");
+        JLabel Location = new JLabel("Τοποθεσία");
+        JLabel Stars = new JLabel("Αστέρια");
+        JLabel Price = new JLabel("Τιμή");
+        JLabel Square_meters = new JLabel("Τετραγωνικά Μέτρα");
+        JLabel Rooms = new JLabel("Δωμάτια");
+        JLabel Capacity = new JLabel("Χωρητικότητα");
+        JLabel Breakfast = new JLabel("Πρωινό");
         JLabel Wifi = new JLabel("Wifi");
         JLabel Parking = new JLabel("Parking");
-        JLabel Ac = new JLabel("Ac");
-        JLabel Cleaning_Service = new JLabel("Cleaning Service");
+        JLabel Ac = new JLabel("Κλιματισμός");
+        JLabel Cleaning_Service = new JLabel("Υπηρεσίες Καθαρισμού");
 
 
         JTextField NameT = new JTextField("");
@@ -378,12 +378,12 @@ public class Accommodation_Provider extends Person{
 
 
 
-        JButton add = new JButton("Save");
+        JButton add = new JButton("Αποθήκευση");
         add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 output[0].setText(input_check(PriceT.getText(),Square_metersT.getText(),StarsT.getText(),RoomsT.getText(),CapacityT.getText()));
-                if(!output[0].getText().equals("Done")){
+                if(!output[0].getText().equals("Αποθηκεύτηκε")){
                     return;
                 }
                 Accommodation temp = new Accommodation(NameT.getText(),LocationT.getText(),PriceT.getText(),Square_metersT.getText(),StarsT.getText(),RoomsT.getText(),CapacityT.getText(),BreakfastT.isSelected(), WifiT.isSelected(),AcT.isSelected(),ParkingT.isSelected(),Cleaning_ServiceT.isSelected());
@@ -440,23 +440,23 @@ public class Accommodation_Provider extends Person{
         String x = "";
         p = Pattern.compile(".*[0-9]");
         if(!price.matches(p.pattern()))
-            x = x + "Wrong Price/";
+            x = x + "Λάθος Τιμή/";
         if(!rooms.matches(p.pattern()))
-            x = x + "Wrong Rooms/";
+            x = x + "Λάθος Αριθμός Δωματίου/";
         if(!capacity.matches(p.pattern()))
-            x = x + "Wrong Capacity/";
+            x = x + "Λάθος Αριθμός Χωρητικότητας/";
         if(!sqmtrs.matches(p.pattern()))
-            x = x + "Wrong Square meters/";
+            x = x + "Λάθος Τετραγωνικά/";
         p = Pattern.compile("[1-5]");
         if(!stars.matches(p.pattern()))
-            x = x + "Wrong Stars/";
+            x = x + "Λάθος Αστέρια/";
         if(!x.equals(""))
             return x ;
-        return "Done";
+        return "Αποθηκεύτηκαν";
     }
 
     /**
-     * μέθοδος με την οποία ο πάροχος διγράφει ένα απο τα καταλύματα του
+     * μέθοδος με την οποία ο πάροχος διαγράφει ένα απο τα καταλύματα του
      * @return
      */
     public JPanel Accommodation_delete() {
@@ -466,7 +466,7 @@ public class Accommodation_Provider extends Person{
         JComboBox<String> list = new JComboBox<>();
         final JPanel[] info = {new JPanel()};
         if(Accommodations.isEmpty()){
-            main[0].add(new JLabel("geia"));
+            main[0].add(new JLabel("Δεν υπάρχουν Καταχωρημένα Καταλύματα"));
             return main[0];
         }
 
@@ -475,7 +475,7 @@ public class Accommodation_Provider extends Person{
         }
         main[0].add(list);
 
-        JButton delete = new JButton("Delete");
+        JButton delete = new JButton("Διαγραφή");
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -539,7 +539,7 @@ public class Accommodation_Provider extends Person{
                     main[0].remove(list);
                     main[0].remove(delete);
                     main[0].remove(info[0]);
-                    main[0].add(new JLabel("geia"));
+                    main[0].add(new JLabel("Δεν Υπάρχουν Καταχωρημένα Καταλύματα"));
 
                 }
                 else {
@@ -590,9 +590,9 @@ public class Accommodation_Provider extends Person{
         JPanel resvs = new JPanel();
         JPanel cancs = new JPanel();
         Border border = BorderFactory.createLineBorder(Color.black);
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Κρατήσεις");
         resvs.setBorder(titledBorder);
-        titledBorder = BorderFactory.createTitledBorder("Cancellations");
+        titledBorder = BorderFactory.createTitledBorder("Ακυρώσεις");
         cancs.setBorder(titledBorder);
         GridLayout gl = new GridLayout(2,2);
         main.setLayout(gl);
@@ -626,7 +626,7 @@ public class Accommodation_Provider extends Person{
             int m = non_empty.get(i).reservations.size();
             for(int j = 0 ; j < m ;j++){
                 Reservations temp = non_empty.get(i).reservations.get(j);
-                JLabel date = new JLabel("DATE") , customer = new JLabel("CUSTOMER");
+                JLabel date = new JLabel("Ημερομηνία") , customer = new JLabel("Πελάτης");
                 sub1[i].add(date);
                 sub1[i].add(customer);
                 JLabel b1 = new JLabel(temp.getStart().toString() + " / " +temp.getEnd().toString());
@@ -662,7 +662,7 @@ public class Accommodation_Provider extends Person{
             int m2 = non_empty2.get(i).cancellations.size();
             for(int j = 0 ; j < m2 ;j++){
                 Reservations temp = non_empty2.get(i).cancellations.get(j);
-                JLabel date = new JLabel("DATE") , customer = new JLabel("CUSTOMER");
+                JLabel date = new JLabel("Ημερομηνία") , customer = new JLabel("Πελάτης");
                 sub2[i].add(date);
                 sub2[i].add(customer);
                 JLabel b1 = new JLabel(temp.getStart().toString() + " / " +temp.getEnd().toString());

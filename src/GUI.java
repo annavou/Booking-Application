@@ -12,10 +12,10 @@ public class GUI extends JFrame{
     JTextField password;
     HashMap<Credentials, Person> acc_list = new HashMap<>();
     Checker ch = new Checker();
-    JRadioButton accom = new JRadioButton("Accommodation Provider");
-    JRadioButton hotel = new JRadioButton("Hotel Provider");
-    JRadioButton mod = new JRadioButton("Moderator");
-    JRadioButton customer = new JRadioButton("Customer");
+    JRadioButton accom = new JRadioButton("Πάροχος Καταλύματος");
+    JRadioButton hotel = new JRadioButton("Πάροχος Ξενοδοχείου");
+    JRadioButton mod = new JRadioButton("Διαχειριστής");
+    JRadioButton customer = new JRadioButton("Πελάτης");
 
     Person user;
     Accommodation_Provider user_acc;
@@ -29,8 +29,8 @@ public class GUI extends JFrame{
     }
 
     private void initialize() {
-        Hotel_Provider p1 = new Hotel_Provider("Γιάννης_Παπαδόπουλος", "Ελλάδα", "6940519933", "giannhs@gmail.com");//
-        Accommodation_Provider p2 = new Accommodation_Provider("Maria_McArthur", "USA", "0054861839", "mariamc@gmail.com");//
+        Hotel_Provider p1 = new Hotel_Provider("Γιάννης Παπαδόπουλος", "Ελλάδα", "6940519933", "giannhs@gmail.com");//
+        Accommodation_Provider p2 = new Accommodation_Provider("Maria McArthur", "USA", "0054861839", "mariamc@gmail.com");//
 
         Credentials c1 = new Credentials("giannis_pap", "ab123");//
         Credentials c2 = new Credentials("maria_mc", "hp123");//
@@ -38,11 +38,11 @@ public class GUI extends JFrame{
         acc_list.put(c1, p1);
         acc_list.put(c2, p2);
 
-        Moderator p3 = new Moderator("Ouzi_Makris","Germany","5467538428","ouzi@gmail.com");//
+        Moderator p3 = new Moderator("Ouzi Makris","Germany","5467538428","ouzi@gmail.com");//
         Credentials c3 = new Credentials("ouzi_mak","pt123");
         acc_list.put(c3,p3);
 
-        Customer p4 = new Customer("Γιώργος_Παπαχαραλαμπόπουλος","Θεσσαλονίκη","6940523697","georgepap@gmail.com");//
+        Customer p4 = new Customer("Γιώργος Παπαχαραλαμπόπουλος","Θεσσαλονίκη","6940523697","georgepap@gmail.com");//
         Credentials c4 = new Credentials("geo_papaxar","tl123");
         acc_list.put(c4,p4);
         p2.setActivated(true);
@@ -54,11 +54,11 @@ public class GUI extends JFrame{
         Accommodation k = new Accommodation("Θέα","Καβάλα","500","68","3","4","8",true,false,true,false,true);
         LocalDate s = LocalDate.of(2021,1,2);
         LocalDate e = LocalDate.of(2021,1,5);
-        Reservations resv = new Reservations(s,e,p4,k,null,null);
-        k.reservations.add(resv);
+        Reservations resv1 = new Reservations(s,e,p4,k,null,null);
+        k.reservations.add(resv1);
         p2.Accommodations.add(k);
         p2.Accommodations.add(j);
-        p4.My_Acc_Bookings.put(resv,k);//
+        p4.My_Acc_Bookings.put(resv1,k);//
 
 
         Hotel b = new Hotel("Galaxy","Καβάλα","4");
@@ -67,38 +67,33 @@ public class GUI extends JFrame{
         b.Rooms.add(d1);
         b.Rooms.add(d2);
         p1.Hotels.add(b);
-        resv = new Reservations(s,e,p4,null,b,d1);
-        d1.hotelroomreservations.add(resv);
-        p4.My_Hot_Bookings.put(resv,d1);//
-
-
-
-
-
+        Reservations resv2 = new Reservations(s,e,p4,null,b,d1);
+        d1.hotelroomreservations.add(resv2);
+        p4.My_Hot_Bookings.put(resv2,d1);//
 
     }
 
     public void start(){
 
-        setTitle("syndesh");
+        setTitle("Σύνδεση");
         setLocationRelativeTo(null);
         setSize(1000, 1000);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel1 = new JPanel();
-        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Δανείου ");
+        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Χρήστη ");
         panel1.setBorder(border);
         GridLayout layout = new GridLayout(2,2);
         panel1.setLayout(layout);
 
         JButton b1 = new JButton();
-        b1.setText("reg");
+        b1.setText("Δημιουργία Λογαριασμού");
         b1.addActionListener(e -> register());
 
         JLabel usernamel = new JLabel ("username");
-        JLabel  passwordl = new JLabel ("password");
-        username = new JTextField("Γιώργος");
-        password = new JTextField("123");
+        JLabel  passwordl = new JLabel ("Κωδικός");
+        username = new JTextField();
+        password = new JTextField();
         panel1.add(usernamel);
         panel1.add(username);
         panel1.add(passwordl);
@@ -107,7 +102,7 @@ public class GUI extends JFrame{
         add(panel1, BorderLayout.CENTER);
 
         JPanel panel2 = new JPanel();
-        JButton buttonCalculate = new JButton("syndesh");
+        JButton buttonCalculate = new JButton("Σύνδεση");
         buttonCalculate.addActionListener(e -> login());
         panel2.add(buttonCalculate);
         add(panel2, BorderLayout.PAGE_END);
@@ -127,7 +122,7 @@ public class GUI extends JFrame{
         JTextField email;
         JTextField phone_number;
 
-        tempor.setTitle("Register");
+        tempor.setTitle("Δημιουργία Λογαριασμού");
         tempor.setSize(500, 500);
         tempor.setLocationRelativeTo(null);
         tempor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -140,14 +135,14 @@ public class GUI extends JFrame{
         Object[] a = c.toArray();
 
         JPanel panel1 = new JPanel();
-        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Δανείου ");
+        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Χρήστη ");
         panel1.setBorder(border);
 
 
         JLabel usernamel = new JLabel ("username");
-        JLabel  passwordl = new JLabel ("password");
-        username = new JTextField("akis");
-        password = new JTextField("123");
+        JLabel  passwordl = new JLabel ("Κωδικός");
+        username = new JTextField();
+        password = new JTextField();
 
         ButtonGroup bg = new ButtonGroup();
         bg.add(accom);
@@ -164,15 +159,15 @@ public class GUI extends JFrame{
         panel1.add(password);
 
 
-        JLabel namel= new JLabel ("Full name");
-        JLabel  phonel = new JLabel ("Phone Number");
-        JLabel home_groundl = new JLabel ("Home Ground");
+        JLabel namel= new JLabel ("Ονοματεπώνυμο");
+        JLabel  phonel = new JLabel ("Αριθμός Τηλεφώνου");
+        JLabel home_groundl = new JLabel ("Έδρα");
         JLabel  emaill= new JLabel ("email");
-        Name = new JTextField("akis");
+        Name = new JTextField("");
         Name.setColumns(4);
-        Location = new JTextField("ss");
-        phone_number = new JTextField("6945436967");
-        email = new JTextField("akisspa@gmail.com");
+        Location = new JTextField("");
+        phone_number = new JTextField("");
+        email = new JTextField("");
 
         panel1.add(namel);
         panel1.add(Name);
@@ -194,13 +189,12 @@ public class GUI extends JFrame{
 
 
         JPanel panel2 = new JPanel();
-        JButton buttonnext = new JButton("register");
+        JButton buttonnext = new JButton("Σύνδεση");
         buttonnext.addActionListener(e -> {
             final boolean[] flag = {true};
             for (Object o : a) {
                 Credentials c1 = (Credentials) o;
                 if (c1.getUsername().equals(username.getText())) {
-                    //error("idio user");
                     flag[0] = false;
                     break;
                 }
@@ -217,7 +211,7 @@ public class GUI extends JFrame{
         panel2.add(buttonnext);
         tempor.add(panel2, BorderLayout.PAGE_END);
         tempor.setVisible(true);
-        JButton back = new JButton("Back");
+        JButton back = new JButton("Πίσω");
         back.addActionListener(e -> {
             tempor.setVisible(false);
             setVisible(true);
@@ -231,7 +225,7 @@ public class GUI extends JFrame{
 
         p = Pattern.compile("[0-9]{10}");
         if(!ch.valid(phone_number,p)) {
-            System.out.println("kati lathos");
+            System.out.println("Λάθος");
             return null;
         }
         String type = null;
@@ -304,7 +298,7 @@ public class GUI extends JFrame{
             }
         }
         else{
-            JTextField error = new JTextField("lathos");
+            JTextField error = new JTextField("Λάθος");
             error.setEditable(false);
             JDialog dialog = new JDialog();
             dialog.add(error);
@@ -319,14 +313,14 @@ public class GUI extends JFrame{
     private void cust() {
         setVisible(false);
         JFrame menu = new JFrame();
-        menu.setTitle("menu");
+        menu.setTitle("Μενού");
         menu.setLocationRelativeTo(null);
         menu.setExtendedState(JFrame.MAXIMIZED_BOTH);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel buttons = new JPanel();
         final JPanel[] screen = {new JPanel()};
-        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Δανείου ");
+        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Χρήστη ");
         buttons.setBorder(border);
         GridLayout layout = new GridLayout(2,2);
         buttons.setLayout(layout);
@@ -334,7 +328,7 @@ public class GUI extends JFrame{
         menu.setLayout(layout);
 
         JButton logout = new JButton();
-        logout.setText("logout");
+        logout.setText("Αποσύνδεση");
         logout.addActionListener(e -> {
             menu.setVisible(false);
             setVisible(true);
@@ -344,7 +338,7 @@ public class GUI extends JFrame{
         });
 
         JButton info = new JButton();
-        info.setText("Personal Info");
+        info.setText("Προσωπικά Στοιχεία");
         info.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = custom.info_edit(acc_list,"Πελάτης");
@@ -352,7 +346,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton messages = new JButton();
-        messages.setText("Messages");
+        messages.setText("Μηνύματα");
         messages.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = custom.message(acc_list.values(),custom.getName());
@@ -360,7 +354,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton resv_canc = new JButton();
-        resv_canc.setText("See All Reservations/Cancellations");
+        resv_canc.setText("Προβολή Κρατήσεων/Ακυρώσεων");
         resv_canc.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = custom.resv_canc_view();
@@ -368,7 +362,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Cancel = new JButton();
-        Cancel.setText("Cancel a Reservation");
+        Cancel.setText("Ακύρωση Κράτησης");
         Cancel.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = custom.Cancel();
@@ -376,7 +370,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton resv = new JButton();
-        resv.setText("Make a Reservation");
+        resv.setText("Κάνε Κράτηση");
         resv.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = custom.Reserv(acc_list.values());
@@ -400,7 +394,7 @@ public class GUI extends JFrame{
     private void modder() {
         setVisible(false);
         JFrame menu = new JFrame();
-        menu.setTitle("menu");
+        menu.setTitle("Μενού");
         menu.setLocationRelativeTo(null);
         menu.setExtendedState(JFrame.MAXIMIZED_BOTH);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -408,7 +402,7 @@ public class GUI extends JFrame{
 
         JPanel buttons = new JPanel();
         final JPanel[] screen = {new JPanel()};
-        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Δανείου ");
+        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Χρήστη ");
         buttons.setBorder(border);
         GridLayout layout = new GridLayout(2,2);
         buttons.setLayout(layout);
@@ -416,7 +410,7 @@ public class GUI extends JFrame{
         menu.setLayout(layout);
 
         JButton logout = new JButton();
-        logout.setText("logout");
+        logout.setText("Αποσύνδεση");
         logout.addActionListener(e -> {
             menu.setVisible(false);
             setVisible(true);
@@ -425,7 +419,7 @@ public class GUI extends JFrame{
             password.setText("");
         });
         JButton info = new JButton();
-        info.setText("Personal Info");
+        info.setText("Προσωπικά Στοιχεία");
         info.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = moder.info_edit(acc_list,"Διαχειριστής");
@@ -433,7 +427,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton messages = new JButton();
-        messages.setText("Messages");
+        messages.setText("Μηνύματα");
         messages.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = moder.message(acc_list.values(),moder.getName());
@@ -441,7 +435,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton view_users = new JButton();
-        view_users.setText("View All Users");
+        view_users.setText("Προβολή Χρηστών");
         view_users.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = moder.see_all_users(acc_list.values());
@@ -449,7 +443,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton view_prop = new JButton();
-        view_prop.setText("View All Properties");
+        view_prop.setText("Προβολή Καταλυμάτων/Ξενοδοχείων");
         view_prop.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = moder.see_all_accommodations(acc_list.values());
@@ -457,7 +451,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton manage = new JButton();
-        manage.setText("Manage User Activation");
+        manage.setText("Ενεργοποίηση Χρηστών");
         manage.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = moder.account_manage(acc_list.values());
@@ -465,7 +459,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton resv_info = new JButton();
-        resv_info.setText("See All Reservations/Cancellations");
+        resv_info.setText("Προβολή Κρατήσεων/Ακυρώσεων");
         resv_info.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = moder.see_all_resv(acc_list.values(),true);
@@ -473,7 +467,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Cancel_resv = new JButton();
-        Cancel_resv.setText("Cancel a Reservation");
+        Cancel_resv.setText("Ακύρωση Κράτησης");
         Cancel_resv.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = moder.resv_canc(acc_list.values());
@@ -506,7 +500,7 @@ public class GUI extends JFrame{
 
         JPanel buttons = new JPanel();
         final JPanel[] screen = {new JPanel()};
-        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Δανείου ");
+        TitledBorder border = BorderFactory.createTitledBorder(" Στοιχεία Χρήστη ");
         buttons.setBorder(border);
         GridLayout layout = new GridLayout(2,2);
         buttons.setLayout(layout);
@@ -514,7 +508,7 @@ public class GUI extends JFrame{
         menu.setLayout(layout);
 
         JButton logout = new JButton();
-        logout.setText("logout");
+        logout.setText("Αποσύνδεση");
         logout.addActionListener(e -> {
             menu.setVisible(false);
             setVisible(true);
@@ -523,7 +517,7 @@ public class GUI extends JFrame{
             password.setText("");
         });
         JButton display_all = new JButton();
-        display_all.setText("Display accommodations");
+        display_all.setText("Προβολή Καταλυμάτων");
         display_all.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_acc.Accomodations_Display_All();
@@ -531,7 +525,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Resv_info = new JButton();
-        Resv_info.setText("Reservations/Cancellations info");
+        Resv_info.setText("Στοιχεία Κρατήσεων/Ακυρώσεων");
         Resv_info.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_acc.sum_resv();
@@ -539,7 +533,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Accommodation_add = new JButton();
-        Accommodation_add.setText("Add an Accommodation");
+        Accommodation_add.setText("Προσθήκη Καταλύματος");
         Accommodation_add.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_acc.Accommodation_add();
@@ -547,7 +541,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton accommodation_Edit = new JButton();
-        accommodation_Edit.setText("Edit an Accommodation");
+        accommodation_Edit.setText("Επεξεργασία Καταλύματος");
         accommodation_Edit.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_acc.Accomodation_Edit();
@@ -555,7 +549,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Accommodation_delete = new JButton();
-        Accommodation_delete.setText("Delete an Accommodation");
+        Accommodation_delete.setText("Διαγραφή Καταλύματος");
         Accommodation_delete.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_acc.Accommodation_delete();
@@ -563,7 +557,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton info = new JButton();
-        info.setText("Personal Info");
+        info.setText("Πληροφορίες Χρήστη");
         info.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_acc.info_edit(acc_list,"Πάροχος Καταλύματος");
@@ -571,7 +565,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton messages = new JButton();
-        messages.setText("Messages");
+        messages.setText("Μηνύματα");
         messages.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_acc.message(acc_list.values(),user_acc.getName());
@@ -596,7 +590,7 @@ public class GUI extends JFrame{
     private void Hotel_prov() {
         setVisible(false);
         JFrame menu = new JFrame();
-        menu.setTitle("menu");
+        menu.setTitle("Μενού");
         menu.setLocationRelativeTo(null);
         menu.setExtendedState(JFrame.MAXIMIZED_BOTH);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -604,7 +598,7 @@ public class GUI extends JFrame{
 
         JPanel buttons = new JPanel();
         final JPanel[] screen = {new JPanel()};
-        TitledBorder border = BorderFactory.createTitledBorder("Hotel Provider Options");
+        TitledBorder border = BorderFactory.createTitledBorder("Επιλογές Παρόχου Ξενοδοχείου");
         buttons.setBorder(border);
         GridLayout layout = new GridLayout(2,2);
         buttons.setLayout(layout);
@@ -612,7 +606,7 @@ public class GUI extends JFrame{
         menu.setLayout(layout);
 
         JButton logout = new JButton();
-        logout.setText("logout");
+        logout.setText("Αποσύνδεση");
         logout.addActionListener(e -> {
             menu.setVisible(false);
             setVisible(true);
@@ -621,7 +615,7 @@ public class GUI extends JFrame{
             password.setText("");
         });
         JButton display_all = new JButton();
-        display_all.setText("Display accommodations");
+        display_all.setText("Προβολή Ξενοδοχείων");
         display_all.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_hot.Hotels_Display_All();
@@ -629,7 +623,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Hotel_add = new JButton();
-        Hotel_add.setText("Add a Hotel/Hotel Room");
+        Hotel_add.setText("Προσθήκη Ξενοδοχείου/Δωματίου");
         Hotel_add.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_hot.Hotel_add();
@@ -637,7 +631,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Hotel_Edit = new JButton();
-        Hotel_Edit.setText("Edit a Hotel/Hotel Room");
+        Hotel_Edit.setText("Επεξεργασία Ξενοδοχείου/Δωματίου");
         Hotel_Edit.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_hot.Hotel_edit();
@@ -645,7 +639,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Hotel_delete = new JButton();
-        Hotel_delete.setText("Delete a Hotel/Hotel room");
+        Hotel_delete.setText("Διαγραφή Ξενοδοχείου/Δωματίου");
         Hotel_delete.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_hot.Hotel_delete();
@@ -653,7 +647,7 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton Resv_info = new JButton();
-        Resv_info.setText("Reservations/Cancellations info");
+        Resv_info.setText("Πληροφορίες Κρατήσεων/Ακυρώσεων");
         Resv_info.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_hot.sum_resv();
@@ -661,15 +655,15 @@ public class GUI extends JFrame{
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton info = new JButton();
-        info.setText("Personal Info");
+        info.setText("Στοιχεία Χρήστη");
         info.addActionListener(e -> {
             menu.remove(screen[0]);
-            screen[0] = user_hot.info_edit(acc_list,"Πάροχος Ξεναδοχείου");
+            screen[0] = user_hot.info_edit(acc_list,"Πάροχος Ξενοδοχείου");
             menu.add(screen[0]);
             SwingUtilities.updateComponentTreeUI(menu);
         });
         JButton messages = new JButton();
-        messages.setText("Messages");
+        messages.setText("Μηνύματα");
         messages.addActionListener(e -> {
             menu.remove(screen[0]);
             screen[0] = user_hot.message(acc_list.values(),user_hot.getName());

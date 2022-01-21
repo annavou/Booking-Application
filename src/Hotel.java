@@ -13,15 +13,6 @@ public class Hotel {
     private String stars ;
     ArrayList<Hotel_room> Rooms = new ArrayList<>();
 
-
-    String next_string;
-    boolean next_bool;
-    Scanner sc = new Scanner(System.in);
-    Pattern p ;
-    Checker ch = new Checker();
-
-    Hotel_room room ;
-
     /**
      * Ο προκαθορισμένος κατασκευαστής
      */
@@ -43,7 +34,7 @@ public class Hotel {
 
     /**
      * Κατασκευαστής ο οποίος δέχεται ως όρισμα ένα αντικείμενο της ίδιας κλάσης και το αντιγράφει
-     * @param hotel το ξεναδοχείο προς αντιγραφή
+     * @param hotel το ξενοδοχείο προς αντιγραφή
      */
     public Hotel(Hotel hotel) {
         this.name = hotel.name;

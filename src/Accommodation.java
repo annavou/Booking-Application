@@ -170,9 +170,9 @@ public class Accommodation {
      */
     public String hasWifi(){
         if(isWifi()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
     /**
@@ -181,9 +181,9 @@ public class Accommodation {
      */
     public String hasParking(){
         if(isParking()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
     /**
@@ -192,9 +192,9 @@ public class Accommodation {
      */
     public String hasAc(){
         if(isAc()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
     /**
@@ -203,8 +203,8 @@ public class Accommodation {
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 }

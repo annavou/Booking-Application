@@ -9,6 +9,11 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -39,8 +44,8 @@ public class Moderator extends Person{
         JPanel main = new JPanel();
        JPanel[] subs = new JPanel[4];
         String[] s = new String[4];
-        s[0] = "Accommodation";
-        s[1] = "Hotel";
+        s[0] = "Κατάλυμα";
+        s[1] = "Ξενοδοχείο";
         for(int i = 0 ; i < 2 ; i ++){
            subs[i] = new JPanel();
            TitledBorder border = BorderFactory.createTitledBorder(s[i]);
@@ -76,10 +81,10 @@ public class Moderator extends Person{
         JPanel main = new JPanel();
         JPanel[] subs = new JPanel[4];
         String[] s = new String[4];
-        s[0] = "Accommodation Provider";
-        s[1] = "Hotel Provider";
-        s[2] = "Moderator";
-        s[3] = "Customer";
+        s[0] = "Πάροχος Καταλύματος";
+        s[1] = "Πάροχος Ξενοδοχείου";
+        s[2] = "Διαχειριστής";
+        s[3] = "Πελάτης";
         for(int i = 0 ; i < 4 ; i ++){
             subs[i] = new JPanel();
             TitledBorder border = BorderFactory.createTitledBorder(s[i]);
@@ -103,7 +108,7 @@ public class Moderator extends Person{
     }
 
     private String formated(Person p) {
-        String s = " Name: " + p.getName() + " Home Ground: " + p.getHome_ground() + " phone number: " + p.getPhone_number() + " email: " + p.getEmail();
+        String s = " Ονοματεπώνυμο: " + p.getName() + " Έδρα: " + p.getHome_ground() + " Αριθμός Τηλεφώνου: " + p.getPhone_number() + " email: " + p.getEmail();
         return s;
     }
 
@@ -126,7 +131,7 @@ public class Moderator extends Person{
             m[0]++;
         }
         JButton Save = new JButton();
-        Save.setText("Save");
+        Save.setText("Αποθήκευση");
         Save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -139,7 +144,7 @@ public class Moderator extends Person{
         });
         for (Person p : people)
             if(p.isActivated())
-                System.out.println("nai");
+                System.out.println("Ναι");
 
         main.add(Save);
         return main;
@@ -155,9 +160,9 @@ public class Moderator extends Person{
         JPanel resvs = new JPanel();
         JPanel cancs = new JPanel();
         Border border = BorderFactory.createLineBorder(Color.black);
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Κρατήσεις");
         resvs.setBorder(titledBorder);
-        titledBorder = BorderFactory.createTitledBorder("Cancellations");
+        titledBorder = BorderFactory.createTitledBorder("Ακυρώσεις");
         cancs.setBorder(titledBorder);
         GridLayout gl = new GridLayout(2,2);
         main.setLayout(gl);
@@ -197,7 +202,7 @@ public class Moderator extends Person{
                     int m = non_empty.get(i).reservations.size();
                     for (int j = 0; j < m; j++) {
                         Reservations temp = non_empty.get(i).reservations.get(j);
-                        JLabel date = new JLabel("DATE"), customer = new JLabel("CUSTOMER");
+                        JLabel date = new JLabel("Ημερομηνία"), customer = new JLabel("Πελάτης");
                         sub1[i].add(date);
                         sub1[i].add(customer);
                         JLabel b1 = new JLabel(temp.getStart().toString() + " / " + temp.getEnd().toString());
@@ -233,7 +238,7 @@ public class Moderator extends Person{
                     int m2 = non_empty2.get(i).cancellations.size();
                     for (int j = 0; j < m2; j++) {
                         Reservations temp = non_empty2.get(i).cancellations.get(j);
-                        JLabel date = new JLabel("DATE"), customer = new JLabel("CUSTOMER");
+                        JLabel date = new JLabel("Ημερομηνία"), customer = new JLabel("Πελάτης");
                         sub2[i].add(date);
                         sub2[i].add(customer);
                         JLabel b1 = new JLabel(temp.getStart().toString() + " / " + temp.getEnd().toString());
@@ -284,7 +289,7 @@ public class Moderator extends Person{
                         sub1[i].add(temp);
                         for(int l = 0 ; l < non_empty2.get(k).hotelroomreservations.size();l++ ){
                             Reservations y = non_empty2.get(k).hotelroomreservations.get(l);
-                            JLabel date = new JLabel("DATE") , customer = new JLabel("CUSTOMER");
+                            JLabel date = new JLabel("Ημερομηνία") , customer = new JLabel("Πελάτης");
                             temp.add(date);
                             temp.add(customer);
                             JLabel b1 = new JLabel(y.getStart().toString() + " / " +y.getEnd().toString());
@@ -333,7 +338,7 @@ public class Moderator extends Person{
                         sub1c[i].add(temp);
                         for(int l = 0 ; l < non_empty2c.get(k).hotelroomcancellations.size();l++ ){
                             Reservations y = non_empty2c.get(k).hotelroomcancellations.get(l);
-                            JLabel date = new JLabel("DATE") , customer = new JLabel("CUSTOMER");
+                            JLabel date = new JLabel("Ημερομηνία") , customer = new JLabel("Πελάτης");
                             temp.add(date);
                             temp.add(customer);
                             JLabel b1 = new JLabel(y.getStart().toString() + " / " +y.getEnd().toString());
@@ -362,14 +367,14 @@ public class Moderator extends Person{
             ArrayList<Reservations> list2 = new ArrayList<>();
             create_list(People,list1,list2);
         if(list2.isEmpty()){
-            JLabel er = new JLabel("hh");
+            JLabel er = new JLabel("Δεν Υπάρχουν Καταχωρημένες Ακυρώσεις");
             main.add(er);
             return main;
         }
 
         main.add(info[0]);
         JButton Cancel = new JButton();
-        Cancel.setText("Cancel");
+        Cancel.setText("Ακύρωση");
         Cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -400,6 +405,118 @@ public class Moderator extends Person{
                     }
 
                 }
+
+                if(to_cancel.getHotel()!=null){
+                    String start= "Ξενοδοχείο "+ to_cancel.getHotel().getName();//
+                    String roo= "Δωμάτιο " + to_cancel.getHot().getName();
+
+                    BufferedReader reader = null;
+                    try {
+                        reader = new BufferedReader(new FileReader("reservations.txt"));
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                    BufferedWriter writer = null;
+                    try {
+                        writer = new BufferedWriter(new FileWriter("temp.txt"));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                    String currentLine;
+
+                    try {
+                        while((currentLine = reader.readLine()) != null) {
+                            if(currentLine.contains(start) && currentLine.contains(roo)) continue;
+                            writer.write(currentLine);
+                            writer.newLine();
+                        }
+                    }catch (IOException ex){
+                        ex.printStackTrace();
+                    }
+
+
+                    try {
+                        writer.close();
+                        reader.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+
+                    try {
+                        Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try(BufferedWriter buffer=new BufferedWriter(new FileWriter("cancellations.txt",true))){
+                        buffer.write("Ακυρώθηκε η κράτηση για το Ξενοδοχείο " + to_cancel.getHotel().getName() + " από " + to_cancel.getStart()
+                                + " έως " + to_cancel.getEnd() +  " πελάτης " + to_cancel.getCustomer().getName());
+                        buffer.newLine();
+                        buffer.flush();
+                    }catch (IOException ex){
+                        ex.printStackTrace();
+                    }//
+                }else{
+                    String start= "Κατάλυμα "+ to_cancel.getAcc().getName();//
+
+                    BufferedReader reader = null;
+                    try {
+                        reader = new BufferedReader(new FileReader("reservations.txt"));
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                    BufferedWriter writer = null;
+                    try {
+                        writer = new BufferedWriter(new FileWriter("temp.txt"));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                    String currentLine;
+
+                    try {
+                        while((currentLine = reader.readLine()) != null) {
+                            if(currentLine.contains(start)) continue;
+                            writer.write(currentLine);
+                            writer.newLine();
+                        }
+                    }catch (IOException ex){
+                        ex.printStackTrace();
+                    }
+
+                    try {
+                        writer.close();
+                        reader.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+
+                    try {
+                        Files.move(oldFile, oldFile.resolveSibling("reservations.txt"), StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try(BufferedWriter buffer=new BufferedWriter(new FileWriter("cancellations.txt",true))){
+                        buffer.write("Ακυρώθηκε η κράτηση για το κατάλυμα " + to_cancel.getAcc().getName() + " από " + to_cancel.getStart()
+                                + " έως " + to_cancel.getEnd() +  " πελάτης " + to_cancel.getCustomer().getName());
+                        buffer.newLine();
+                        buffer.flush();
+                    }catch (IOException ex){
+                        ex.printStackTrace();
+                    }//
+                }
+
+
                 main.remove(info[0]);
                 info[0] = see_all_resv(People,false);
                 main.remove(list1);
@@ -409,7 +526,7 @@ public class Moderator extends Person{
                 list2.clear();
                 create_list(People,list1,list2);
                 if(list2.isEmpty()){
-                    JLabel er = new JLabel("hh");
+                    JLabel er = new JLabel("Δεν Υπάρχουν Καταχωρημένες Ακυρώσεις");
                     main.add(er);
                     return;
                 }
@@ -437,7 +554,7 @@ public class Moderator extends Person{
                 Accommodation_Provider x = (Accommodation_Provider) p ;
                 for(int i = 0 ;i < x.Accommodations.size() ; i++){
                     for(int j = 0 ; j < x.Accommodations.get(i).reservations.size();j++){
-                        list1.addItem(n +") " + x.Accommodations.get(i).getName() + " at : " + x.Accommodations.get(i).reservations.get(j).toString() );
+                        list1.addItem(n +") " + x.Accommodations.get(i).getName() + " στις : " + x.Accommodations.get(i).reservations.get(j).toString() );
                         list2.add(x.Accommodations.get(i).reservations.get(j));
                         n++;
                     }
@@ -448,7 +565,7 @@ public class Moderator extends Person{
                 for(int i = 0 ; i < x.Hotels.size() ; i++){
                     for(int j = 0 ; j < x.Hotels.get(i).Rooms.size() ; j++){
                         for(int k = 0 ; k < x.Hotels.get(i).Rooms.get(j).hotelroomreservations.size() ; k ++){
-                            list1.addItem(n +") " + x.Hotels.get(i).Rooms.get(j).getName() + " at : " + x.Hotels.get(i).Rooms.get(j).hotelroomreservations.get(k).toString() );
+                            list1.addItem(n +") " + x.Hotels.get(i).Rooms.get(j).getName() + " στις : " + x.Hotels.get(i).Rooms.get(j).hotelroomreservations.get(k).toString() );
                             list2.add(x.Hotels.get(i).Rooms.get(j).hotelroomreservations.get(k));
                             n++;
                         }

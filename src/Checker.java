@@ -11,9 +11,9 @@ public class Checker {
 
     /**
      *
-     * @param s String θέλουμε να ελένξουμε
-     * @param p το Pattern το ποιο πρέπει να ακολουθέι
-     * @param y το μυνημα σε περίπτωση λάθους
+     * @param s String θέλουμε να ελέγχουμε
+     * @param p το Pattern το ποιο πρέπει να ακολουθεί
+     * @param y το μήνυμα σε περίπτωση λάθους
      * @return το String το οποίο ακολουθεί το Pattern p
      */
     public String validstring(String s, Pattern p,String y){

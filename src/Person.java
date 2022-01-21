@@ -1,5 +1,5 @@
 /**
- * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστηκά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μυνήματα που έχει και
+ * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστικά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μηνύματα που έχει και
  * να αναζητήσει ένα κατάλυμα ή ξενοδοχείο
  */
 
@@ -58,7 +58,7 @@ public class Person {
         Home_ground = ahome_ground;
         Phone_number = aphone_number;
         Email = aemail;
-        messages.add(new messages("app","Welcome","Καλωσόρισες " + getName() + "!!"));
+        messages.add(new messages("app","Welcome","Καλωσόρισες!!" + getName() + "!!"));
         messages_count = 0;
         Activated = false;
     }
@@ -103,27 +103,15 @@ public class Person {
         Email = email;
     }
 
-
-    /**
-     * μέθοδος η οποία εμφανίζει τις ειδοποιήσεις των μηνυμάτων
-     */
-    public void messages_notifications() {
-        int mess = messages.size() - messages_count;
-        if (mess > 0) {
-            System.out.println("Έχεις " + mess + " νέα μηνυμα(τα)");
-            messages_count = messages.size();
-        }
-    }
-
     /**
      * μέθοδος με την οποία ένας χρήστης μπορεί να συντάξει και να στείλει ένα μήνυμα
      * @param acc_list λίστα με τα μηνύματα
      */
     public void message_send(Collection<Person> acc_list,String myname) {
         JFrame main = new JFrame();
-        JLabel to = new JLabel("To:");
-        JLabel topic = new JLabel("Topic:");
-        JLabel text = new JLabel("Text:");
+        JLabel to = new JLabel("Παραλήπτης:");
+        JLabel topic = new JLabel("Θέμα:");
+        JLabel text = new JLabel("Μήνυμα:");
         JTextField To = new JTextField(),Topic = new JTextField(),Text = new JTextField();
         GridLayout layout = new GridLayout(4,3);
         main.add(to);
@@ -136,13 +124,13 @@ public class Person {
         main.setSize(500,500);
         main.setVisible(true);
         JButton send = new JButton();
-        send.setText("Send");
+        send.setText("Στάλθηκε");
         send.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Person temp = new Person();
                 if(To.getText().equals("") | Topic.getText().equals("") | Text.getText().equals("")){
-                    System.out.println("adia");
+                    System.out.println("Κενό");
                 }
                 boolean ex = false ;
                 for ( Person p : acc_list){
@@ -152,18 +140,27 @@ public class Person {
                     }
                 }
                 if(!ex){
-                    System.out.println("oxi");
+                    System.out.println("Οχι");
                 }
                 if(ex){
                     messages mess = new messages(myname,Topic.getText(),Text.getText());
                     temp.messages.add(mess);
+
+                    try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){//
+                        buffer.write("Μήνυμα: " + mess.getTopic() + " - " + "Παραλήπτης: " + temp.getName() +" - " + "Αποστολέας: " + mess.getFrom());
+                        buffer.newLine();
+                        buffer.flush();
+                    } catch (IOException exe) {
+                        exe.printStackTrace();
+                    }//
+
                     main.setVisible(false);
                 }
 
             }
         });
         JButton back = new JButton();
-        back.setText("Back");
+        back.setText("Πίσω");
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -177,7 +174,7 @@ public class Person {
     }
 
     /**
-     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή,την προβολή, την διαγραφή ή υην έξοδο απο τα μηνύματα
+     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή, την προβολή, τη διαγραφή ή την έξοδο απο τα μηνύματα
      * @param acc_list λίστα με τα μηνύματα
      * @return
      */
@@ -187,7 +184,7 @@ public class Person {
         main[0].setLayout(layout);
 
         JButton view = new JButton();
-        view.setText("View and Delete messages");
+        view.setText("Προβολή/Διαγραφή Μηνυμάτων");
         view.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -200,7 +197,7 @@ public class Person {
             }
         });
         JButton send = new JButton();
-        send.setText("Send a message");
+        send.setText("Στείλε μήνυμα");
         send.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -215,16 +212,6 @@ public class Person {
         main[0].add(view);
         main[0].add(send);
         return main[0];
-    }
-
-    /**
-     * μέθοδος που διγράφει ένα μήνυμα
-     */
-    private void messages_delete() {
-        messages_view();
-        System.out.println("Ποίο θα θέλατε να σβήσετε?");
-        next_int = sc.nextInt();
-        messages.remove(next_int - 1);
     }
 
     /**
@@ -243,20 +230,30 @@ public class Person {
 
 
         if(messages.isEmpty()){
-            main[0].add(new JLabel("geia"));
+            main[0].add(new JLabel("Δεν έχετε Μηνύματα"));
             return main[0];
         }
 
         int i = 1 ;
+        if (messages.size()==1){//
+            try (BufferedWriter buffer=new BufferedWriter(new FileWriter("messages.txt",true))){
+                buffer.write("Μήνυμα: " + "Καλωσόρισες " + getName() + "!!" + " - " + "Παραλήπτης: "
+                        + Name +" - " + "Αποστολέας: app");
+                buffer.newLine();
+                buffer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }//
         for (messages mes : messages) {
             list.addItem(i + ") " + mes.getFrom() + " : " + mes.getTopic());
             i++;
         }
         main[0].add(list);
 
-        JLabel from = new JLabel("From:");
-        JLabel topic = new JLabel("Topic:");
-        JLabel text = new JLabel("Text:");
+        JLabel from = new JLabel("Αποστολέας:");
+        JLabel topic = new JLabel("Θέμα:");
+        JLabel text = new JLabel("Μήνυμα:");
         JTextField From = new JTextField(messages.get(0).getFrom()),Topic = new JTextField(messages.get(0).getTopic()),Text = new JTextField(messages.get(0).getText());
         GridLayout layout = new GridLayout(3,2);
         info[0].add(from);
@@ -268,7 +265,7 @@ public class Person {
         info[0].setLayout(layout);
 
 
-        JButton delete = new JButton("Delete");
+        JButton delete = new JButton("Διαγραφή");
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -280,6 +277,50 @@ public class Person {
                 int in = (int) c ;
                 mess = messages.get(Character.getNumericValue(sele.charAt(0))-1);
                 messages.remove(mess);
+
+                String start= "Μήνυμα: "+ mess.getText();
+
+                BufferedReader reader = null;//
+                try {
+                    reader = new BufferedReader(new FileReader("messages.txt"));
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                BufferedWriter writer = null;
+                try {
+                    writer = new BufferedWriter(new FileWriter("temp.txt"));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+
+                String currentLine;
+                try {
+                    while ((currentLine = reader.readLine()) != null) {
+                        if (currentLine.contains(start)) continue;
+                        writer.write(currentLine);
+                        writer.newLine();
+                    }
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }
+
+                try {
+                    writer.close();
+                    reader.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                Path oldFile = Paths.get("C:\\Users\\voylk\\IdeaProjects\\mybooking-anna-akis\\temp.txt");
+
+                try {
+                    Files.move(oldFile, oldFile.resolveSibling("messages.txt"), StandardCopyOption.REPLACE_EXISTING);
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
                 list.removeAllItems();
                 int i = 1 ;
                 for (messages mes : messages) {
@@ -290,7 +331,7 @@ public class Person {
                     main[0].remove(list);
                     main[0].remove(delete);
                     main[0].remove(info[0]);
-                    main[0].add(new JLabel("geia"));
+                    main[0].add(new JLabel("Δεν έχετε Μηνύματα"));
 
                 }
                 else {
@@ -353,7 +394,7 @@ public class Person {
      */
     public JPanel info_edit(HashMap<Credentials,Person> people,String s1) {
         JPanel main = new JPanel();
-        final JTextField[] output = {new JTextField("Change your info and press Save")};
+        final JTextField[] output = {new JTextField("Επεξεργασία Στοιχείων")};
         output[0].setEditable(false);
         final boolean[] switch_f = {false};
         GridLayout layout = new GridLayout(5,2);
@@ -366,28 +407,28 @@ public class Person {
                 c = j ;
         }
 
-        JLabel namel= new JLabel ("Full name");
-        JLabel  phonel = new JLabel ("Phone Number");
-        JLabel home_groundl = new JLabel ("Home Ground");
+        JLabel namel= new JLabel ("Ονοματεπώνυμο");
+        JLabel  phonel = new JLabel ("Αριθμός Τηλεφώνου");
+        JLabel home_groundl = new JLabel ("Έδρα");
         JLabel  emaill= new JLabel ("email");
         JTextField Name = new JTextField(this.getName());
         JTextField Location = new JTextField(this.getHome_ground());
         JTextField email = new JTextField(this.getEmail());
         JTextField phone_number = new JTextField(this.getPhone_number());
         p = Pattern.compile(".*[0-9]{10}");
-        JButton Save = new JButton("Save");
+        JButton Save = new JButton("Αποθήκευση");
         Credentials finalC = c;
         Save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!phone_number.getText().matches(p.pattern())){
-                    output[0].setText("Wrong phone number! (must be 10 digits from 0-9)");
+                    output[0].setText("Λάθος Αριθμός! (τουλάχιστον 10 ψηφία από το 0-9)");
                     return;
                 }
                 else{
                     switch_f[0] = true ;
                     temp[0] = new Person(Name.getText(),Location.getText(),phone_number.getText(),email.getText());
-                    output[0].setText("Done!!!");
+                    output[0].setText("Αποθηκεύτηκαν!!!");
                     updater(temp[0]);
 
                     String start= "Username:"+ finalC.getUsername();//
@@ -447,8 +488,6 @@ public class Person {
             }
 
         });
-
-
 
         main.add(namel);
         main.add(Name);
