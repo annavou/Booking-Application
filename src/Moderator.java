@@ -26,7 +26,7 @@ public class Moderator extends Person{
 
     /**
      * @param aname Το όνομα
-     * @param ahome_ground Η εδρα
+     * @param ahome_ground Η έδρα
      * @param aphone_number Το τηλέφωνο
      * @param aemail Το email
      */
@@ -38,14 +38,14 @@ public class Moderator extends Person{
     /**
      *Μέθοδος που εμφανίζει όλα τα καταλύματα καθώς και ξενοδοχεία
      * @param persons Συλλογή με όλους τους χρήστες
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel see_all_accommodations(Collection<Person> persons){
         JPanel main = new JPanel();
        JPanel[] subs = new JPanel[2];
         String[] s = new String[2];
-        s[0] = "Accommodation";
-        s[1] = "Hotel";
+        s[0] = "Κατάλυμα";
+        s[1] = "Ξενοδοχείο";
         for(int i = 0 ; i < 2 ; i ++){
            subs[i] = new JPanel();
            TitledBorder border = BorderFactory.createTitledBorder(s[i]);
@@ -73,16 +73,16 @@ public class Moderator extends Person{
     /**
      *Μέθοδος που εμφανίζει όλους τους χρήστες καθώς και την ιδιότητά τους
      * @param persons Συλλογή με όλους τους χρήστες
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel see_all_users(Collection<Person> persons){
         JPanel main = new JPanel();
         JPanel[] subs = new JPanel[4];
         String[] s = new String[4];
-        s[0] = "Accommodation Provider";
-        s[1] = "Hotel Provider";
-        s[2] = "Moderator";
-        s[3] = "Customer";
+        s[0] = "Πάροχος Καταλύματος";
+        s[1] = "Πάροχος Ξενοδοχείου";
+        s[2] = "Διαχειριστής";
+        s[3] = "Πελάτης";
         for(int i = 0 ; i < 4 ; i ++){
             subs[i] = new JPanel();
             TitledBorder border = BorderFactory.createTitledBorder(s[i]);
@@ -110,8 +110,8 @@ public class Moderator extends Person{
     }
 
     /**
-     *Μέθοδος που μορφοποιεί τις ιδιότητες ενος χρήστη σε ενα String
-     * @param p ο person προς εμφάνισει
+     *Μέθοδος που μορφοποιεί τις ιδιότητες ενός χρήστη σε ενα String
+     * @param p ο person προς εμφανίσει
      * @return το string με τα στοιχεία του p
      */
 
@@ -123,8 +123,8 @@ public class Moderator extends Person{
     /**
      *Μέθοδος στην οποία ο διαχειριστής μπορεί να ενεργοποιήσει να απενεργοποιήσει το προφίλ ενός χρήστη
      * @param people Συλλογή με όλους τους χρήστες
-     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @param acc_list Η λίστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel account_manage(Collection<Person> people, HashMap<Credentials, Person> acc_list) {
 
@@ -140,7 +140,7 @@ public class Moderator extends Person{
             m[0]++;
         }
         JButton Save = new JButton();
-        Save.setText("Save");
+        Save.setText("Αποθήκευση");
         Save.addActionListener(e -> {
             m[0] = 0 ;
             for (Person p : people) {
@@ -156,7 +156,7 @@ public class Moderator extends Person{
         });
         for (Person p : people)
             if(p.isActivated())
-                System.out.println("nai");
+                System.out.println("Ναι");
 
         main.add(Save);
         return main;
@@ -165,17 +165,17 @@ public class Moderator extends Person{
     /**
      *Μέθοδος στην οποία μπορεί να δει όλες τις κρατήσεις
      * @param people Συλλογή με όλους τους χρήστες
-     * @param swits αν θελουμε να εμφανίσει και τις ακυρώσεις
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @param swits αν θέλουμε να εμφανίσει και τις ακυρώσεις
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel see_all_resv(Collection<Person> people,Boolean swits){
         JPanel main = new JPanel();
         JPanel resvs = new JPanel();
         JPanel cancs = new JPanel();
         Border border = BorderFactory.createLineBorder(Color.black);
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Κρατήσεις");
         resvs.setBorder(titledBorder);
-        titledBorder = BorderFactory.createTitledBorder("Cancellations");
+        titledBorder = BorderFactory.createTitledBorder("Ακυρώσεις");
         cancs.setBorder(titledBorder);
         GridLayout gl = new GridLayout(2,2);
         main.setLayout(gl);
@@ -214,7 +214,7 @@ public class Moderator extends Person{
                     int m = non_empty.get(i).reservations.size();
                     for (int j = 0; j < m; j++) {
                         Reservations temp = non_empty.get(i).reservations.get(j);
-                        JLabel date = new JLabel("DATE"), customer = new JLabel("CUSTOMER");
+                        JLabel date = new JLabel("Ημερομηνία"), customer = new JLabel("Πελάτης");
                         sub1[i].add(date);
                         sub1[i].add(customer);
                         JLabel b1 = new JLabel(temp.getStart().toString() + " / " + temp.getEnd().toString());
@@ -250,7 +250,7 @@ public class Moderator extends Person{
                     int m2 = non_empty2.get(i).cancellations.size();
                     for (int j = 0; j < m2; j++) {
                         Reservations temp = non_empty2.get(i).cancellations.get(j);
-                        JLabel date = new JLabel("DATE"), customer = new JLabel("CUSTOMER");
+                        JLabel date = new JLabel("Ημερομηνία"), customer = new JLabel("Πελάτης");
                         sub2[i].add(date);
                         sub2[i].add(customer);
                         JLabel b1 = new JLabel(temp.getStart().toString() + " / " + temp.getEnd().toString());
@@ -300,7 +300,7 @@ public class Moderator extends Person{
                         sub1[i].add(temp);
                         for(int l = 0 ; l < non_empty2.get(k).hotelroomreservations.size();l++ ){
                             Reservations y = non_empty2.get(k).hotelroomreservations.get(l);
-                            JLabel date = new JLabel("DATE") , customer = new JLabel("CUSTOMER");
+                            JLabel date = new JLabel("Ημερομηνία") , customer = new JLabel("Πελάτης");
                             temp.add(date);
                             temp.add(customer);
                             JLabel b1 = new JLabel(y.getStart().toString() + " / " +y.getEnd().toString());
@@ -349,7 +349,7 @@ public class Moderator extends Person{
                         sub1c[i].add(temp);
                         for(int l = 0 ; l < non_empty2c.get(k).hotelroomcancellations.size();l++ ){
                             Reservations y = non_empty2c.get(k).hotelroomcancellations.get(l);
-                            JLabel date = new JLabel("DATE") , customer = new JLabel("CUSTOMER");
+                            JLabel date = new JLabel("Ημερομηνία") , customer = new JLabel("Πελάτης");
                             temp.add(date);
                             temp.add(customer);
                             JLabel b1 = new JLabel(y.getStart().toString() + " / " +y.getEnd().toString());
@@ -369,8 +369,8 @@ public class Moderator extends Person{
     /**
      * Μέθοδος στην οποία μπορεί να ακυρώσει κρατήσεις
      * @param People Συλλογή με όλους τους χρήστες
-     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @param acc_list Η λίστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel resv_canc(Collection<Person> People, HashMap<Credentials, Person> acc_list){
             JPanel main = new JPanel();
@@ -379,14 +379,14 @@ public class Moderator extends Person{
             ArrayList<Reservations> list2 = new ArrayList<>();
             create_list(People,list1,list2);
         if(list2.isEmpty()){
-            JLabel er = new JLabel("hh");
+            JLabel er = new JLabel("Δεν Υπάρχουν Κρατήσεις προς Ακύρωση");
             main.add(er);
             return main;
         }
 
         main.add(info[0]);
         JButton Cancel = new JButton();
-        Cancel.setText("Cancel");
+        Cancel.setText("Ακύρωση");
         Cancel.addActionListener(e -> {
             String sele = (String) list1.getSelectedItem();
             if(sele == null)
@@ -439,7 +439,7 @@ public class Moderator extends Person{
             list2.clear();
             create_list(People,list1,list2);
             if(list2.isEmpty()){
-                JLabel er = new JLabel("hh");
+                JLabel er = new JLabel("Δεν Υπάρχουν Κρατήσεις προς Ακύρωση");
                 main.add(er);
                 return;
             }
@@ -461,7 +461,7 @@ public class Moderator extends Person{
 
     /**
      * Μέθοδος που δημιουργεί ενα JCombo Box με τα ονόματα απο τις κρατήσεις και ενα arraylist με τις κρατήσεις
-     * @param People ολοι οι χρήστες
+     * @param People όλοι οι χρήστες
      * @param list1 το JCombo Box με τα ονόματα απο τις κρατήσεις
      * @param list2 το arraylist με τις κρατήσεις
      */
@@ -472,7 +472,7 @@ public class Moderator extends Person{
             if(p instanceof Accommodation_Provider x){
                 for(int i = 0 ;i < x.Accommodations.size() ; i++){
                     for(int j = 0 ; j < x.Accommodations.get(i).reservations.size();j++){
-                        list1.addItem(n +") " + x.Accommodations.get(i).getName() + " at : " + x.Accommodations.get(i).reservations.get(j).getStart().toString() + " to : "+x.Accommodations.get(i).reservations.get(j).getEnd().toString() );
+                        list1.addItem(n +") " + x.Accommodations.get(i).getName() + " από : " + x.Accommodations.get(i).reservations.get(j).getStart().toString() + " έως : "+x.Accommodations.get(i).reservations.get(j).getEnd().toString() );
                         list2.add(x.Accommodations.get(i).reservations.get(j));
                         n++;
                     }
@@ -482,7 +482,7 @@ public class Moderator extends Person{
                 for(int i = 0 ; i < x.Hotels.size() ; i++){
                     for(int j = 0 ; j < x.Hotels.get(i).Rooms.size() ; j++){
                         for(int k = 0 ; k < x.Hotels.get(i).Rooms.get(j).hotelroomreservations.size() ; k ++){
-                            list1.addItem(n +") " + x.Hotels.get(i).Rooms.get(j).getName() + " from : " + x.Hotels.get(i).Rooms.get(j).hotelroomreservations.get(k).getStart().toString() + " to : " + x.Hotels.get(i).Rooms.get(j).hotelroomreservations.get(k).getEnd().toString());
+                            list1.addItem(n +") " + x.Hotels.get(i).Rooms.get(j).getName() + " από : " + x.Hotels.get(i).Rooms.get(j).hotelroomreservations.get(k).getStart().toString() + " έως : " + x.Hotels.get(i).Rooms.get(j).hotelroomreservations.get(k).getEnd().toString());
                             list2.add(x.Hotels.get(i).Rooms.get(j).hotelroomreservations.get(k));
                             n++;
                         }

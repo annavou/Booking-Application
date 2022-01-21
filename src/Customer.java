@@ -1,7 +1,7 @@
 /**
- * Αύτη η κλάση αναπαριστά ένα πελάτη με τα βασικά του στοιχεία (όνομα,τηλέφωνο,μειλ,τοποθεσία), ο οποίος μπορεί να αναζητήσει
- * διάφορα καταλύματα και ξενοδοχεία με την χρήση φίλτρων, να κάνει κράτηση του καταλύματος που επιθυμεί με βάση
- * της διαθεσομότητας ,να ακυρώσει οποιαδήποτε κράτηση του και να έχει πρόσβαση στις κρατήσεις και τις ακυρώσεις του.
+ * Αυτή η κλάση αναπαριστά ένα πελάτη με τα βασικά του στοιχεία (όνομα, τηλέφωνο, μειλ, τοποθεσία), ο οποίος μπορεί να αναζητήσει
+ * διάφορα καταλύματα και ξενοδοχεία με τη χρήση φίλτρων, να κάνει κράτηση του καταλύματος που επιθυμεί με βάση
+ * της διαθεσιμότητας, να ακυρώσει οποιαδήποτε κράτηση του και να έχει πρόσβαση στις κρατήσεις και τις ακυρώσεις του.
  */
 
 import javax.swing.*;
@@ -34,7 +34,7 @@ public class Customer extends Person {
      * Κατασκευαστής που αρχικοποιεί τις παραμέτρους της κλάσης
      *
      * @param aname Το όνομα
-     * @param alocation Η εδρα
+     * @param alocation Η έδρα
      * @param aphone_number Το τηλέφωνο
      * @param aemail Το email
      */
@@ -51,16 +51,15 @@ public class Customer extends Person {
 
     /**
      * Μέθοδος με την οποία ο πελάτης βλέπει τις κρατήσεις και τις ακυρώσεις του
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel resv_canc_view() {
         JPanel main = new JPanel();
         JPanel resvs = new JPanel();
         JPanel cancs = new JPanel();
-       // Border border = BorderFactory.createLineBorder(Color.black);
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Κρατήσεις");
         resvs.setBorder(titledBorder);
-        titledBorder = BorderFactory.createTitledBorder("Cancellations");
+        titledBorder = BorderFactory.createTitledBorder("Ακυρώσεις");
         cancs.setBorder(titledBorder);
         GridLayout gl = new GridLayout(2,2);
         main.setLayout(gl);
@@ -68,10 +67,10 @@ public class Customer extends Person {
         main.add(cancs);
         JPanel resvsa = new JPanel();
         JPanel cancsa = new JPanel();
-        titledBorder = BorderFactory.createTitledBorder("Accommodations");
+        titledBorder = BorderFactory.createTitledBorder("Καταλύματα");
         resvsa.setBorder(titledBorder);
         cancsa.setBorder(titledBorder);
-        titledBorder = BorderFactory.createTitledBorder("Hotel Rooms");
+        titledBorder = BorderFactory.createTitledBorder("Δωμάτια Ξενοδοχείου");
         JPanel resvsh = new JPanel();
         JPanel cancsh = new JPanel();
         resvsh.setBorder(titledBorder);
@@ -79,16 +78,16 @@ public class Customer extends Person {
 
 
         for(Reservations re : My_Acc_Bookings.keySet()){
-            resvsa.add(new JLabel("Reservation at Accommodation : " + My_Acc_Bookings.get(re).getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString()));
+            resvsa.add(new JLabel("Κράτηση στο Κατάλυμα : " + My_Acc_Bookings.get(re).getName() + " από : " + re.getStart().toString() + " έως : " + re.getEnd().toString()));
         }
         for(Reservations re : My_Hot_Bookings.keySet()){
-            resvsh.add(new JLabel("Reservation at Hotel Room : " + My_Hot_Bookings.get(re).getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString()));
+            resvsh.add(new JLabel("Κράτηση σε Δωμάτιο Ξενοδοχείου : " + My_Hot_Bookings.get(re).getName() + " από : " + re.getStart().toString() + " έως : " + re.getEnd().toString()));
         }
         for(Reservations re : My_Acc_Canceled.keySet()){
-            cancsa.add(new JLabel("Cancellation at Accommodation : " + My_Acc_Canceled.get(re).getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString()));
+            cancsa.add(new JLabel("Ακύρωση Κράτησης Καταλύματος : " + My_Acc_Canceled.get(re).getName() + " από : " + re.getStart().toString() + " έως : " + re.getEnd().toString()));
         }
         for(Reservations re : My_Hot_Canceled.keySet()){
-            cancsh.add(new JLabel("Reservation at Hotel Room : " + My_Hot_Canceled.get(re).getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString()));
+            cancsh.add(new JLabel("Ακύρωση Κράτησης σε Δωμάτιο Ξενοδοχείου : " + My_Hot_Canceled.get(re).getName() + " από : " + re.getStart().toString() + " έως : " + re.getEnd().toString()));
         }
 
         resvs.add(resvsa);
@@ -99,21 +98,20 @@ public class Customer extends Person {
     }
 
     /**
-     * Μέθοδος με την οποια ο πελάτης ακυρώνει μια κράτηση του
-     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * Μέθοδος με την οποία ο πελάτης ακυρώνει μια κράτηση του
+     * @param acc_list Η λίστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel Cancel(HashMap<Credentials, Person> acc_list) {
         JPanel main = new JPanel();
         JPanel resvs = new JPanel();
-       // Border border = BorderFactory.createLineBorder(Color.black);
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Reservations");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Κρατήσεις");
         resvs.setBorder(titledBorder);
         JPanel acc = new JPanel();
-        titledBorder = BorderFactory.createTitledBorder("Accommodations");
+        titledBorder = BorderFactory.createTitledBorder("Καταλύματα");
         acc.setBorder(titledBorder);
         JPanel hot = new JPanel();
-        titledBorder = BorderFactory.createTitledBorder("Hotel Rooms");
+        titledBorder = BorderFactory.createTitledBorder("Δωμάτια Ξενοδοχείου");
         hot.setBorder(titledBorder);
 
         resvs.add(acc);
@@ -127,14 +125,14 @@ public class Customer extends Person {
         ArrayList<Reservations> list4 = new ArrayList<>();
         updater(list1,list2,list3,list4,subsa,subsc,acc,hot);
         if(list4.isEmpty()){
-            JLabel er = new JLabel("hh");
+            JLabel er = new JLabel("Δεν υπάρχουν Κρατήσεις προς Ακύρωση");
             main.add(er);
             return main;
         }
 
 
         JButton Cancel = new JButton();
-        Cancel.setText("Cancel");
+        Cancel.setText("Ακύρωση");
         Cancel.addActionListener(e -> {
             String sele = (String) list3.getSelectedItem();
             if(sele == null)
@@ -172,7 +170,7 @@ public class Customer extends Person {
             hot.removeAll();
             updater(list1,list2,list3,list4,subsa,subsc,acc,hot);
             if(list4.isEmpty()){
-                JLabel er = new JLabel("hh");
+                JLabel er = new JLabel("Δεν υπάρχουν Κρατήσεις προς Ακύρωση");
                 main.add(er);
             }
             else {
@@ -192,13 +190,13 @@ public class Customer extends Person {
     }
 
     /**
-     * Μέθοδος με την οποια ενημερώνονται και δημιουργούνται καποιες λιστες και γραφικά στοιχεία βοηθητικα για την ακύρωσει κράτησης
-     * @param list1 Λιστα με ολα τα καταλύματα που εχουν κρατήσεις
-     * @param list2 Λίστα με ολα τα δωμάτια ξεναδοχείων που εχουν κρατήσεις
-     * @param list3 JCombo Box με τα ονόματα των κατήσεων
+     * Μέθοδος με την οποία ενημερώνονται και δημιουργούνται κάποιες λίστες και γραφικά στοιχεία βοηθητικά για την ακυρώσει κράτησης
+     * @param list1 Λίστα με ολα τα καταλύματα που έχουν κρατήσεις
+     * @param list2 Λίστα με ολα τα δωμάτια ξενοδοχείων που έχουν κρατήσεις
+     * @param list3 JCombo Box με τα ονόματα των κρατήσεων
      * @param list4 Arraylist με τις κρατήσεις
-     * @param subsa Βoηθητικο HashMap για να βαζει τις κρατησείς στα σωστά JPanels για καταλύματα
-     * @param subsc Βoηθητικο HashMap για να βαζει τις κρατησείς στα σωστά JPanels για Δωμάτια
+     * @param subsa Βοηθητικό HashMap για να βάζει τις κρατήσεις στα σωστά JPanels για καταλύματα
+     * @param subsc Βοηθητικό HashMap για να βάζει τις κρατήσεις στα σωστά JPanels για Δωμάτια
      * @param acc Το JPanel με τις κρατήσεις σε καταλύματα
      * @param hot Το JPanel με τις κρατήσεις σε Δωμάτια
      */
@@ -210,14 +208,14 @@ public class Customer extends Person {
                 JPanel temp = new JPanel();
                 temp.setBorder(titledBorder);
                 subsa.put(re.getAcc().getName(),temp);
-                JLabel date = new JLabel("DATE");
+                JLabel date = new JLabel("Ημερομηνία");
                 temp.add(date);
                 JLabel b1 = new JLabel(re.getStart().toString() + " / " + re.getEnd().toString());
                 temp.add(b1);
             }
             else{
                 JPanel temp = subsa.get(re.getAcc().getName());
-                JLabel date = new JLabel("DATE");
+                JLabel date = new JLabel("Ημερομηνία");
                 temp.add(date);
                 JLabel b1 = new JLabel(re.getStart().toString() + " / " + re.getEnd().toString());
                 temp.add(b1);
@@ -232,14 +230,14 @@ public class Customer extends Person {
                 JPanel temp = new JPanel();
                 temp.setBorder(titledBorder);
                 subsc.put(re.getHot().getName(),temp);
-                JLabel date = new JLabel("DATE");
+                JLabel date = new JLabel("Ημερομηνία");
                 temp.add(date);
                 JLabel b1 = new JLabel(re.getStart().toString() + " / " + re.getEnd().toString());
                 temp.add(b1);
             }
             else{
                 JPanel temp = subsc.get(re.getHot().getName());
-                JLabel date = new JLabel("DATE");
+                JLabel date = new JLabel("Ημερομηνία");
                 temp.add(date);
                 JLabel b1 = new JLabel(re.getStart().toString() + " / " + re.getEnd().toString());
                 temp.add(b1);
@@ -254,22 +252,22 @@ public class Customer extends Person {
 
         int i = 1 ;
         for(Reservations re : My_Acc_Bookings.keySet()){
-            String s = i + ") at : " + re.getAcc().getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString();
+            String s = i + ") Στο : " + re.getAcc().getName() + " από  : " + re.getStart().toString() + " έως : " + re.getEnd().toString();
             list3.addItem(s);
             list4.add(re);
         }
         for(Reservations re : My_Hot_Bookings.keySet()){
-            String s = i + ") at : " + re.getHot().getName() + " from : " + re.getStart().toString() + " to : " + re.getEnd().toString();
+            String s = i + ") Στο : " + re.getHot().getName() + " από  : " + re.getStart().toString() + " έως : " + re.getEnd().toString();
             list3.addItem(s);
             list4.add(re);
         }
     }
 
     /**
-     * Μέθοδος με τον οποιά ο χρήστης κάνει μια κράτηση
-     * @param People ολοι οι χρήστες
-     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * Μέθοδος με τον οποία ο χρήστης κάνει μια κράτηση
+     * @param People όλοι οι χρήστες
+     * @param acc_list Η λίστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel Reserv(Collection<Person> People, HashMap<Credentials, Person> acc_list) {
         JPanel main = new JPanel();
@@ -277,9 +275,9 @@ public class Customer extends Person {
         final JPanel[] view = {new JPanel()};
         JComboBox<String> list  = new JComboBox<>();
         JLabel output = new JLabel();
-        TitledBorder titledBorder = BorderFactory.createTitledBorder("Options");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Επιλογές");
         opt.setBorder(titledBorder);
-        titledBorder = BorderFactory.createTitledBorder("Avail");
+        titledBorder = BorderFactory.createTitledBorder("Διαθέσιμα");
         view[0].setBorder(titledBorder);
         Customer egw = this;
         final JButton[] Make_Reservation = {new JButton()};
@@ -295,21 +293,21 @@ public class Customer extends Person {
         final int[] Year2 = new int[1];
 
 
-        JLabel Name = new JLabel("Name : ");
-        JLabel Location = new JLabel("Location : ");
-        JLabel Stars = new JLabel("Stars : ");
-        JLabel PriceF = new JLabel("Price From : ");
-        JLabel PriceT = new JLabel("Price To : ");
-        JLabel Square_meters = new JLabel("Square Meters : ");
-        JLabel Rooms = new JLabel("Rooms : ");
-        JLabel Capacity = new JLabel("Capacity : ");
-        JLabel Breakfast = new JLabel("Breakfast : ");
+        JLabel Name = new JLabel("Όνομα : ");
+        JLabel Location = new JLabel("Τοποθεσία : ");
+        JLabel Stars = new JLabel("Αστέρια : ");
+        JLabel PriceF = new JLabel("Τιμή από : ");
+        JLabel PriceT = new JLabel("Τιμή έως : ");
+        JLabel Square_meters = new JLabel("Τετραγωνικά Μέτρα : ");
+        JLabel Rooms = new JLabel("Δωμάτια : ");
+        JLabel Capacity = new JLabel("Χωρητικότητα : ");
+        JLabel Breakfast = new JLabel("Πρωινό : ");
         JLabel Wifi = new JLabel("Wifi : ");
         JLabel Parking = new JLabel("Parking : ");
-        JLabel Ac = new JLabel("Ac : ");
-        JLabel Cleaning_Service = new JLabel("Cleaning Service : ");
-        JLabel From = new JLabel("From : (dd/mm/yyyy) ");
-        JLabel Till = new JLabel("Till : (dd/mm/yyyy)");
+        JLabel Ac = new JLabel("Κλιματισμός : ");
+        JLabel Cleaning_Service = new JLabel("Υπηρεσίες Καθαρισμού : ");
+        JLabel From = new JLabel("Από : (dd/mm/yyyy) ");
+        JLabel Till = new JLabel("Έως : (dd/mm/yyyy)");
 
 
         JTextField NameT = new JTextField("");
@@ -366,10 +364,10 @@ public class Customer extends Person {
        // LocalDate f = null;
        // LocalDate t = null;
         JButton Search = new JButton();
-        Search.setText("Search");
+        Search.setText("Αναζήτηση");
         Search.addActionListener(e -> {
             output.setText(valid_input(from.getText(),till.getText(),StarsT.getText(),Square_metersT.getText(),PriceFT.getText(),PriceTT.getText(),RoomsT.getText(),CapacityT.getText()));
-            if(!output.getText().equals("Done")){
+            if(!output.getText().equals("Αποθήκευση")){
                 main.add(output);
                 main.remove(list);
                 main.remove(Make_Reservation[0]);
@@ -512,7 +510,7 @@ public class Customer extends Person {
             }
         });
          Make_Reservation[0] = new JButton();
-        Make_Reservation[0].setText("Make Reservation");
+        Make_Reservation[0].setText("Κάντε Κράτηση");
         Make_Reservation[0].addActionListener(e -> {
               String sele = (String) list.getSelectedItem();
             if(sele == null)
@@ -555,43 +553,43 @@ public class Customer extends Person {
     }
 
     /**
-     * Μέθοδος με την οποια ελέγχετε αν οι ημερομηνιες ειναι σωστες και κάποια επιθυμητά πεδία εχουν αριθμητική τιμή κατα την αναζήτηση καταλύματος η Ξεναδοχείου
-     * @param from Ημερομηνιά απο
-     * @param till Ημερομηνιά εως
+     * Μέθοδος με την οποία ελέγχετε αν οι ημερομηνίες είναι σωστές και κάποια επιθυμητά πεδία έχουν αριθμητική τιμή κατά την αναζήτηση καταλύματος η Ξενοδοχείου
+     * @param from Ημερομηνία απο
+     * @param till Ημερομηνία εως
      * @param stars Αστέρια
      * @param sqmtrs Τετραγωνικά
      * @param pricef Τιμή απο
      * @param pricet Τιμή εως
      * @param rooms Δωμάτια
      * @param capacity Χωρητικότητα
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     private String valid_input(String from ,String till,String stars, String sqmtrs, String pricef, String pricet, String rooms, String capacity) {
         String x = "";
         Pattern p = Pattern.compile(".*[0-9]");
         if(!(pricef.equals("") && pricet.equals("")) && (!pricef.matches(p.pattern()) || !pricet.matches(p.pattern())) )
-            x = x + "Wrong Price/";
+            x = x + "Λάθος Τιμή/";
         if(!rooms.equals("") && !rooms.matches(p.pattern()))
-            x = x + "Wrong Rooms/";
+            x = x + "Λάθος Δωμάτια/";
         if(!capacity.equals("") && !capacity.matches(p.pattern()))
-            x = x + "Wrong Capacity/";
+            x = x + "Λάθος Χωρητικότητα/";
         if(!sqmtrs.equals("") && !sqmtrs.matches(p.pattern()))
-            x = x + "Wrong Square meters/";
+            x = x + "Λάθος Τετραγωνικά/";
         if(!correct_date(from) || !correct_date(till) )
-            x = x + "Wrong Date/";
+            x = x + "Λάθος Ημερομηνία/";
         p = Pattern.compile("[1-5]");
         if(!stars.equals("") && !stars.matches(p.pattern()))
-            x = x + "Wrong Stars/";
+            x = x + "Λάθος Αστέρια/";
         if(!x.equals(""))
             return x ;
-        return "Done";
+        return "Αποθηκεύτηκαν";
 
     }
 
     /**
-     * Μέθοδος που ελέγχει αν οι ημερομηνιες αναπαριστούν οντως ημερομηνιες και
-     * @param from Ημερονια προς έλεγχο
-     * @return αν ειναι σωστή
+     * Μέθοδος που ελέγχει αν οι ημερομηνίες αναπαριστούν όντως ημερομηνίες και
+     * @param from Ημερομηνία προς έλεγχο
+     * @return αν είναι σωστή
      */
     private boolean correct_date(String from) {
         char[] s = from.toCharArray();
@@ -654,13 +652,13 @@ public class Customer extends Person {
     }
 
     /**
-     * Μέθος η οποια επιστρέφει τα Καταλύματα/Ξεναδοχεία που ταιριάζουν στα φίλτρα του χρήστη
+     * Μέθοδος η οποία επιστρέφει τα Καταλύματα/Ξενοδοχεία που ταιριάζουν στα φίλτρα του χρήστη
      * @param from Ημερομηνία απο
      * @param till Ημερομηνία εως
-     * @param list το JCombo box με τα ονόματα των ξεναδοχειων και καταλυμάτων που ταιριάζουν
+     * @param list το JCombo box με τα ονόματα των ξενοδοχείων και καταλυμάτων που ταιριάζουν
      * @param list2 τα καταλύματα που ταιριάζουν
-     * @param list3 τα δωμάτια ξεναδοχείου που ταιριάζουν
-     * @param People Ολοι οι χρήστες
+     * @param list3 τα δωμάτια ξενοδοχείου που ταιριάζουν
+     * @param People όλοι οι χρήστες
      * @param name όνομα
      * @param loc τοποθεσία
      * @param stars Αστέρια
@@ -671,10 +669,10 @@ public class Customer extends Person {
      * @param capac Χωρητικότητα
      * @param breakfast Πρωινό
      * @param wifi  Wifi
-     * @param parking Parkign
+     * @param parking Parking
      * @param ac Air Conditioner
      * @param clean Υπηρεσία Καθαρισμού
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     private JPanel matching(LocalDate from ,LocalDate till, JComboBox<String> list,ArrayList<Accommodation> list2,ArrayList<Hotel_room> list3,Collection<Person> People,String name, String loc, String stars, String sqm, String Pf, String Pt, String rooms, String capac, boolean breakfast, boolean wifi, boolean parking, boolean ac, boolean clean) {
         JPanel main = new JPanel();
@@ -788,7 +786,7 @@ public class Customer extends Person {
                     }
             }
         if(to_remv.containsAll(accs) && to_remv2.containsAll(hots)){
-            JLabel er = new JLabel("kanena");
+            JLabel er = new JLabel("Δεν Βρέθηκαν Καταλύματα/Ξενοδοχεία");
             main.removeAll();
             main.add(er);
             return main;
@@ -798,11 +796,11 @@ public class Customer extends Person {
     }
 
     /**
-     * Μέθοδος που ελέγχει αν η ημερομηνιά from,till συμπίπτει με καποιο ήδη υπάρχουσα κράτηση του συγκεκριμένου καταλύματος/Δωματίου
-     * @param from ημερομηνιά from/απο
-     * @param till ημερομηνιά till/εως
-     * @param Res πινακας με ήδη υπάρχουσες κρατήσεις
-     * @return αν δεν συμπίπτει
+     * Μέθοδος που ελέγχει αν η ημερομηνία from, till συμπίπτει με κάποιο ήδη υπάρχουσα κράτηση του συγκεκριμένου καταλύματος/Δωματίου
+     * @param from ημερομηνία from/απο
+     * @param till ημερομηνία till/εως
+     * @param Res πίνακας με ήδη υπάρχουσες κρατήσεις
+     * @return αν δε συμπίπτει
      */
     private boolean chrono(LocalDate from, LocalDate till, ArrayList<Reservations> Res) {
         boolean flag = true;

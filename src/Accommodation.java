@@ -1,5 +1,5 @@
 /**
- *Αυτή η κλάση αναπαριστά ένα κατάλυμα με τα χαρακτηριστηκά του και τις παροχές του
+ *Αυτή η κλάση αναπαριστά ένα κατάλυμα με τα χαρακτηριστικά του και τις παροχές του
  */
 
 import java.io.Serial;
@@ -163,9 +163,9 @@ public class Accommodation implements java.io.Serializable {
      */
     public String hasBreakfast(){
         if(isBreakfast()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
     /**
@@ -174,9 +174,9 @@ public class Accommodation implements java.io.Serializable {
      */
     public String hasWifi(){
         if(isWifi()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
     /**
@@ -185,9 +185,9 @@ public class Accommodation implements java.io.Serializable {
      */
     public String hasParking(){
         if(isParking()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
     /**
@@ -196,9 +196,9 @@ public class Accommodation implements java.io.Serializable {
      */
     public String hasAc(){
         if(isAc()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
     /**
@@ -207,8 +207,8 @@ public class Accommodation implements java.io.Serializable {
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 }

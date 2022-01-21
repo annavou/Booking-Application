@@ -1,6 +1,6 @@
 /**
  *Κλάση η οποία αναπαριστά ένα δωμάτιο ξενοδοχείου.
- * Περιλαμβάνει strings με την χωρητικότητα την τιμή το όνομα και τετραγωνικά του δωματίου.
+ * Περιλαμβάνει strings με τη χωρητικότητα την τιμή το όνομα και τετραγωνικά του δωματίου.
  * Και bullets για το αν παρέχει πρωινό internet air condition parking και υπηρεσίες καθαρισμού
  */
 
@@ -27,7 +27,7 @@ public class Hotel_room implements java.io.Serializable{
 
     /**
      *Κατασκευαστής που δέχεται ως ορίσματα τιμές για όλα τα πεδία του δωματίου
-     * @param aname ονομα
+     * @param aname όνομα
      * @param acapacity χωρητικότητα
      * @param aprice τιμή
      * @param abreakfast πρωινού
@@ -63,7 +63,7 @@ public class Hotel_room implements java.io.Serializable{
 
     /**
      *Μέθοδος αλλαγής ονόματος
-     * @param name ονομα
+     * @param name όνομα
      */
     public void setName(String name) {
         this.name = name;
@@ -89,7 +89,7 @@ public class Hotel_room implements java.io.Serializable{
 
 
     /**
-     *Μέθοδος που επιστρέφει τη τιμή
+     *Μέθοδος που επιστρέφει την τιμή
      * @return τιμή
      */
     public String getPrice() {
@@ -217,13 +217,13 @@ public class Hotel_room implements java.io.Serializable{
 
     /**
      * Μέθοδος που επιστρέφει σε μορφή string αν το δωμάτιο παρέχει ή δεν παρέχει πρωινό
-     * @return αν εχει η οχι πρωίνο
+     * @return αν έχει η οχι πρωινό
      */
     public String hasBreakfast(){
         if(isBreakfast()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -233,9 +233,9 @@ public class Hotel_room implements java.io.Serializable{
      */
     public String hasWifi(){
         if(isWifi()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -245,9 +245,9 @@ public class Hotel_room implements java.io.Serializable{
      */
     public String hasParking(){
         if(isParking()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -257,9 +257,9 @@ public class Hotel_room implements java.io.Serializable{
      */
     public String hasAc(){
         if(isAc()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 
@@ -269,9 +269,9 @@ public class Hotel_room implements java.io.Serializable{
      */
     public String hasCleaningservice(){
         if(isCleaning_services()){
-            return "Παρέχει ";
+            return "Παρέχει";
         }
-        return "Δεν παρέχει ";
+        return "Δεν παρέχει";
     }
 
 }

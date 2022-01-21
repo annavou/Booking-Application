@@ -13,8 +13,8 @@ private static final long serialVersionUID = 6779685098267757690L;
 
     /**
      *
-     * @param s String θέλουμε να ελένξουμε
-     * @param p το Pattern το ποιο πρέπει να ακολουθέι
+     * @param s String θέλουμε να ελέγξουμε
+     * @param p το Pattern το ποιο πρέπει να ακολουθεί
      * @return Αν το s ακολουθεί το p
      */
     public boolean valid(String s, Pattern p){

@@ -1,5 +1,5 @@
 /**
- * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστηκά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μυνήματα που έχει και
+ * Αυτή η κλάση αναπαριστά ένα χρήστη με τα χαρακτηριστικά του, ο οποίος μπορεί να δει τα στοιχεία του, τα μηνύματα που έχει και
  * να αναζητήσει ένα κατάλυμα ή ξενοδοχείο
  */
 
@@ -99,9 +99,9 @@ public class Person implements java.io.Serializable {
      */
     public void message_send(Collection<Person> acc_list,String myname) {
         JFrame main = new JFrame();
-        JLabel to = new JLabel("To:");
-        JLabel topic = new JLabel("Topic:");
-        JLabel text = new JLabel("Text:");
+        JLabel to = new JLabel("Παραλήπτης:");
+        JLabel topic = new JLabel("Θέμα:");
+        JLabel text = new JLabel("Μήνυμα:");
         JTextField To = new JTextField(),Topic = new JTextField(),Text = new JTextField();
         GridLayout layout = new GridLayout(4,3);
         main.add(to);
@@ -114,11 +114,11 @@ public class Person implements java.io.Serializable {
         main.setSize(500,500);
         main.setVisible(true);
         JButton send = new JButton();
-        send.setText("Send");
+        send.setText("Αποστολή");
         send.addActionListener(e -> {
             Person temp = new Person();
             if(To.getText().equals("") | Topic.getText().equals("") | Text.getText().equals("")){
-                System.out.println("adia");
+                System.out.println("Δεν Υπάρχουν Μηνύματα");
             }
             boolean ex = false ;
             for ( Person p : acc_list){
@@ -128,7 +128,7 @@ public class Person implements java.io.Serializable {
                 }
             }
             if(!ex){
-                System.out.println("oxi");
+                System.out.println("Οχι");
             }
             if(ex){
                 messages mess = new messages(myname,Topic.getText(),Text.getText());
@@ -138,7 +138,7 @@ public class Person implements java.io.Serializable {
 
         });
         JButton back = new JButton();
-        back.setText("Back");
+        back.setText("Πίσω");
         back.addActionListener(e -> main.setVisible(false));
 
 
@@ -147,10 +147,10 @@ public class Person implements java.io.Serializable {
     }
 
     /**
-     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή η την προβολή και διαγραφή μυνήματος
+     * μέθοδος με την οποία ο χρήστης αποφασίζει την αποστολή η την προβολή και διαγραφή μηνύματος
      * @param acc_list λίστα με τα μηνύματα
-     * @param myname το όνομα του αποστοέα
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @param myname το όνομα του αποστολέα
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     public JPanel message(Collection<Person> acc_list,String myname) {
         final JPanel[] main = {new JPanel()};
@@ -158,7 +158,7 @@ public class Person implements java.io.Serializable {
         main[0].setLayout(layout);
 
         JButton view = new JButton();
-        view.setText("View and Delete messages");
+        view.setText("Προβολή/Διαγραφή Μηνυμάτων");
         view.addActionListener(e -> {
              main[0].removeAll();
              JPanel temp = messages_view();
@@ -168,7 +168,7 @@ public class Person implements java.io.Serializable {
              SwingUtilities.updateComponentTreeUI(main[0]);
         });
         JButton send = new JButton();
-        send.setText("Send a message");
+        send.setText("Στείλτε Μήνυμα");
         send.addActionListener(e -> message_send(acc_list,myname));
 
 
@@ -184,7 +184,7 @@ public class Person implements java.io.Serializable {
 
     /**
      * μέθοδος για την προβολή και διαγραφή των μηνυμάτων
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
      */
     private JPanel messages_view() {
 
@@ -198,7 +198,7 @@ public class Person implements java.io.Serializable {
 
 
         if(messages.isEmpty()){
-            main[0].add(new JLabel("geia"));
+            main[0].add(new JLabel("Δεν έχετε Μηνύματα"));
             return main[0];
         }
 
@@ -209,9 +209,9 @@ public class Person implements java.io.Serializable {
         }
         main[0].add(list);
 
-        JLabel from = new JLabel("From:");
-        JLabel topic = new JLabel("Topic:");
-        JLabel text = new JLabel("Text:");
+        JLabel from = new JLabel("Αποστολέας:");
+        JLabel topic = new JLabel("Θέμα:");
+        JLabel text = new JLabel("Μήνυμα:");
         JTextField From = new JTextField(messages.get(0).getFrom()),Topic = new JTextField(messages.get(0).getTopic()),Text = new JTextField(messages.get(0).getText());
         GridLayout layout = new GridLayout(3,2);
         info[0].add(from);
@@ -223,7 +223,7 @@ public class Person implements java.io.Serializable {
         info[0].setLayout(layout);
 
 
-        JButton delete = new JButton("Delete");
+        JButton delete = new JButton("Διαγραφή");
         delete.addActionListener(e -> {
             messages mess1;
             String sele1;
@@ -243,7 +243,7 @@ public class Person implements java.io.Serializable {
                 main[0].remove(list);
                 main[0].remove(delete);
                 main[0].remove(info[0]);
-                main[0].add(new JLabel("geia"));
+                main[0].add(new JLabel("Δεν Έχετε Μηνύματα"));
 
             }
             else {
@@ -296,37 +296,37 @@ public class Person implements java.io.Serializable {
 
     /**
      * μέθοδος για την επεξεργασία και την αλλαγή των στοιχείων του χρήστη
-     * @return Το JPanel με που θα εμφανιστει στην οθόνη
-     * @param acc_list Η λιστα με τους χρήστες που αποθηκεύεται στο αρχείο
+     * @return Το JPanel με που θα εμφανιστεί στην οθόνη
+     * @param acc_list Η λίστα με τους χρήστες που αποθηκεύεται στο αρχείο
      */
     public JPanel info_edit(HashMap<Credentials, Person> acc_list) {
         JPanel main = new JPanel();
-        final JTextField[] output = {new JTextField("Change your info and press Save")};
+        final JTextField[] output = {new JTextField("Επεξεργασία Στοιχείων")};
         output[0].setEditable(false);
         final boolean[] switch_f = {false};
         GridLayout layout = new GridLayout(5,2);
         main.setLayout(layout);
         final Person[] temp = {new Person()};
 
-        JLabel namel= new JLabel ("Full name");
-        JLabel  phonel = new JLabel ("Phone Number");
-        JLabel home_groundl = new JLabel ("Home Ground");
+        JLabel namel= new JLabel ("Ονοματεπώνυμο");
+        JLabel  phonel = new JLabel ("Αριθμός Τηλεφώνου");
+        JLabel home_groundl = new JLabel ("Έδρα");
         JLabel  emaill= new JLabel ("email");
         JTextField Name = new JTextField(this.getName());
         JTextField Location = new JTextField(this.getHome_ground());
         JTextField email = new JTextField(this.getEmail());
         JTextField phone_number = new JTextField(this.getPhone_number());
         Pattern p = Pattern.compile(".*[0-9]{10}");
-        JButton Save = new JButton("Save");
+        JButton Save = new JButton("Αποθήκευση");
         Save.addActionListener(e -> {
         if(!phone_number.getText().matches(p.pattern())){
-            output[0].setText("Wrong phone number! (must be 10 digits from 0-9)");
+            output[0].setText("Λάθος Αριθμός! (τουλάχιστον 10 ψηφία από το 0-9)");
              return;
          }
          else{
              switch_f[0] = true ;
              temp[0] = new Person(Name.getText(),Location.getText(),phone_number.getText(),email.getText());
-             output[0].setText("Done!!!");
+             output[0].setText("Αποθηκεύτηκαν!!!");
              updater(temp[0]);
             try{ FileOutputStream fos = new FileOutputStream("pls.bin");
                 ObjectOutputStream os = new ObjectOutputStream(fos);
@@ -356,8 +356,8 @@ public class Person implements java.io.Serializable {
 
 
     /**
-     * μέθοδος που ενημερώνει τα στοιχεία του χρηστη
-     * @param person προσωρινος person με τις επιθυμητές αλλαγές
+     * μέθοδος που ενημερώνει τα στοιχεία του χρήστη
+     * @param person προσωρινός person με τις επιθυμητές αλλαγές
      */
     private void updater(Person person) {
         this.setEmail(person.getEmail());
