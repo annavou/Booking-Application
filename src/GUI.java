@@ -28,7 +28,7 @@ public class GUI extends JFrame {
     }
 
     /**
-     * Μέθοδος που αναλαμβάνει την αρχικοποίηση χρηστών κάθε κατηγορίας καθώς και καταλυμάτων ξενοδοχείων των συνθηματικων τους και κρατήσεων
+     * Μέθοδος που αναλαμβάνει την αρχικοποίηση χρηστών κάθε κατηγορίας καθώς και καταλυμάτων ξενοδοχείων των συνθηματικών τους και κρατήσεων
      */
     private void initialize() throws IOException {
 
@@ -173,8 +173,8 @@ public class GUI extends JFrame {
 
         JLabel usernamel = new JLabel ("username");
         JLabel  passwordl = new JLabel ("Κωδικός");
-        username = new JTextField("           ");
-        password = new JTextField("            ");
+        username = new JTextField("akis");
+        password = new JTextField("123");
 
         ButtonGroup bg = new ButtonGroup();
         bg.add(accom);
@@ -195,11 +195,11 @@ public class GUI extends JFrame {
         JLabel  phonel = new JLabel ("Αριθμός Τηλεφώνου");
         JLabel home_groundl = new JLabel ("Έδρα");
         JLabel  emaill= new JLabel ("email");
-        Name = new JTextField("      ");
+        Name = new JTextField("akis");
         Name.setColumns(4);
-        Location = new JTextField("         ");
-        phone_number = new JTextField("        ");
-        email = new JTextField("                    ");
+        Location = new JTextField("ss");
+        phone_number = new JTextField("6945436967");
+        email = new JTextField("akisspa@gmail.com");
 
 
         panel1.add(namel);

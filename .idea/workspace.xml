@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment="Αλλαγή Αρχείων και Μηνύματα στα Ελληνικά">
+    <list default="true" id="9acab021-b2f0-4db1-8b99-ced06d3fef27" name="Changes" comment="Μικρή Διόρθωση στα Τεστ">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/Hotel_roomTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/Hotel_roomTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,22 +53,19 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in untitled15">
+  <component name="RunManager" selected="Application.main">
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main" />
+      <module name="untitled15" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Accommodation_ProviderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="untitled15" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Accommodation_ProviderTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Accommodation_ProviderTest.accommodation_delete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="untitled15" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Accommodation_ProviderTest" />
-      <option name="METHOD_NAME" value="accommodation_delete" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -102,11 +98,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.main" />
         <item itemvalue="JUnit.All in untitled15" />
         <item itemvalue="JUnit.Hotel_ProviderTest" />
         <item itemvalue="JUnit.CustomerTest" />
         <item itemvalue="JUnit.Accommodation_ProviderTest" />
-        <item itemvalue="JUnit.Accommodation_ProviderTest.accommodation_delete" />
       </list>
     </recent_temporary>
   </component>
@@ -280,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642783611766</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Μικρή Διόρθωση στα Τεστ">
+      <created>1642788654226</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1642788654226</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -315,6 +318,7 @@
     <MESSAGE value="Τεστ 4" />
     <MESSAGE value="." />
     <MESSAGE value="Αλλαγή Αρχείων και Μηνύματα στα Ελληνικά" />
-    <option name="LAST_COMMIT_MESSAGE" value="Αλλαγή Αρχείων και Μηνύματα στα Ελληνικά" />
+    <MESSAGE value="Μικρή Διόρθωση στα Τεστ" />
+    <option name="LAST_COMMIT_MESSAGE" value="Μικρή Διόρθωση στα Τεστ" />
   </component>
 </project>
