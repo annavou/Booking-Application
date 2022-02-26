@@ -1,8 +1,7 @@
 # MyBooking
 
 ℹ Work in groups (two students)  
-ℹ Please insert here your names and IDs (AEM)   
-⚠ Please keep the submission deadline
+ℹ Please insert here your names and IDs   
 
-Άννα Μαρία Βουλκοπούλου ΑΕΜ: 3945
-Ευάγγελος Σπαθάρης ΑΕΜ: 3949
+Άννα Μαρία Βουλκοπούλου
+Ευάγγελος Σπαθάρης 
